@@ -6,4 +6,4 @@ fila geraAsimov(fila naufragos, int l_max, int c_max);
 void boteBorda(item *bote, int l_max, int c_max);
 void imprimeMar(fila naufragos);
 void liberaMar(fila naufragos);
-int validaPos(fila naufragos, item it);
+int validaPos(fila naufragos, item *it);

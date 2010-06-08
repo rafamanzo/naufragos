@@ -136,18 +136,18 @@ fila geraPessoas(fila naufragos, int numPessoas, int l_max, int c_max)
 			{
 			case 0:
 				p.pos.x = p.raio;
-				p.pos.y = rand()%l_max;
+				p.pos.y = rand()%l_max - p.raio;
 				break;
 			case 1:
 				p.pos.x = c_max;
-				p.pos.y = rand()%l_max;
+				p.pos.y = rand()%l_max - p.raio;
 				break;
 			case 2:
-				p.pos.x = rand()%c_max;
+				p.pos.x = rand()%c_max - p.raio;
 				p.pos.y = p.raio;
 				break;
 			case 3:
-				p.pos.x = rand()%c_max;
+				p.pos.x = rand()%c_max - p.raio;
 				p.pos.y = l_max;
 				break;
 			}
@@ -225,45 +225,56 @@ fila geraBotes(fila naufragos, int l_max, int c_max)
 	b1.atualizada = 0;
 	b1.raio = R_BOTE;
 	b1.categoria = '1';
-  boteBorda(&b1,l_max,c_max);
+  boteBorda(naufragos, &b1,l_max,c_max);
+
 
 	naufragos = entra(naufragos, b1);
 
 	b2.atualizada = 0;
 	b2.raio = R_BOTE;
 	b2.categoria = '2';
-  boteBorda(&b2,l_max,c_max);
+  boteBorda(naufragos, &b2,l_max,c_max);
+
 
 	naufragos = entra(naufragos, b2);
 
 	return naufragos;
 }
 
-void boteBorda(item *bote, int l_max, int c_max)
+void boteBorda(fila naufragos, item *bote, int l_max, int c_max)
 {
+
+	int novaBorda;
 
 	bote->vel.x = (rand()%(int)((VMAX + 1 - VMIN))) + VMIN;
 	bote->vel.y = (rand()%(int)((VMAX + 1 - VMIN))) + VMIN;
 
-
-	switch( rand()%4 )
+	while(1)
 	{
-		case 0: /* Canto superior esquerdo */
+		novaBorda = rand()%4;
+		if(novaBorda == 0) /* Canto superior esquerdo */
+		{
 			bote->pos.x = bote->raio;
 			bote->pos.y = bote->raio;
-			break;
-		case 1:  /* Canto superior direito */
+		}
+		else if(novaBorda == 1)  /* Canto superior direito */
+		{
 			bote->pos.x = c_max - bote->raio;
 			bote->pos.y = bote->raio;
-			break;
-		case 2: /* Canto inferior direito */
+		}
+		else if(novaBorda == 2) /* Canto inferior direito */
+		{
 			bote->pos.x = c_max - bote->raio;
 			bote->pos.y = l_max - bote->raio;
-			break;
-		case 3: /* Canto inferior esquerdo */
+		}
+		else if(novaBorda == 3) /* Canto inferior esquerdo */
+		{
 			bote->pos.x = bote->raio;
 			bote->pos.y = l_max - bote->raio;
-			break;
+		}
+
+		if(validaPos(naufragos, bote)){
+			break;}
 	}
 }
 
