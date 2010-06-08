@@ -11,7 +11,8 @@
 
 int main(int argc, char *argv[])
 {
-	int framesPorSegundo,tempoMaximo;
+	int framesPorSegundo,tempoMaximo; 
+	double freqPessoas;
 	double deltaT;
 
 	clock_t inicio, anterior, var;
@@ -19,9 +20,27 @@ int main(int argc, char *argv[])
 
 	srand(time(NULL));
 	
-	if( argc != 3 )
+	if( argc == 4 )
 	{
-		printf("Faltou parametros!\n");
+		if( (framesPorSegundo = atoi(argv[1])) <= 0 )
+		{
+			printf("ERRO: arg1 - Frames por Segundo deve ser maior que 0.\n");
+			exit(-1);
+		}
+		if( (tempoMaximo = atoi(argv[2])) <= 0 )
+		{
+			printf("ERRO: arg2 - Tempo de Execucao do Programa deve ser maior que 0.\n");
+			exit(-1);
+		}  
+        	if( (freqPessoas = atof(argv[3])) <= 0.0 )
+		{
+			printf("ERRO: arg3 - Frequencia de Criacao de Pessoas deve ser maior que 0.\n");
+			exit(-1);
+		}
+	}
+	else 
+	{
+		printf("\nComo executar: ./Naufragos arg1 arg2 arg3, no qual \n\targ 1 - Frames por Segundo\n\targ 2 - Tempo de Execucao do Programa em Segundos\n\targ 3 - Frequencia de Criacao de Pessoas\nExemplo: ./Naufragos 10 10 0.25\n\n");
 		exit(-1);
 	}
 
@@ -50,8 +69,7 @@ int main(int argc, char *argv[])
         
         framesPorSegundo = atoi(argv[1]);
         tempoMaximo = atoi(argv[2]);
-
-	/*while( !key[KEY_ESC] );*/
+	freqPessoas = atoi(argv[3]);
 
         while( clock() - inicio < tempoMaximo*CLOCKS_PER_SEC) 
         {
