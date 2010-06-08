@@ -29,7 +29,7 @@ fila detectaColisao(fila pessoas, double deltaT)
 	
 		/* Encalha com 66% de chance */
 		if( rand()%3 < 2 )
-			boteBorda(&principal->p, 768, 1024);/* Setamos 1024x768, caso o tamanho mude é necessário mudar aqui tambem */
+			boteBorda(pessoas,&principal->p, 768, 1024);/* Setamos 1024x768, caso o tamanho mude é necessário mudar aqui tambem */
 		/* Colide elasticamente */
 		else
                   colideCoral(aux->p, &principal->p, deltaT);

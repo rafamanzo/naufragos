@@ -358,7 +358,7 @@ void colide(item *p1, item *p2, double deltaT)
 void colideComBorda( fila naufragos, item *p, int borda, int l_max, int c_max)
 {
  int novaBorda;
- item aux;
+
  /* 0  -- borda superior
     1  -- borda inferior
     2  -- borda esquerda

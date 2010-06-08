@@ -11,7 +11,7 @@
 
 int main(int argc, char *argv[])
 {
-	int framesPorSegundo,tempoMaximo; 
+	int framesPorSegundo,tempoMaximo, velMedia; 
 	double freqPessoas;
 	double deltaT;
 
@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
 
 	srand(time(NULL));
 	
-	if( argc == 4 )
+	if( argc == 5 )
 	{
 		if( (framesPorSegundo = atoi(argv[1])) <= 0 )
 		{
@@ -37,10 +37,20 @@ int main(int argc, char *argv[])
 			printf("ERRO: arg3 - Frequencia de Criacao de Pessoas deve ser maior que 0.\n");
 			exit(-1);
 		}
+		if( (freqPessoas = atof(argv[3])) <= 0.0 )
+		{
+			printf("ERRO: arg3 - Frequencia de Criacao de Pessoas deve ser maior que 0.\n");
+			exit(-1);
+		}
+		if( (velMedia = atoi(argv[4])) <= 0 )
+		{
+			printf("ERRO: arg4 - Velocidade Media de Criacao de Pessoas deve ser maior que 0.\n");
+			exit(-1);
+		}
 	}
 	else 
 	{
-		printf("\nComo executar: ./Naufragos arg1 arg2 arg3, no qual \n\targ 1 - Frames por Segundo\n\targ 2 - Tempo de Execucao do Programa em Segundos\n\targ 3 - Frequencia de Criacao de Pessoas\nExemplo: ./Naufragos 10 10 0.25\n\n");
+		printf("\nComo executar: ./Naufragos arg1 arg2 arg3 arg4, no qual \n\targ 1 - Frames por Segundo\n\targ 2 - Tempo de Execucao do Programa em Segundos\n\targ 3 - Frequencia de Criacao de Pessoas\n\targ 4 - Velocidade Media de Criacao de Pessoas\nExemplo: ./Naufragos 10 10 0.25 4\n\n");
 		exit(-1);
 	}
 
