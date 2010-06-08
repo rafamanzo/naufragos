@@ -156,8 +156,7 @@ fila geraPessoas(fila naufragos, int numPessoas, int l_max, int c_max)
 			p.raio = R_PESS;
 			p.categoria = 'p';
 
-			if(validaPos(naufragos, &p)) 
-				naufragos = entra(naufragos, p);
+			if(validaPos(naufragos, p)) naufragos = entra(naufragos, p);
       else cont--;
 	}
 
