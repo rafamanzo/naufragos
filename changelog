@@ -1,0 +1,36 @@
+-----------------
+| Manzo - 15/05 |
+-----------------
+
+A funcao markov agora se chama atualizaVelocidade e nao mais atualiza a posicao. Assim, ela tambem nao recebe mais o deltaT.
+
+A funcao movePessoa agora se chama atualizaPosicao e foi movida dos arquivos colisoes para os de deslocamento.
+
+A funcao direcao deixou de receber as componentes x e y do vetor como parametros para receber um vetor.
+
+Os tipos da estrutura de fila foram extintos e o tipo ceula tem um ponteiro para uma pessoa.
+
+A funcao atualizaMar foi reformulada para se adaptar as refatoracoes e a nova forma de deteccao de colisoes.
+
+Foi criada a funcao movePessoa no arquivo de mar. Esta funcao nada mais e que um trecho de codigo que era repetido tres vezes na funcao atualizaMar.
+
+O arquivo tipos.c foi extinto. 
+
+-----------------
+| Gian - 27/05 |
+-----------------
+Fim da variável substituicao em geraPessoas.
+
+Alteração nas funções que utilizavam c_max e l_max. 
+
+Tentativas iniciais de colidir o bote com a borda( o bote está piscando).
+
+Criação do ideias.txt para postar coisas que faltam fazer e ideias para simplificar coisas já existentes e afins.
+
+-----------------
+| Gian - 28/05 |
+-----------------
+
+Bote colide com a borda(quica).
+
+Círculos vermelhos em torno dos botes para facilitar a visualização dos raios dos corais, botes, Asimov. Para desabilitar basta comentar a linha indicada no começo de mar.c 
