@@ -28,21 +28,24 @@
 int validaPos(fila naufragos, item *it)
 {
 /*Função utilizada para verificar se a posição aonde se deseja criar um item it já está ou não ocupada por alguma outra estrutura, como um recife, bote 	ou asimov. No caso dos botes, a presença de pessoas não impede a criação dos tais.*/
-  	fila aux;
+	fila aux;
 
   	aux = naufragos;
 
-  	while(aux != NULL)
+	while(aux != NULL)
 	{
-		if((it->categoria == 1 || it->categoria == 2) && (aux->p.categoria == 'p'))
-			aux = aux->prox;	
+		if((it->categoria == '1' || it->categoria == '2') && (aux->p.categoria == 'p'))
+		{
+			aux = aux->prox;
+			continue;
+		}	
 		else if((aux->p.raio + it->raio) >= distancia(aux->p.pos, it->pos))
 		{ 
-			if(it != &aux->p) return 0;
+			if(it != &aux->p)
+				return 0;
 		}
 		aux = aux->prox;
-	}
-
+  	}
   	return 1;
 }
 
@@ -102,8 +105,11 @@ void imprimeMar(fila naufragos)
 
 	for(proximo = naufragos; proximo != NULL; proximo = proximo -> prox)
 	{
-		if( proximo->p.categoria == 'p' )	
+		if( proximo->p.categoria == 'p' )
+		{	
 			circlefill(buffer, proximo->p.pos.x,proximo->p.pos.y ,proximo->p.raio, PRETO);                          
+			/*line( buffer , proximo->p.pos.x , proximo->p.pos.y , proximo->p.pos.x+proximo->p.vel.x , proximo->p.pos.y-proximo->p.vel.y , VERMELHO ); Vetor velociddade */	
+		}
 		else if( proximo->p.categoria == 'r' )
 		{	
 			rectfill(buffer, (proximo->p.pos.x)-proximo->p.raio/sqrt(2),(proximo->p.pos.y)+proximo->p.raio/sqrt(2),(proximo->p.pos.x)+proximo->p.raio/sqrt(2),(proximo->p.pos.y)-proximo->p.raio/sqrt(2), MARROM);
@@ -111,7 +117,7 @@ void imprimeMar(fila naufragos)
 		}
 		else if( proximo->p.categoria == 'a')
 		{
-			rectfill(buffer, (proximo->p.pos.x)-60, (proximo->p.pos.y)+60, (proximo->p.pos.x)+60, (proximo->p.pos.y) - 60, VERDE);
+			rectfill(buffer, (proximo->p.pos.x)-65, (proximo->p.pos.y)+60, (proximo->p.pos.x)+65, (proximo->p.pos.y) - 60, VERDE);
 			VERCOLISAO	
 		}
 		else if( proximo->p.categoria == '1' )

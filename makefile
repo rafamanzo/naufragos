@@ -1,27 +1,27 @@
 Naufragos: tipos.o colisao.o desloc.o main.o mar.o 
-	gcc colisao.o desloc.o main.o mar.o tipos.o `allegro-config --cflags --libs` -lm  -o Naufragos -ansi -pedantic -Wall
+	gcc -g colisao.o desloc.o main.o mar.o tipos.o `allegro-config --cflags --libs` -lm  -o Naufragos -ansi -pedantic -Wall
 
 # Executavel gerado para testes
 testes: tipos.o colisao.o desloc.o mainTestes.o mar.o 
-	gcc colisao.o desloc.o mainTestes.o mar.o tipos.o  -lm -o testes -ansi -pedantic -Wall
+	gcc -g colisao.o desloc.o mainTestes.o mar.o tipos.o  -lm -o testes -ansi -pedantic -Wall
 
 tipos.o:  tipos.c  bib/tipos.h
-	gcc -c tipos.c -ansi  -pedantic -Wall
+	gcc -g -c tipos.c -ansi  -pedantic -Wall
 
 colisao.o: colisao.c bib/tipos.h bib/colisao.h
-	gcc -c colisao.c -lm  -ansi -pedantic -Wall
+	gcc -g -c colisao.c -lm  -ansi -pedantic -Wall
 
 desloc.o: desloc.c bib/tipos.h bib/desloc.h
-	gcc -c desloc.c -lm  -ansi -pedantic -Wall
+	gcc -g -c desloc.c -lm  -ansi -pedantic -Wall
 
 main.o: main.c bib/tipos.h bib/colisao.h bib/desloc.h bib/mar.h
-	gcc -c main.c `allegro-config --cflags --libs` -ansi  -pedantic -Wall
+	gcc -g -c main.c `allegro-config --cflags --libs` -ansi  -pedantic -Wall
 
 mainTestes.o: mainTestes.c bib/tipos.h bib/colisao.h bib/desloc.h bib/mar.h
-	gcc -c mainTestes.c  -ansi -pedantic -Wall
+	gcc -g -c mainTestes.c  -ansi -pedantic -Wall
 
 mar.o: mar.c bib/tipos.h bib/mar.h bib/desloc.h bib/colisao.h
-	gcc -c mar.c `allegro-config --cflags --libs` -ansi  -pedantic -Wall
+	gcc -g -c mar.c `allegro-config --cflags --libs` -ansi  -pedantic -Wall
 
 # Limpeza
 
