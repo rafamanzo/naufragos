@@ -5,3 +5,4 @@ void colideCoral(item coral, item *p, double deltaT);
 void colideComBorda(fila naufragos, item *p, int borda, int l_max, int c_max);
 void colideEstatico(item estatico, item *movel, double deltaT);
 void colideEsfera(item estatico, item *movel, double deltaT);
+void movePessoa(item *p, double deltaT);

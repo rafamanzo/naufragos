@@ -11,6 +11,9 @@
 
 int main(int argc, char *argv[])
 {
+/*O main contara principalmente com a implementacao de um manual para caso o cliente nao digite os argumentos necessarios,
+	iniciará as estruturas do mar (botes, asimov e recifes) e as pessoas serão geradas de acordo com uma frequencia e velocidades determinadas
+		nos argumentos.*/
 	int framesPorSegundo,tempoMaximo, velMedia, numeroDeRecifes; 
 	double freqPessoas;
 	double deltaT, acumulador;

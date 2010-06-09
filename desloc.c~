@@ -7,7 +7,7 @@
 
 double distancia(vetor pos1, vetor pos2)
 {
-	/*Devolve a distancia entre dois pontos*/
+
 	return sqrt((pos1.x - pos2.x)*(pos1.x - pos2.x) + (pos1.y - pos2.y)*(pos1.y - pos2.y));
 
 }
