@@ -69,9 +69,11 @@ int main(int argc, char *argv[])
 	set_palette(desktop_palette);
 
 	naufragos = geraAsimov(naufragos, 768, 1024);
-	naufragos = geraPessoas(naufragos, 20, 768, 1024);
-	naufragos = geraRecifes(naufragos, 40, 768, 1024);
+	naufragos = geraRecifes(naufragos, 20, 768, 1024);
 	naufragos = geraBotes(naufragos, 768, 1024);
+	naufragos = geraPessoas(naufragos, 100, 768, 1024);
+	
+	
 
         
         inicio = clock();

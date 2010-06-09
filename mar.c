@@ -36,9 +36,13 @@ int validaPos(fila naufragos, item *it)
   aux = naufragos;
 
   while(aux != NULL){
-    if((aux->p.raio + it->raio) >= distancia(aux->p.pos, it->pos)){ if(it != &aux->p) return 0;}
-    aux = aux->prox;
-  }
+	if((it->categoria == 1 || it->categoria == 2) && aux->p.categoria == 'p')
+		aux = aux->prox;	
+	else if((aux->p.raio + it->raio) >= distancia(aux->p.pos, it->pos))
+	{ 
+		if(it != &aux->p) return 0;}
+		aux = aux->prox;
+	}
 
   return 1;
 }
