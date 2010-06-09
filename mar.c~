@@ -8,12 +8,8 @@
 #include <stdio.h>
 #include <allegro.h>
 
-#define VERCOLISOES /*Se nao quizer mais ver os circulos comentar essa linha*/
-#ifdef VERCOLISOES
-  #define	COLISAO  circle(buffer, proximo->p.pos.x,proximo->p.pos.y ,proximo->p.raio, VERMELHO);
-#else
-  #define	COLISAO		
-#endif
+#define VERCOLISAO if(COLISAO) circle(buffer, proximo->p.pos.x,proximo->p.pos.y ,proximo->p.raio, VERMELHO);
+#define COLISAO 0 /* Se quiser ver os circulos da colisao setar 1 */
 
 #define AZUL  makecol(65,105,255)
 #define PRETO  makecol(0,0,0)
@@ -23,7 +19,7 @@
 #define VERDE makecol(60,179,113)
 #define VERMELHO makecol(255,0,0)
 
-#define D 400 /* Parece mto maior do que deveria ser, 10 */ 
+#define D 400 
 #define R_PESS 5
 #define R_BOTE 21
 #define R_ASIMOV 80
@@ -36,14 +32,18 @@ int validaPos(fila naufragos, item *it)
   aux = naufragos;
 
   while(aux != NULL){
-    if((aux->p.raio + it->raio) >= distancia(aux->p.pos, it->pos)){ if(it != &aux->p) return 0;}
-    aux = aux->prox;
-  }
+	if((it->categoria == 1 || it->categoria == 2) && aux->p.categoria == 'p')
+		aux = aux->prox;	
+	else if((aux->p.raio + it->raio) >= distancia(aux->p.pos, it->pos))
+	{ 
+		if(it != &aux->p) return 0;}
+		aux = aux->prox;
+	}
 
   return 1;
 }
 
-fila atualizaMar(fila naufragos, int l_max, int c_max, double deltaT)
+fila atualizaMar(fila naufragos, int l_max, int c_max, double deltaT, int mkv)
 {
 	fila proximo = naufragos;
 	
@@ -57,8 +57,14 @@ fila atualizaMar(fila naufragos, int l_max, int c_max, double deltaT)
 		while( proximo != NULL)
 		{
 			if(!proximo->p.atualizada){
-				markov(&proximo->p,deltaT);
-        proximo->p.atualizada = 1;
+				if(mkv)
+				{
+					markov(&proximo->p,deltaT);
+        				proximo->p.atualizada = 1;
+				}				
+				else
+					movePessoa(&proximo->p,deltaT);
+
 					/*Se for 0 eh o topo. 1 eh o chao. 2 eh a parede esquerda e 3 eh a parede direita.*/
 					if( (proximo->p.pos.y - proximo->p.raio) < 0)
 						colideComBorda(naufragos, &proximo->p, 0, 768, 1024);				
@@ -89,24 +95,24 @@ void imprimeMar(fila naufragos)
 			circlefill(buffer, proximo->p.pos.x,proximo->p.pos.y ,proximo->p.raio, PRETO);                          
 		else if( proximo->p.categoria == 'r' )
 		{	
-			rectfill(buffer, (proximo->p.pos.x)-proximo->p.raio/sqrt(2),(proximo->p.pos.y)+proximo->p.raio/sqrt(2),(proximo->p.pos.x)+proximo->p.raio/sqrt(2),(proximo->p.pos.y)-proximo->p.raio/sqrt(2), MARROM);/*risco de seg fault*/
-			COLISAO	
+			rectfill(buffer, (proximo->p.pos.x)-proximo->p.raio/sqrt(2),(proximo->p.pos.y)+proximo->p.raio/sqrt(2),(proximo->p.pos.x)+proximo->p.raio/sqrt(2),(proximo->p.pos.y)-proximo->p.raio/sqrt(2), MARROM);
+			VERCOLISAO	
 		}
 		else if( proximo->p.categoria == 'a')
 		{
-			rectfill(buffer, (proximo->p.pos.x)-80, (proximo->p.pos.y)+60, (proximo->p.pos.x)+80, (proximo->p.pos.y) - 60, VERDE);
-			COLISAO	
+			rectfill(buffer, (proximo->p.pos.x)-60, (proximo->p.pos.y)+60, (proximo->p.pos.x)+60, (proximo->p.pos.y) - 60, VERDE);
+			VERCOLISAO	
 		}
 		else if( proximo->p.categoria == '1' )
 		{
-			triangle(buffer, (proximo->p.pos.x-15), (proximo->p.pos.y-17), (proximo->p.pos.x)/*+proximo->p.raio*cos(ang)*/, (proximo->p.pos.y+20)/*+proximo->p.raio*sin(ang)*/, (proximo->p.pos.x+15), (proximo->p.pos.y-17),LARANJA);/* Tentativas de rotacionar o bote */
-			COLISAO		
+			triangle(buffer, (proximo->p.pos.x-15), (proximo->p.pos.y-17), (proximo->p.pos.x), (proximo->p.pos.y+20), (proximo->p.pos.x+15), (proximo->p.pos.y-17),LARANJA);
+			VERCOLISAO		
 		}
 
 		else if( proximo->p.categoria == '2' )
 		{
-			triangle(buffer, (proximo->p.pos.x)-15, (proximo->p.pos.y)-17, (proximo->p.pos.x), (proximo->p.pos.y)+20, (proximo->p.pos.x)+15, (proximo->p.pos.y)-17,BRANCO);/*risco de seg fault*/
-			COLISAO			
+			triangle(buffer, (proximo->p.pos.x)-15, (proximo->p.pos.y)-17, (proximo->p.pos.x), (proximo->p.pos.y)+20, (proximo->p.pos.x)+15, (proximo->p.pos.y)-17,BRANCO);
+			VERCOLISAO			
 		}
 	}
 	
@@ -226,7 +232,7 @@ fila geraBotes(fila naufragos, int l_max, int c_max)
 	b1.raio = R_BOTE;
 	b1.categoria = '1';
   boteBorda(naufragos, &b1,l_max,c_max);
-	printf("passou 1\n");
+
 
 	naufragos = entra(naufragos, b1);
 
@@ -234,7 +240,7 @@ fila geraBotes(fila naufragos, int l_max, int c_max)
 	b2.raio = R_BOTE;
 	b2.categoria = '2';
   boteBorda(naufragos, &b2,l_max,c_max);
-	printf("passou 2\n");
+
 
 	naufragos = entra(naufragos, b2);
 
@@ -272,7 +278,7 @@ void boteBorda(fila naufragos, item *bote, int l_max, int c_max)
 			bote->pos.x = bote->raio;
 			bote->pos.y = l_max - bote->raio;
 		}
-		printf("passou 3\n");
+
 		if(validaPos(naufragos, bote)){
 			break;}
 	}

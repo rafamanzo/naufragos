@@ -9,7 +9,7 @@
 #include <allegro.h>
 
 #define VERCOLISAO if(COLISAO) circle(buffer, proximo->p.pos.x,proximo->p.pos.y ,proximo->p.raio, VERMELHO);
-#define COLISAO 1 /* Se quiser ver os circulos da colisao setar 1 */
+#define COLISAO 0 /* Se quiser ver os circulos da colisao setar 1 */
 
 #define AZUL  makecol(65,105,255)
 #define PRETO  makecol(0,0,0)
@@ -32,7 +32,7 @@ int validaPos(fila naufragos, item *it)
   aux = naufragos;
 
   while(aux != NULL){
-	if((it->categoria == 1 || it->categoria == 2) && aux->p.categoria == 'p')
+	if((it->categoria == 1 || it->categoria == 2) && (aux->p.categoria == 'p'))
 		aux = aux->prox;	
 	else if((aux->p.raio + it->raio) >= distancia(aux->p.pos, it->pos))
 	{ 
@@ -57,13 +57,11 @@ fila atualizaMar(fila naufragos, int l_max, int c_max, double deltaT, int mkv)
 		while( proximo != NULL)
 		{
 			if(!proximo->p.atualizada){
-				if(mkv && proximo->p.categoria == 'p')
+				if(mkv)
 				{
 					markov(&proximo->p,deltaT);
         				proximo->p.atualizada = 1;
-				}
-				else if( proximo->p.categoria != 'p')
-					markov(&proximo->p,deltaT);				
+				}				
 				else
 					movePessoa(&proximo->p,deltaT);
 
