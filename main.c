@@ -13,14 +13,23 @@ int main(int argc, char *argv[])
 {
 	int framesPorSegundo,tempoMaximo, velMedia; 
 	double freqPessoas;
-	double deltaT;
+	double deltaT, acumulador;
 
 	clock_t inicio, anterior, var;
 	fila naufragos = NULL;
 
 	srand(time(NULL));
 	
-	if( argc == 5 )
+	if( argc == 1 )
+	{
+		printf("Executando com valores padrao.\n");
+		framesPorSegundo = 20; 
+		tempoMaximo = 30;
+		freqPessoas = 1; 
+		velMedia = 3;
+	}
+
+	else if( argc == 5 )
 	{
 		if( (framesPorSegundo = atoi(argv[1])) <= 0 )
 		{
@@ -37,11 +46,6 @@ int main(int argc, char *argv[])
 			printf("ERRO: arg3 - Frequencia de Criacao de Pessoas deve ser maior que 0.\n");
 			exit(-1);
 		}
-		if( (freqPessoas = atof(argv[3])) <= 0.0 )
-		{
-			printf("ERRO: arg3 - Frequencia de Criacao de Pessoas deve ser maior que 0.\n");
-			exit(-1);
-		}
 		if( (velMedia = atoi(argv[4])) <= 0 )
 		{
 			printf("ERRO: arg4 - Velocidade Media de Criacao de Pessoas deve ser maior que 0.\n");
@@ -50,7 +54,7 @@ int main(int argc, char *argv[])
 	}
 	else 
 	{
-		printf("\nComo executar: ./Naufragos arg1 arg2 arg3 arg4, no qual \n\targ 1 - Frames por Segundo\n\targ 2 - Tempo de Execucao do Programa em Segundos\n\targ 3 - Frequencia de Criacao de Pessoas\n\targ 4 - Velocidade Media de Criacao de Pessoas\nExemplo: ./Naufragos 10 10 0.25 4\n\n");
+		printf("\nComo executar:\n./Naufragos para executar com valores padrao ou\n./Naufragos arg1 arg2 arg3 arg4, no qual \n\targ 1 - Frames por Segundo\n\targ 2 - Tempo de Execucao do Programa em Segundos\n\targ 3 - Frequencia de Criacao de Pessoas\n\targ 4 - Velocidade Media de Criacao de Pessoas\nExemplo: ./Naufragos ou ./Naufragos 10 10 0.25 4\n\n");
 		exit(-1);
 	}
 
@@ -71,18 +75,11 @@ int main(int argc, char *argv[])
 	naufragos = geraAsimov(naufragos, 768, 1024);
 	naufragos = geraRecifes(naufragos, 20, 768, 1024);
 	naufragos = geraBotes(naufragos, 768, 1024);
-	naufragos = geraPessoas(naufragos, 100, 768, 1024);
-	
-	
 
-        
         inicio = clock();
         anterior = 0;
+	acumulador = 0.0;
         
-        framesPorSegundo = atoi(argv[1]);
-        tempoMaximo = atoi(argv[2]);
-	freqPessoas = atoi(argv[3]);
-
         while( clock() - inicio < tempoMaximo*CLOCKS_PER_SEC) 
         {
                var = clock() - anterior;
@@ -93,6 +90,13 @@ int main(int argc, char *argv[])
       
 			                  naufragos = atualizaMar(naufragos, 768, 1024, deltaT);
 			                  imprimeMar(naufragos);
+			
+			if( acumulador >= freqPessoas )
+			{
+				naufragos = geraPessoas(naufragos, (int) (velMedia*freqPessoas), 768, 1024);				
+				acumulador = 0.0;
+			}
+			acumulador += deltaT;	
                         anterior = clock();
                 } 
     
