@@ -94,8 +94,12 @@ int main(int argc, char *argv[])
                 {  
                         deltaT = (double)var/(double)CLOCKS_PER_SEC; 
       
-			                  naufragos = atualizaMar(naufragos, 768, 1024, deltaT);
-			                  imprimeMar(naufragos);
+			if( acumulador >= 1.0 )
+				naufragos = atualizaMar(naufragos, 768, 1024, deltaT, 1);
+			else
+				naufragos = atualizaMar(naufragos, 768, 1024, deltaT, 0);
+
+	                imprimeMar(naufragos);
 			
 			if( acumulador >= freqPessoas )
 			{

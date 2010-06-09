@@ -43,7 +43,7 @@ int validaPos(fila naufragos, item *it)
   return 1;
 }
 
-fila atualizaMar(fila naufragos, int l_max, int c_max, double deltaT)
+fila atualizaMar(fila naufragos, int l_max, int c_max, double deltaT, int mkv)
 {
 	fila proximo = naufragos;
 	
@@ -57,8 +57,16 @@ fila atualizaMar(fila naufragos, int l_max, int c_max, double deltaT)
 		while( proximo != NULL)
 		{
 			if(!proximo->p.atualizada){
-				markov(&proximo->p,deltaT);
-        proximo->p.atualizada = 1;
+				if(mkv && proximo->p.categoria == 'p')
+				{
+					markov(&proximo->p,deltaT);
+        				proximo->p.atualizada = 1;
+				}
+				else if( proximo->p.categoria != 'p')
+					markov(&proximo->p,deltaT);				
+				else
+					movePessoa(&proximo->p,deltaT);
+
 					/*Se for 0 eh o topo. 1 eh o chao. 2 eh a parede esquerda e 3 eh a parede direita.*/
 					if( (proximo->p.pos.y - proximo->p.raio) < 0)
 						colideComBorda(naufragos, &proximo->p, 0, 768, 1024);				
