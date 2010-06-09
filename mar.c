@@ -8,12 +8,8 @@
 #include <stdio.h>
 #include <allegro.h>
 
-#define VERCOLISOES /*Se nao quizer mais ver os circulos comentar essa linha*/
-#ifdef VERCOLISOES
-  #define	COLISAO  circle(buffer, proximo->p.pos.x,proximo->p.pos.y ,proximo->p.raio, VERMELHO);
-#else
-  #define	COLISAO		
-#endif
+#define VERCOLISAO if(COLISAO) circle(buffer, proximo->p.pos.x,proximo->p.pos.y ,proximo->p.raio, VERMELHO);
+#define COLISAO 1 /* Se quiser ver os circulos da colisao setar 1 */
 
 #define AZUL  makecol(65,105,255)
 #define PRETO  makecol(0,0,0)
@@ -23,7 +19,7 @@
 #define VERDE makecol(60,179,113)
 #define VERMELHO makecol(255,0,0)
 
-#define D 400 /* Parece mto maior do que deveria ser, 10 */ 
+#define D 400 
 #define R_PESS 5
 #define R_BOTE 21
 #define R_ASIMOV 80
@@ -93,24 +89,24 @@ void imprimeMar(fila naufragos)
 			circlefill(buffer, proximo->p.pos.x,proximo->p.pos.y ,proximo->p.raio, PRETO);                          
 		else if( proximo->p.categoria == 'r' )
 		{	
-			rectfill(buffer, (proximo->p.pos.x)-proximo->p.raio/sqrt(2),(proximo->p.pos.y)+proximo->p.raio/sqrt(2),(proximo->p.pos.x)+proximo->p.raio/sqrt(2),(proximo->p.pos.y)-proximo->p.raio/sqrt(2), MARROM);/*risco de seg fault*/
-			COLISAO	
+			rectfill(buffer, (proximo->p.pos.x)-proximo->p.raio/sqrt(2),(proximo->p.pos.y)+proximo->p.raio/sqrt(2),(proximo->p.pos.x)+proximo->p.raio/sqrt(2),(proximo->p.pos.y)-proximo->p.raio/sqrt(2), MARROM);
+			VERCOLISAO	
 		}
 		else if( proximo->p.categoria == 'a')
 		{
-			rectfill(buffer, (proximo->p.pos.x)-80, (proximo->p.pos.y)+60, (proximo->p.pos.x)+80, (proximo->p.pos.y) - 60, VERDE);
-			COLISAO	
+			rectfill(buffer, (proximo->p.pos.x)-60, (proximo->p.pos.y)+60, (proximo->p.pos.x)+60, (proximo->p.pos.y) - 60, VERDE);
+			VERCOLISAO	
 		}
 		else if( proximo->p.categoria == '1' )
 		{
-			triangle(buffer, (proximo->p.pos.x-15), (proximo->p.pos.y-17), (proximo->p.pos.x)/*+proximo->p.raio*cos(ang)*/, (proximo->p.pos.y+20)/*+proximo->p.raio*sin(ang)*/, (proximo->p.pos.x+15), (proximo->p.pos.y-17),LARANJA);/* Tentativas de rotacionar o bote */
-			COLISAO		
+			triangle(buffer, (proximo->p.pos.x-15), (proximo->p.pos.y-17), (proximo->p.pos.x), (proximo->p.pos.y+20), (proximo->p.pos.x+15), (proximo->p.pos.y-17),LARANJA);
+			VERCOLISAO		
 		}
 
 		else if( proximo->p.categoria == '2' )
 		{
-			triangle(buffer, (proximo->p.pos.x)-15, (proximo->p.pos.y)-17, (proximo->p.pos.x), (proximo->p.pos.y)+20, (proximo->p.pos.x)+15, (proximo->p.pos.y)-17,BRANCO);/*risco de seg fault*/
-			COLISAO			
+			triangle(buffer, (proximo->p.pos.x)-15, (proximo->p.pos.y)-17, (proximo->p.pos.x), (proximo->p.pos.y)+20, (proximo->p.pos.x)+15, (proximo->p.pos.y)-17,BRANCO);
+			VERCOLISAO			
 		}
 	}
 	

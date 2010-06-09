@@ -11,7 +11,7 @@
 
 int main(int argc, char *argv[])
 {
-	int framesPorSegundo,tempoMaximo, velMedia; 
+	int framesPorSegundo,tempoMaximo, velMedia, numeroDeRecifes; 
 	double freqPessoas;
 	double deltaT, acumulador;
 
@@ -23,13 +23,14 @@ int main(int argc, char *argv[])
 	if( argc == 1 )
 	{
 		printf("Executando com valores padrao.\n");
-		framesPorSegundo = 20; 
+		framesPorSegundo = 30; 
 		tempoMaximo = 30;
 		freqPessoas = 1; 
 		velMedia = 3;
+		numeroDeRecifes = 20;
 	}
 
-	else if( argc == 5 )
+	else if( argc == 6 )
 	{
 		if( (framesPorSegundo = atoi(argv[1])) <= 0 )
 		{
@@ -51,10 +52,15 @@ int main(int argc, char *argv[])
 			printf("ERRO: arg4 - Velocidade Media de Criacao de Pessoas deve ser maior que 0.\n");
 			exit(-1);
 		}
+		if( (numeroDeRecifes = atoi(argv[5])) < 0 )
+		{
+			printf("ERRO: arg5 - Numero de Recifes deve ser maior ou igual a 0.\n");
+			exit(-1);
+		}
 	}
 	else 
 	{
-		printf("\nComo executar:\n./Naufragos para executar com valores padrao ou\n./Naufragos arg1 arg2 arg3 arg4, no qual \n\targ 1 - Frames por Segundo\n\targ 2 - Tempo de Execucao do Programa em Segundos\n\targ 3 - Frequencia de Criacao de Pessoas\n\targ 4 - Velocidade Media de Criacao de Pessoas\nExemplo: ./Naufragos ou ./Naufragos 10 10 0.25 4\n\n");
+		printf("\nComo executar:\n./Naufragos para executar com valores padrao ou\n./Naufragos arg1 arg2 arg3 arg4 arg5, no qual \n\targ 1 - Frames por Segundo\n\targ 2 - Tempo de Execucao do Programa em Segundos\n\targ 3 - Frequencia de Criacao de Pessoas\n\targ 4 - Velocidade Media de Criacao de Pessoas\n\targ 5 - Numero de Recifes\nExemplo: ./Naufragos ou ./Naufragos 20 10 1 4 10\n\n");
 		exit(-1);
 	}
 
@@ -73,7 +79,7 @@ int main(int argc, char *argv[])
 	set_palette(desktop_palette);
 
 	naufragos = geraAsimov(naufragos, 768, 1024);
-	naufragos = geraRecifes(naufragos, 20, 768, 1024);
+	naufragos = geraRecifes(naufragos, numeroDeRecifes, 768, 1024);
 	naufragos = geraBotes(naufragos, 768, 1024);
 
         inicio = clock();
