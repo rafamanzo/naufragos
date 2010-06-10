@@ -112,12 +112,14 @@ void imprimeMar(fila naufragos)
 		}
 		else if( proximo->p.categoria == 'r' )
 		{	
-			rectfill(buffer, (proximo->p.pos.x)-proximo->p.raio/sqrt(2),(proximo->p.pos.y)+proximo->p.raio/sqrt(2),(proximo->p.pos.x)+proximo->p.raio/sqrt(2),(proximo->p.pos.y)-proximo->p.raio/sqrt(2), MARROM);
+      circlefill(buffer, proximo->p.pos.x,proximo->p.pos.y ,proximo->p.raio, MARROM);
+			/*rectfill(buffer, (proximo->p.pos.x)-proximo->p.raio/sqrt(2),(proximo->p.pos.y)+proximo->p.raio/sqrt(2),(proximo->p.pos.x)+proximo->p.raio/sqrt(2),(proximo->p.pos.y)-proximo->p.raio/sqrt(2), MARROM);*/
 			VERCOLISAO	
 		}
 		else if( proximo->p.categoria == 'a')
 		{
-			rectfill(buffer, (proximo->p.pos.x)-65, (proximo->p.pos.y)+60, (proximo->p.pos.x)+65, (proximo->p.pos.y) - 60, VERDE);
+      circlefill(buffer, proximo->p.pos.x,proximo->p.pos.y ,proximo->p.raio, VERDE);
+			/*rectfill(buffer, (proximo->p.pos.x)-65, (proximo->p.pos.y)+60, (proximo->p.pos.x)+65, (proximo->p.pos.y) - 60, VERDE);*/
 			VERCOLISAO	
 		}
 		else if( proximo->p.categoria == '1' )
