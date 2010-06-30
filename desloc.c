@@ -121,40 +121,40 @@ void markov(item *p, double deltaT)
       		p->vel.x = vel*cos(M_PI/4);
       		p->vel.y = vel*sin(M_PI/4);
       		p->pos.x += (int) vel*cos(M_PI/4)*deltaT;
-      		p->pos.y += (int) vel*sin(M_PI/4)*deltaT;
+      		p->pos.y -= (int) vel*sin(M_PI/4)*deltaT;
       		break;
     	case N:
       		p->vel.x = 0;
       		p->vel.y = vel;
-      		p->pos.y += (int) vel*deltaT;
+      		p->pos.y -= (int) vel*deltaT;
       		break;
     	case NO:
       		p->vel.x = vel*cos(M_PI/4)*(-1);
       		p->vel.y = vel*sin(M_PI/4);
       		p->pos.x += (int) vel*cos(M_PI/4)*(-1)*deltaT;
-      		p->pos.y += (int) vel*sin(M_PI/4)*deltaT;
+      		p->pos.y -= (int) vel*sin(M_PI/4)*deltaT;
       		break;
     	case O:
       		p->vel.x = vel*(-1);
       		p->vel.y = 0;
-      		p->pos.x += (int) vel*(-1)*deltaT;
+      		p->pos.x -= (int) vel*(-1)*deltaT;
       		break;
     	case SO:
       		p->vel.x = vel*cos(M_PI/4)*(-1);
       		p->vel.y = vel*sin(M_PI/4)*(-1);
       		p->pos.x += (int) vel*cos(M_PI/4)*(-1)*deltaT;
-      		p->pos.y += (int) vel*sin(M_PI/4)*(-1)*deltaT;
+      		p->pos.y -= (int) vel*sin(M_PI/4)*(-1)*deltaT;
      		break;
     	case S:
       		p->vel.x = 0;
       		p->vel.y = vel*(-1);
-      		p->pos.y += (int) vel*(-1)*deltaT;
+      		p->pos.y -= (int) vel*(-1)*deltaT;
       		break;
     	case SE:
       		p->vel.x = vel*cos(M_PI/4);
       		p->vel.y = vel*sin(M_PI/4)*(-1);
       		p->pos.x += (int) vel*cos(M_PI/4)*deltaT;
-      		p->pos.y += (int) vel*sin(M_PI/4)*(-1)*deltaT;
+      		p->pos.y -= (int) vel*sin(M_PI/4)*(-1)*deltaT;
       		break;
   	}
 
