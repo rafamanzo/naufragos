@@ -154,7 +154,8 @@ fila geraPessoas(fila naufragos, int numPessoas, int l_max, int c_max)
 	{
 		p.vel.x = (rand()%(int)((VMAX + 1 - VMIN))) + VMIN;
 		p.vel.y = (rand()%(int)((VMAX + 1 - VMIN))) + VMIN;
-		
+
+		p.raio = R_PESS;		
 		
 		switch (rand()%4)
 		{
@@ -177,7 +178,6 @@ fila geraPessoas(fila naufragos, int numPessoas, int l_max, int c_max)
 		}
 
 		p.atualizada = 0;
-		p.raio = R_PESS;
 		p.categoria = 'p';
 
 		if(validaPos(naufragos, &p)) 
@@ -317,13 +317,7 @@ void boteBorda(fila naufragos, item *bote, int l_max, int c_max)
 
 void liberaMar(fila naufragos)
 {
-	fila proximo;
- 	
-	for(proximo = naufragos; naufragos != NULL; proximo = proximo -> prox)
-	{
- 		naufragos = proximo -> prox;
-		free(proximo);
-	}
+	while(naufragos != NULL) sai(&naufragos);
 
 }
 
