@@ -34,3 +34,52 @@ Criação do ideias.txt para postar coisas que faltam fazer e ideias para simpli
 Bote colide com a borda(quica).
 
 Círculos vermelhos em torno dos botes para facilitar a visualização dos raios dos corais, botes, Asimov. Para desabilitar basta comentar a linha indicada no começo de mar.c 
+
+
+-------------------
+| Douglas - 01/07 |
+-------------------
+
+Iniciado uma adaptação das funções com as novas estruturas. To anexando como elas eram antes pra caso seja necessário voltar.
+Detalhadamente, funções adaptadas:
+
+1)colideEstatico:
+	Virou 2 funções: colidePessoaEstatico e colideBoteEstatico, porque era limitada a receber uma única estrutura.
+	OBS: A nova função colideBoteEstatico PROVAVELMENTE tem um erro que já está comentado: no final da colisão, movemos o bote através do
+		movePessoa, que só recebe uma estrutura pessoa agora... Tal movimentação eh necessária para distanciar o bote do estatico após a colisão.
+		Solução(?): fazer um moveBote que usa o markov só para essas situações? E como ficaria o controle pelo teclado?
+
+	Idéia: Passar somente um ponteiro para os atributos e alterá-lo na função, eliminando a necessidade de haver 2 funções que fazem quase EXATAMENTE a mesma coisa.
+
+2)diferencaAngulos:
+	Novamente foi alterada para ser utilizada para as estruturas bote e pessoa independentemente. Ao invés de receber a estrutura, agora só recebe seus vetores posição e velocidade.
+
+3)movePessoa:
+	Apenas parou de receber qualquer "item" e agora recebe um ponteiro pra pessoa que será movimentada.
+
+4)colideComBorda:
+	Foi transformada em duas da mesma forma que o colideEstatico, e pelo mesmo motivo. As novas funções são colidePessoaComBorda e colideBoteComBorda.
+	OBS: A colidePessoaComBorda ainda precisa ser alterada, pois ela recebe a antiga fila naufragos para verificar se quando a pessoa for gerada em outra borda, tal posição eh válida (validaPos). No entanto, agora teremos várias listas para verificar a validade dessa função, e isso ainda não foi implementado.
+
+5)colide
+	A função POR ENQUANTO só está usando isso para colidir pessoa com pessoa. Foi alterada apenas para receber esse tipo de estrutura (2 pessoas). 	       OBS: Mais para frente temos que fazer uma análoga para colidir bote com pessoas, quando a capacidade máxima do bote for atingida.
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
