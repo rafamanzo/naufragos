@@ -2,33 +2,56 @@ typedef struct vtr{
   double x, y;
 } vetor;
 
-/*sim, uma fila de pessoas para tratar melhor as colisões*/
-
-/*
-   E interessante convencionarmos a velocidade minima em 2 q/f(quadrados por frame)
-   Pois um vetor de modulo 1 pode ter componentes (2^-0.5 , 2^-0.5)
-*/
-
-typedef struct pss{
-	char categoria; /* 1 - bote 1; 2 - bote 2; p - pessoa ; r - recife; n - navio; a - asimov;*/
-	int atualizada;
+typedef struct atr{
+  BITMAP *desenho;
+  int atualizada;
 	int raio;
 	vetor pos;
 	vetor vel;
-	} item;
+} atributos;
 
-typedef struct n{
-	item p;
-	struct n *prox;
-	} no;
+typedef struct pss{
+  atributos atr;
+} pessoa;
 
-typedef no *fila;
+typedef struct bt{
+  atributos atr;
+  int jogador; /*jogador 1 ou 2*/
+  int vidas;
+  int carga;
+} bote;
 
-typedef struct cll{
-	char categoria; /* 1 - bote 1; 2 - bote 2; p - pessoa ; r - recife; n - navio; a - asimov;*/
-	fila f;  
-	} celula;
+typedef struct stc{
+  BITMAP *desenho;
+  int raio;
+  vetor pos;
+  char tipo; /*'a' -> azimov | 'r' -> recife*/
+} estatico;
 
-fila entra(fila f, item p);
-item sai(fila *f);
-int quantidade(fila f);
+typedef struct lst_pss{
+  pessoa pss;
+  struct lst_pss *prox;
+} lista_pss;
+
+typedef lista_pss *lista_pessoas;
+
+typedef struct lst_bt{
+  bote bt;
+  struct lst_bt *prox;
+} lista_bt;
+
+typedef lista_bt *lista_botes;
+
+typedef struct lst_stc{
+  estatico stc;
+  struct lst_stc *prox;
+} lista_stc;
+
+typedef lista_stc *lista_estaticos;
+
+lista_pessoas inserePessoa(lista_pessoas raiz, pessoa pss);
+lista_pessoas removePessoa(lista_pessoas raiz, lista_pessoas no);
+lista_botes insereBote(lista_botes raiz, bote bt);
+lista_botes removeBote(lista_botes raiz, lista_botes no);
+lista_estaticos insereObjeto(lista_estaticos raiz, estatico objeto);
+lista_estaticos removeObjeto(lista_estaticos raiz, lista_estaticos no);

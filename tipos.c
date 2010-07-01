@@ -1,5 +1,6 @@
 #include "bib/tipos.h"
-#include <stdlib.h> 
+#include <stdlib.h>
+#include <allegro.h> 
 
 fila entra(fila f, item p)
 {
@@ -63,4 +64,10 @@ int quantidade(fila f)
   	}
 
   	return qtd;
+}
+
+lista_pessoas inserePessoa(lista_pessoas raiz, pessoa pss){
+  if(raiz == NULL){
+    
+  }
 }
