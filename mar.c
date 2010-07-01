@@ -108,7 +108,7 @@ void imprimeMar(fila naufragos)
 		if( proximo->p.categoria == 'p' )
 		{	
 			circlefill(buffer, proximo->p.pos.x,proximo->p.pos.y ,proximo->p.raio, PRETO);                          
-			/*line( buffer , proximo->p.pos.x , proximo->p.pos.y , proximo->p.pos.x+proximo->p.vel.x , proximo->p.pos.y-proximo->p.vel.y , VERMELHO ); Vetor velociddade */	
+			/*line( buffer , proximo->p.pos.x , proximo->p.pos.y , proximo->p.pos.x+proximo->p.vel.x , proximo->p.pos.y-proximo->p.vel.y , VERMELHO ); Vetor velocidade */	
 		}
 		else if( proximo->p.categoria == 'r' )
 		{	
