@@ -1,0 +1,32 @@
+Gamatica
+
+tt -> tamanho de tela
+tt <COMPRIMENTO> <ALTURA>
+
+nj -> nome de jogador
+nj <NOME>
+
+hg -> marcador de highscore
+hg <NOME> <PONTUAÇÃO>
+
+nv -> numero de vidas iniciais
+nv <VALOR>
+
+vmax -> velocidade maxima
+vmax <VALOR>
+
+vmin ->velocidade minima
+vmin <VALOR>
+
+fcp -> frequencia de criação de peossos
+fcp <VALOR>
+
+vcp -> velocidade de criação de pessoas
+vcp <VALOR>
+
+nr -> numero de recifes
+nr <VALOR>
+
+di -> dificuldade inicial
+di nv <VALOR> vmax <VALOR> .... 
+
