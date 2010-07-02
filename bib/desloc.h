@@ -10,9 +10,6 @@ double distancia(vetor pos1, vetor pos2);
 #define M_PI 3.141592653589793238462643
 #endif
 
-#define VMIN 50
-#define VMAX 70
-
 #define L 0
 #define NE 1
 #define N 2

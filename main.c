@@ -2,6 +2,8 @@
 #include "bib/colisao.h"
 #include "bib/desloc.h"
 #include "bib/mar.h"
+#include "configurador/bison.h"
+#include "configurador/configs.h"
 #include <math.h>
 #include <time.h>
 #include <stdio.h>
@@ -67,13 +69,16 @@ int main(int argc, char *argv[])
 		exit(-1);
 	}
 
+  inicConfigurador();
+  yyparse();
+
 	allegro_init();
 
 	install_keyboard();
 
 	set_color_depth(32);
 
-	if (set_gfx_mode(GFX_AUTODETECT_WINDOWED, 1024, 768, 0, 0) < 0)
+	if (set_gfx_mode(GFX_AUTODETECT_WINDOWED, tela.comprimento, tela.altura, 0, 0) < 0)
 	{
 		printf("Erro ao inicializar o modo grafico.\n");
 		exit(-1);
@@ -81,9 +86,9 @@ int main(int argc, char *argv[])
 
 	set_palette(desktop_palette);
 
-	naufragos = geraAsimov(naufragos, 768, 1024);
-	naufragos = geraRecifes(naufragos, numeroDeRecifes, 768, 1024);
-	naufragos = geraBotes(naufragos, 768, 1024);
+	naufragos = geraAsimov(naufragos, tela.altura, tela.comprimento);
+	naufragos = geraRecifes(naufragos, numero_recifes, tela.altura, tela.comprimento);
+	naufragos = geraBotes(naufragos, tela.altura, tela.comprimento);
 
         inicio = clock();
         anterior = 0;
@@ -98,15 +103,15 @@ int main(int argc, char *argv[])
                         deltaT = (double)var/(double)CLOCKS_PER_SEC; 
       
 			if( acumulador >= 1.0 )
-				naufragos = atualizaMar(naufragos, 768, 1024, deltaT, 1);
+				naufragos = atualizaMar(naufragos, tela.altura, tela.comprimento, deltaT, 1);
 			else
-				naufragos = atualizaMar(naufragos, 768, 1024, deltaT, 0);
+				naufragos = atualizaMar(naufragos, tela.altura, tela.comprimento, deltaT, 0);
 
 	                imprimeMar(naufragos);
 			
-			if( acumulador >= freqPessoas )
+			if( acumulador >= frequencia_criacao_pessoas )
 			{
-				naufragos = geraPessoas(naufragos, (int) (velMedia*freqPessoas), 768, 1024);				
+				naufragos = geraPessoas(naufragos, (int) (velocidade_criacao_pessoas*frequencia_criacao_pessoas), tela.altura, tela.comprimento);				
 				acumulador = 0.0;
 			}
 			acumulador += deltaT;	

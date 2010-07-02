@@ -2,6 +2,7 @@
 #include "bib/mar.h"
 #include "bib/desloc.h"
 #include "bib/colisao.h"
+#include "configurador/configs.h"
 #include <time.h>
 #include <math.h>
 #include <stdlib.h>
@@ -152,8 +153,8 @@ fila geraPessoas(fila naufragos, int numPessoas, int l_max, int c_max)
 
 	for(cont = 0; cont < numPessoas; cont++)
 	{
-		p.vel.x = (rand()%(int)((VMAX + 1 - VMIN))) + VMIN;
-		p.vel.y = (rand()%(int)((VMAX + 1 - VMIN))) + VMIN;
+		p.vel.x = (rand()%(int)((velocidade_maxima + 1 - velocidade_minima))) + velocidade_minima;
+		p.vel.y = (rand()%(int)((velocidade_maxima + 1 - velocidade_minima))) + velocidade_minima;
 
 		p.raio = R_PESS;		
 		
@@ -282,8 +283,8 @@ void boteBorda(fila naufragos, item *bote, int l_max, int c_max)
 
 	int novaBorda;
 
-	bote->vel.x = (rand()%(int)((VMAX + 1 - VMIN))) + VMIN;
-	bote->vel.y = (rand()%(int)((VMAX + 1 - VMIN))) + VMIN;
+	bote->vel.x = (rand()%(int)((velocidade_maxima + 1 - velocidade_minima))) + velocidade_minima;
+	bote->vel.y = (rand()%(int)((velocidade_maxima + 1 - velocidade_minima))) + velocidade_minima;
 
 	while(1)
 	{

@@ -60,7 +60,13 @@ exp : di exp line { }
 yyerror(char *s) {
 }
 
-int main(){
+int inicConfigurador(){
+  colocacao = 0;
+  pessoas.jogador1=NULL;
+  pessoas.jogador2=NULL;
+}
+
+/*int main(){
   colocacao = 0;
   pessoas.jogador1=NULL;
   pessoas.jogador2=NULL;
@@ -77,4 +83,4 @@ int main(){
   printf("\nfcp %d", frequencia_criacao_pessoas);
   printf("\nvcp %d", velocidade_criacao_pessoas);
   printf("\nNumero recifes %d", numero_recifes);
-}
+}*/
