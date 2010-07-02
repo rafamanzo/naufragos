@@ -1,7 +1,7 @@
+#include <allegro.h>
 #include "bib/tipos.h"
 #include <stdlib.h>
-#include <stdio.h>
-#include <allegro.h> 
+#include <stdio.h> 
 
 fila entra(fila f, item p)
 {
