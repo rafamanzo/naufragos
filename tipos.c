@@ -82,6 +82,8 @@ lista_pessoas inserePessoa(lista_pessoas raiz, pessoa pss)
 
   nova->pss = pss;
   nova->prox = raiz;
+
+  return nova;
 }
 
 lista_pessoas removePessoa(lista_pessoas raiz, lista_pessoas no){
@@ -122,6 +124,8 @@ lista_botes insereBote(lista_botes raiz, bote bt){
 
   nova->bt = bt;
   nova->prox = raiz;
+
+  return nova;
 }
 
 lista_botes removeBotes(lista_botes raiz, lista_botes no){
@@ -162,6 +166,8 @@ lista_estaticos insereObjeto(lista_estaticos raiz, estatico objeto){
 
   nova->stc = objeto;
   nova->prox = raiz;
+
+  return nova;
 }
 
 lista_estaticos removeObjeto(lista_estaticos raiz, lista_estaticos no){
