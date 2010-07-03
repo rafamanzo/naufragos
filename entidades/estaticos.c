@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include "../bib/tipos.h"
+#include "../bib/colisao.h"
 #include "../configurador/configs.h"
 #include "estaticos.h"
 
