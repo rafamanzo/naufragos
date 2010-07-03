@@ -26,29 +26,138 @@
 #define R_ASIMOV 80
 #define R_CORAL 30
 
-int validaPos(fila naufragos, item *it)
+int validaPos(lista_pessoas lista_p, lista_estaticos lista_e, lista_botes lista_b, pessoa * p, estatico * e, bote * b)
 {
-/*Função utilizada para verificar se a posição aonde se deseja criar um item it já está ou não ocupada por alguma outra estrutura, como um recife, bote 	ou asimov. No caso dos botes, a presença de pessoas não impede a criação dos tais.*/
-	fila aux;
+/*
+Essa função recebe as listas de elementos do mar e apenas um tipo de estrutura apontada (pessoa, bote ou estatico). Os tipos que não forem o desejado serão passados como NULL.
+A função verificará a possibilidade de criação da estrutura desejada em determinado lugar do mar, vendo se há outras estruturas lá.
+OBS: se a estrutura for um bote, a existencia de pessoas não impossibilita a sua criação (recolhe as pessoas).
+*/
 
-  	aux = naufragos;
 
-	while(aux != NULL)
+	lista_pessoas aux_p;
+	lista_estaticos aux_e;
+	lista_botes aux_b;
+	char tipo;
+
+	aux_p = lista_p;
+	aux_e = lista_e;
+	aux_b = lista_b;
+
+	if(p != NULL)
+		tipo = 'p';
+	if(e != NULL)
+		tipo = 'e';
+	if(b != NULL)
+		tipo = 'b';
+
+	/*Percorrendo a lista de pessoas (se não for bote!)*/
+
+	if(tipo != 'b')
 	{
-		if((it->categoria == '1' || it->categoria == '2') && (aux->p.categoria == 'p'))
+		while(aux_p != NULL)
 		{
-			aux = aux->prox;
-			continue;
-		}	
-		else if((aux->p.raio + it->raio) >= distancia(aux->p.pos, it->pos))
-		{ 
-			if(it != &aux->p)
-				return 0;
+			if(tipo == 'p')
+			{
+
+				if((aux_p->pss.atr.raio + p->atr.raio) >= distancia(aux_p->pss.atr.pos, p->atr.pos))
+				{ 	
+					/*Verifica se a pessoa a inserir não eh a mesma que está no meio do caminho na lista.*/
+					if(p != &aux_p->pss)
+						return 0;
+				}
+				aux_p = aux_p->prox;
+			}
+
+			else if(tipo == 'e')
+			{
+				
+				if((aux_p->pss.atr.raio + e->raio) >= distancia(aux_p->pss.atr.pos, e->pos))
+					return 0;
+
+				aux_p = aux_p->prox;
+			}
 		}
-		aux = aux->prox;
-  	}
-  	return 1;
+	}
+
+	/*Percorrendo a lista de estaticos*/
+
+	while(aux_e != NULL)
+	{
+		if(tipo == 'p')
+		{
+			if((aux_e->stc.raio + p->atr.raio) >= distancia(aux_e->stc.pos, p->atr.pos))
+				return 0;
+
+			aux_e = aux_e->prox;
+		}
+
+		else if(tipo == 'e')
+		{
+			
+			if((aux_e->stc.raio + e->raio) >= distancia(aux_e->stc.pos, e->pos))
+			{
+				/*Verifica se o estatico a inserir não eh o mesmo que está no meio do caminho na lista.*/
+
+				if(e != &aux_e->stc)
+					return 0;
+
+				aux_e = aux_e->prox;
+			}
+
+		}
+
+		else if(tipo == 'b')
+		{
+			if((aux_e->stc.raio + b->atr.raio) >= distancia(aux_e->stc.pos, b->atr.pos))
+				return 0;
+
+			aux_e = aux_e->prox;
+		}
+
+	}
+
+
+	/*Percorrendo a lista de botes*/
+
+	while(aux_b != NULL)
+	{
+		if(tipo == 'p')
+		{
+
+			if((aux_b->bt.atr.raio + p->atr.raio) >= distancia(aux_b->bt.atr.pos, p->atr.pos))
+				return 0;
+
+			aux_b = aux_b->prox;
+		}
+
+		else if(tipo == 'e')
+		{
+			
+			if((aux_b->bt.atr.raio + e->raio) >= distancia(aux_b->bt.atr.pos, e->pos))
+				return 0;
+				
+			aux_b = aux_b->prox;
+		}
+
+		else if(tipo == 'b')
+		{
+			if((aux_b->bt.atr.raio + b->atr.raio) >= distancia(aux_b->bt.atr.pos, b->atr.pos))
+			{
+				/*Verifica se o bote a inserir não eh o mesmo que está no meio do caminho na lista.*/
+				if(b != &aux_b->bt)
+					return 0;
+
+				aux_b = aux_b->prox;
+			}
+		}
+	}
+
+	return 1;
+
 }
+
+
 
 fila atualizaMar(fila naufragos, int l_max, int c_max, double deltaT, int mkv)
 {
@@ -143,93 +252,84 @@ void imprimeMar(fila naufragos)
 
 
 
-/*Substituicao sera uma variavel mneumonica para sabermos se sera criado uma pessoa em alguma borda para substituir
-outra pessoa q tenha saido do mapa do mar.*/
-
-fila geraPessoas(fila naufragos, int numPessoas, int l_max, int c_max)
+lista_pessoas geraPessoas(lista_pessoas lista_p, lista_estaticos lista_e, lista_botes lista_b, int numPessoas, int l_max, int c_max)
 {
 	int cont;
-	item p;
+	pessoa p;
 
 	for(cont = 0; cont < numPessoas; cont++)
 	{
-		p.vel.x = (rand()%(int)((velocidade_maxima + 1 - velocidade_minima))) + velocidade_minima;
-		p.vel.y = (rand()%(int)((velocidade_maxima + 1 - velocidade_minima))) + velocidade_minima;
+		p.atr.vel.x = (rand()%(int)((velocidade_maxima + 1 - velocidade_minima))) + velocidade_minima;
+		p.atr.vel.y = (rand()%(int)((velocidade_maxima + 1 - velocidade_minima))) + velocidade_minima;
 
 		p.raio = R_PESS;		
 		
 		switch (rand()%4)
 		{
 			case 0:
-				p.pos.x = p.raio;
-				p.pos.y = rand()%l_max - p.raio;
+				p.atr.pos.x = p.raio;
+				p.atr.pos.y = rand()%l_max - p.raio;
 				break;
 			case 1:
-				p.pos.x = c_max;
-				p.pos.y = rand()%l_max - p.raio;
+				p.atr.pos.x = c_max;
+				p.atr.pos.y = rand()%l_max - p.raio;
 				break;
 			case 2:
-				p.pos.x = rand()%c_max - p.raio;
-				p.pos.y = p.raio;
+				p.atr.pos.x = rand()%c_max - p.raio;
+				p.atr.pos.y = p.raio;
 				break;
 			case 3:
-				p.pos.x = rand()%c_max - p.raio;
-				p.pos.y = l_max;
+				p.atr.pos.x = rand()%c_max - p.raio;
+				p.atr.pos.y = l_max;
 				break;
 		}
 
-		p.atualizada = 0;
-		p.categoria = 'p';
+		p.atr.atualizada = 0;
 
-		if(validaPos(naufragos, &p)) 
-			naufragos = entra(naufragos, p);
+		if( validaPos(lista_pessoas lista_p, lista_estaticos lista_e, lista_botes lista_b, &p, NULL, NULL) ) 
+			lista_p = inserePessoa(lista_p, p);
+
       		else cont--;
 	}
 
-	return naufragos;
+	return lista_p;
 
 }
 
-fila geraAsimov(fila naufragos, int l_max, int c_max)
+lista_estaticos geraAsimov(lista_pessoas lista_p, lista_estaticos lista_e, lista_botes lista_b, int l_max, int c_max)
 {
-	item asimov;
+	estatico asimov;
 
-	asimov.vel.x = 0;
-	asimov.vel.y = 0;
 	asimov.pos.x = rand()%c_max;
 	asimov.pos.y = rand()%l_max;
-	asimov.atualizada = 0;
 	asimov.raio = R_ASIMOV;
-	asimov.categoria = 'a';
+	asimov.tipo = 'a';
 
-  	while(!validaPos(naufragos, &asimov))
+  	while( !validaPos(lista_pessoas lista_p, lista_estaticos lista_e, lista_botes lista_b, NULL, &asimov, NULL) )
 	{
 	  asimov.pos.x = rand()%c_max;
 	  asimov.pos.y = rand()%l_max;
   	}
 
-	naufragos = entra(naufragos, asimov);
+	lista_e = insereObjeto(lista_e, asimov);
 
-	return naufragos;
+	return lista_e;
 
 }
 
 
-fila geraRecifes(fila naufragos, int numRecifes, int l_max, int c_max)
+lista_estaticos geraRecifes(lista_pessoas lista_p, lista_estaticos lista_e, lista_botes lista_b, int numRecifes, int l_max, int c_max)
 {
 	int cont, decideTam, raioMedio;
-	item r;
+	estatico r;
 
 	raioMedio = sqrt(2*D)/2;
 
 	for(cont = 0; cont < numRecifes; cont++)
 	{
-		r.vel.x = 0;
-		r.vel.y = 0;
-		r.pos.x = rand()%c_max;
-		r.pos.y = rand()%l_max;
-		r.atualizada = 0;
-		r.categoria = 'r';
+		r.atr.pos.x = rand()%c_max;
+		r.atr.pos.y = rand()%l_max;
+		r.tipo = 'r';
 
 		decideTam = rand()%3; 
 
@@ -242,41 +342,46 @@ fila geraRecifes(fila naufragos, int numRecifes, int l_max, int c_max)
 		else			 /* RECIFES GRANDES */
 			r.raio = raioMedio + rand()%raioMedio;/* No maximo será do dobro do tamanho do medio */
 
-								    
-		if(validaPos(naufragos, &r)) 
-			naufragos = entra(naufragos, r);
+						    
+		if( validaPos(lista_pessoas lista_p, lista_estaticos lista_e, lista_botes lista_b, NULL, &r, NULL) ) 
+			lista_e = insereObjeto(lista_e, r);
 
     		else 
 			cont--;
 	}
 
-	return naufragos;
+	return lista_e;
 }
 
-fila geraBotes(fila naufragos, int l_max, int c_max)
+lista_botes geraBotes(lista_pessoas lista_p, lista_estaticos lista_e, lista_botes lista_b, int l_max, int c_max, int vidas_max)
 {
-	item b1,b2;
+	bote b1,b2;
 
-	b1.atualizada = 0;
-	b1.raio = R_BOTE;
-	b1.categoria = '1';
-
+	b1.atr.atualizada = 0;
+	b1.atr.raio = R_BOTE;
+	b1.jogador = 1;
+	b1.vidas = vidas_max;
+	b1.carga = 0;
+/**
   	boteBorda(naufragos, &b1,l_max,c_max);
+**/
 
+	lista_b = insereBote(lista_b, b1);
 
-	naufragos = entra(naufragos, b1);
-
-	b2.atualizada = 0;
-	b2.raio = R_BOTE;
-	b2.categoria = '2';
-
+	b2.atr.atualizada = 0;
+	b2.atr.raio = R_BOTE;
+	b2.jogador = 2;
+	b2.vidas = vidas_max;
+	b2.carga = 0;
+/**
   	boteBorda(naufragos, &b2,l_max,c_max);
+**/
 
+	lista_b = insereBote(lista_b, b2);
 
-	naufragos = entra(naufragos, b2);
-
-	return naufragos;
+	return lista_b;
 }
+
 
 void boteBorda(fila naufragos, item *bote, int l_max, int c_max)
 {
@@ -315,10 +420,32 @@ void boteBorda(fila naufragos, item *bote, int l_max, int c_max)
 	}
 }
 
-
-void liberaMar(fila naufragos)
+void liberaMar(lista_pessoas lista_p, lista_estaticos lista_e, lista_botes lista_b)
 {
-	while(naufragos != NULL) sai(&naufragos);
+	lista_pessoas aux_p;
+	lista_estaticos aux_e;
+	lista_botes aux_b;	
 
+
+	while(lista_p != NULL)
+	{
+		aux_p = lista_p;
+		lista_p = lista_p->prox;		
+		free(aux_p);
+	}
+
+	while(lista_e != NULL)
+	{
+		aux_e = lista_e;
+		lista_e = lista_e->prox;		
+		free(aux_e);
+	}
+
+	while(lista_b != NULL)
+	{
+		aux_b = lista_b;
+		lista_b = lista_b->prox;		
+		free(aux_b);
+	}
 }
 

@@ -75,7 +75,7 @@ double modulo(vetor v)
 /* gera uma "matriz de cadeia de markov" (adapatada para trabalhar bem com a funcao rand)
    atualiza a pessoa de acordo com a cadeia, MAS NÃO O MAR */
 
-void markov(item *p, double deltaT)
+void markov(pessoa *p, double deltaT)
 {
 	/*A funcao markov ira determinar uma probabilidade de 65% de chance de continuar na mesma direção e 5% para cada outra direção.*/
 
@@ -83,8 +83,8 @@ void markov(item *p, double deltaT)
 	double vel;
 	int i, sort, dir;
 
-	dir = direcao(p->vel.x, p->vel.y);
-	vel = modulo(p->vel);
+	dir = direcao(p->atr.vel.x, p->atr.vel.y);
+	vel = modulo(p->atr.vel);
 
 	for(i = 0; i < 8; i++)
 		if(i == dir) 
@@ -113,48 +113,48 @@ void markov(item *p, double deltaT)
   	switch(dir)
 	{
     	case L:
-      		p->vel.x = (int) vel;
-      		p->vel.y = 0;
-      		p->pos.x += (int) vel*deltaT;
+      		p->atr.vel.x = (int) vel;
+      		p->atr.vel.y = 0;
+      		p->atr.pos.x += (int) vel*deltaT;
       		break;
     	case NE:
-      		p->vel.x = vel*cos(M_PI/4);
-      		p->vel.y = vel*sin(M_PI/4);
-      		p->pos.x += (int) vel*cos(M_PI/4)*deltaT;
-      		p->pos.y -= (int) vel*sin(M_PI/4)*deltaT;
+      		p->atr.vel.x = vel*cos(M_PI/4);
+      		p->atr.vel.y = vel*sin(M_PI/4);
+      		p->atr.pos.x += (int) vel*cos(M_PI/4)*deltaT;
+      		p->atr.pos.y -= (int) vel*sin(M_PI/4)*deltaT;
       		break;
     	case N:
-      		p->vel.x = 0;
-      		p->vel.y = vel;
-      		p->pos.y -= (int) vel*deltaT;
+      		p->atr.vel.x = 0;
+      		p->atr.vel.y = vel;
+      		p->atr.pos.y -= (int) vel*deltaT;
       		break;
     	case NO:
-      		p->vel.x = vel*cos(M_PI/4)*(-1);
-      		p->vel.y = vel*sin(M_PI/4);
-      		p->pos.x += (int) vel*cos(M_PI/4)*(-1)*deltaT;
-      		p->pos.y -= (int) vel*sin(M_PI/4)*deltaT;
+      		p->atr.vel.x = vel*cos(M_PI/4)*(-1);
+      		p->atr.vel.y = vel*sin(M_PI/4);
+      		p->atr.pos.x += (int) vel*cos(M_PI/4)*(-1)*deltaT;
+      		p->atr.pos.y -= (int) vel*sin(M_PI/4)*deltaT;
       		break;
     	case O:
-      		p->vel.x = vel*(-1);
-      		p->vel.y = 0;
-      		p->pos.x -= (int) vel*(-1)*deltaT;
+      		p->atr.vel.x = vel*(-1);
+      		p->atr.vel.y = 0;
+      		p->atr.pos.x -= (int) vel*deltaT;
       		break;
     	case SO:
-      		p->vel.x = vel*cos(M_PI/4)*(-1);
-      		p->vel.y = vel*sin(M_PI/4)*(-1);
-      		p->pos.x += (int) vel*cos(M_PI/4)*(-1)*deltaT;
-      		p->pos.y -= (int) vel*sin(M_PI/4)*(-1)*deltaT;
+      		p->atr.vel.x = vel*cos(M_PI/4)*(-1);
+      		p->atr.vel.y = vel*sin(M_PI/4)*(-1);
+      		p->atr.pos.x += (int) vel*cos(M_PI/4)*(-1)*deltaT;
+      		p->atr.pos.y -= (int) vel*sin(M_PI/4)*(-1)*deltaT;
      		break;
     	case S:
-      		p->vel.x = 0;
-      		p->vel.y = vel*(-1);
-      		p->pos.y -= (int) vel*(-1)*deltaT;
+      		p->atr.vel.x = 0;
+      		p->atr.vel.y = vel*(-1);
+      		p->atr.pos.y -= (int) vel*(-1)*deltaT;
       		break;
     	case SE:
-      		p->vel.x = vel*cos(M_PI/4);
-      		p->vel.y = vel*sin(M_PI/4)*(-1);
-      		p->pos.x += (int) vel*cos(M_PI/4)*deltaT;
-      		p->pos.y -= (int) vel*sin(M_PI/4)*(-1)*deltaT;
+      		p->atr.vel.x = vel*cos(M_PI/4);
+      		p->atr.vel.y = vel*sin(M_PI/4)*(-1);
+      		p->atr.pos.x += (int) vel*cos(M_PI/4)*deltaT;
+      		p->atr.pos.y -= (int) vel*sin(M_PI/4)*(-1)*deltaT;
       		break;
   	}
 

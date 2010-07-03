@@ -67,54 +67,18 @@ int quantidade(fila f)
   	return qtd;
 }
 
-lista_pessoas inserePessoa(lista_pessoas raiz, pessoa pss){
+lista_pessoas inserePessoa(lista_pessoas raiz, pessoa pss)
+{
   lista_pessoas nova;
   nova = NULL;
   
   nova = malloc(sizeof(lista_pss));
-  if(nova == NULL){
-    printf("Falha ao allocar novo elemento da lista\n");  
-    exit(-1);lista_pessoas inserePessoa(lista_pessoas raiz, pessoa pss){
-  lista_pessoas nova;
-  nova = NULL;
-  
-  nova = malloc(sizeof(lista_pss));
-  if(nova == NULL){
-    printf("Falha ao allocar novo elemento da lista\n");  
-    exit(-1);
-  }
+  	if(nova == NULL)
+	{
+    		printf("Falha ao allocar novo elemento da lista\n");  
+    		exit(-1);
 
-  nova->pss = pss;
-  nova->prox = raiz;
-}
-
-lista_pessoas removePessoa(lista_pessoas raiz, lista_pessoas no){
-  lista_pessoas atual, anterior;
-  
-  atual = raiz;
-  anterior = NULL;
-  
-  while(atual != NULL || atual != no){
-    anterior = atual;
-    atual = atual->prox;
-  }
-
-  if(atual == NULL){
-    return raiz;
-  }else{
-    if(anterior == NULL){
-      anterior = raiz->prox;
-      free(raiz);
-      return anterior;
-    }else{
-      anterior->prox = atual->prox;
-      free(atual);
-      return raiz;
-    }   
-  }
-}
-
-  }
+  	}
 
   nova->pss = pss;
   nova->prox = raiz;
