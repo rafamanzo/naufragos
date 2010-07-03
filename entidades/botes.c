@@ -32,41 +32,41 @@ lista_botes geraBotes(lista_pessoas lista_p, lista_estaticos lista_e, lista_bote
 	return lista_b;
 }
 
-void boteBorda(lista_pessoas lista_p, lista_estaticos lista_e, lista_botes lista_b, lista_botes bote)
+void boteBorda(lista_pessoas lista_p, lista_estaticos lista_e, lista_botes lista_b, bote *b)
 {
 
 	int novaBorda;
 
-	bote->atr.vel.x = (rand()%(int)((velocidade_maxima + 1 - velocidade_minima))) + velocidade_minima;
-	bote->atr.vel.y = (rand()%(int)((velocidade_maxima + 1 - velocidade_minima))) + velocidade_minima;
+	b->atr.vel.x = (rand()%(int)((velocidade_maxima + 1 - velocidade_minima))) + velocidade_minima;
+	b->atr.vel.y = (rand()%(int)((velocidade_maxima + 1 - velocidade_minima))) + velocidade_minima;
 
-	while(!validaPos(lista_p, lista_e, lista_b, NULL, NULL, bote))
+	while(!validaPos(lista_p, lista_e, lista_b, NULL, NULL, b))
 	{
 		novaBorda = rand()%4;
 		if(novaBorda == 0) /* Canto superior esquerdo */
 		{
-			bote->atr.pos.x = bote->atr.raio;
-			bote->atr.pos.y = bote->atr.raio;
+			b->atr.pos.x = b->atr.raio;
+			b->atr.pos.y = b->atr.raio;
 		}
 		else if(novaBorda == 1)  /* Canto superior direito */
 		{
-			bote->atr.pos.x = tela.comprimento - bote->atr.raio;
-			bote->atr.pos.y = bote->atr.raio;
+			bote->atr.pos.x = tela.comprimento - b->atr.raio;
+			bote->atr.pos.y = b->atr.raio;
 		}
 		else if(novaBorda == 2) /* Canto inferior direito */
 		{
-			bote->atr.pos.x = tela.comprimento - bote->atr.raio;
-			bote->atr.pos.y = tela.altura - bote->atr.raio;
+			bote->atr.pos.x = tela.comprimento - b->atr.raio;
+			bote->atr.pos.y = tela.altura - b->atr.raio;
 		}
 		else if(novaBorda == 3) /* Canto inferior esquerdo */
 		{
 			bote->atr.pos.x = bote->atr.raio;
-			bote->atr.pos.y = tela.altura - bote->atr.raio;
+			bote->atr.pos.y = tela.altura - b->atr.raio;
 		}
 	}
 }
 
-void moveBote(lista_botes b, double deltaT)
+void moveBote(bote *b, double deltaT)
 {
 	int dir;
 	double vel;
@@ -108,7 +108,7 @@ void moveBote(lista_botes b, double deltaT)
 }
 
 
-void colideBotes(lista_botes b1, lista_botes b2, double deltaT)
+void colideBotes(bote *b1, bote *b2, double deltaT)
 {
 /*Colisao perfeitamente elastica entre objetos de mesma massa, suas direcoes e velocidades se invertem.*/
     
