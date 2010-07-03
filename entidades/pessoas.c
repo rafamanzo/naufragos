@@ -1,5 +1,8 @@
 #include <stdlib.h>
 #include <math.h>
+#include "../bib/tipos.h"
+#include "../configurador/configs.h"
+#include "pessoas.h"
 
 lista_pessoas geraPessoas(lista_pessoas lista_p, lista_estaticos lista_e, lista_botes lista_b, int numPessoas)
 {
