@@ -1,0 +1,141 @@
+-----------------
+| Manzo - 15/05 |
+-----------------
+
+A funcao markov agora se chama atualizaVelocidade e nao mais atualiza a posicao. Assim, ela tambem nao recebe mais o deltaT.
+
+A funcao movePessoa agora se chama atualizaPosicao e foi movida dos arquivos colisoes para os de deslocamento.
+
+A funcao direcao deixou de receber as componentes x e y do vetor como parametros para receber um vetor.
+
+Os tipos da estrutura de fila foram extintos e o tipo ceula tem um ponteiro para uma pessoa.
+
+A funcao atualizaMar foi reformulada para se adaptar as refatoracoes e a nova forma de deteccao de colisoes.
+
+Foi criada a funcao movePessoa no arquivo de mar. Esta funcao nada mais e que um trecho de codigo que era repetido tres vezes na funcao atualizaMar.
+
+O arquivo tipos.c foi extinto. 
+
+-----------------
+| Gian - 27/05 |
+-----------------
+Fim da variável substituicao em geraPessoas.
+
+Alteração nas funções que utilizavam c_max e l_max. 
+
+Tentativas iniciais de colidir o bote com a borda( o bote está piscando).
+
+Criação do ideias.txt para postar coisas que faltam fazer e ideias para simplificar coisas já existentes e afins.
+
+-----------------
+| Gian - 28/05 |
+-----------------
+
+Bote colide com a borda(quica).
+
+Círculos vermelhos em torno dos botes para facilitar a visualização dos raios dos corais, botes, Asimov. Para desabilitar basta comentar a linha indicada no começo de mar.c 
+
+
+-------------------
+| Douglas - 01/07 |
+-------------------
+
+Iniciado uma adaptação das funções com as novas estruturas. To anexando como elas eram antes pra caso seja necessário voltar.
+Detalhadamente, funções adaptadas:
+
+1)colideEstatico:
+	Virou 2 funções: colidePessoaEstatico e colideBoteEstatico, porque era limitada a receber uma única estrutura.
+	OBS: A nova função colideBoteEstatico PROVAVELMENTE tem um erro que já está comentado: no final da colisão, movemos o bote através do
+		movePessoa, que só recebe uma estrutura pessoa agora... Tal movimentação eh necessária para distanciar o bote do estatico após a colisão.
+		Solução(?): fazer um moveBote que usa o markov só para essas situações? E como ficaria o controle pelo teclado?
+
+	Idéia: Passar somente um ponteiro para os atributos e alterá-lo na função, eliminando a necessidade de haver 2 funções que fazem quase EXATAMENTE a mesma coisa.
+
+2)diferencaAngulos:
+	Novamente foi alterada para ser utilizada para as estruturas bote e pessoa independentemente. Ao invés de receber a estrutura, agora só recebe seus vetores posição e velocidade.
+
+3)movePessoa:
+	Apenas parou de receber qualquer "item" e agora recebe um ponteiro pra pessoa que será movimentada.
+
+4)colideComBorda:
+	Foi transformada em duas da mesma forma que o colideEstatico, e pelo mesmo motivo. As novas funções são colidePessoaComBorda e colideBoteComBorda.
+	OBS: A colidePessoaComBorda ainda precisa ser alterada, pois ela recebe a antiga fila naufragos para verificar se quando a pessoa for gerada em outra borda, tal posição eh válida (validaPos). No entanto, agora teremos várias listas para verificar a validade dessa função, e isso ainda não foi implementado.
+
+5)colide
+	A função POR ENQUANTO só está usando isso para colidir pessoa com pessoa. Foi alterada apenas para receber esse tipo de estrutura (2 pessoas). 	       OBS: Mais para frente temos que fazer uma análoga para colidir bote com pessoas, quando a capacidade máxima do bote for atingida.
+	
+6)markov
+	A markov também está adaptada agora a apenas funcionar com a estrutura pessoa, já que não usaremos o markov para os botes (pelo menos por enquanto.. o problema da colideBoteEstatico persiste...)
+
+-------------------
+| Douglas - 02/07 |
+-------------------
+Antes de mais nada foi consertado o copypaste loko da redelinux q tava no meio do tipos.c...
+
+Continuando com as adaptações...
+
+7)Quarteto de funções gera botes, pessoas, asimov e recifes.
+	Apenas um problema... a verificação no validaPos... vou tentar alterar essa ainda hj.
+	OBS: os botes não verificam se a posição de criação é válida! Pelo menos na função que tinhamos não verificava... ele apenas usa o boteBorda (que urgentemente precisa ser comentada... nem lembro o que faz essa função direito!). As partes dessas funções q ainda têm problemas estão comentadas.
+
+8)LiberaMar
+	Vou transformar essa função em uma simples liberadora de 3 listas... as 3 listas principais do EP. Antes ela liberava a fila.
+
+9)validaPos
+	Finalmente tive uma ideia pra fazer isso... ficou meio POG (admito...), mas foi a unica ideia q me ocorreu...
+	Recebe as 3 listas principais e 3 ponteiros para estruturas (pessoa, bote ou estatico)
+	Toda vez q chamamos ela, apenas um dos ponteiros eh válido e os outros 2 são nulos.
+	Ela verifica qual não eh nulo e percorre as listas verificando se a posição é válida. 
+	Ela tbm verifica o caso de a estrutura passada ser de um tipo 'p' pessoa), por exemplo, e quando percorre a lista de pessoas verifica se não eh 	a mesma pessoa. O mesmo para as outras estruturas.
+	OBS: ela PODE ter erros de copypaste... era MTA coisa pra adaptar... erro de ponteiro (ser uma estrutura e não um ponteiro pra uma estrutura) tbm pode ter alguns, pq fiquei mexendo mto com isso... 
+
+10)colidePessoaComBorda
+	Agora ajeitada pra estrutura da pessoa e jah utilizando o validaPos...
+	(comentário OFF): quero nem ver na hr de compilar, depois de tanta mudança...
+
+OFF: As funções de geração têm agora descomentado a parte de validaPos... rezemos.
+
+
+
+x-x-x-x-x-x-x-x-x   Funções que faltam:   x-x-x-x-x-x-x-x-x-x-x
+
+No colisao.c:
+
+	- detectaColisão (a mais tensa D:)
+	- colideBoteEstatico (a função jah ta adaptada, mas falta ver como mover o bote o suficiente após a colisão, já que a MovePessoa que usavamos 			antes só move pessoas agora...
+	- fazer uma função que colida botes com botes (antes usavamos a colide, mas essa agora soh colide pessoas com pessoas) e outra função q colide 			botes com pessoas para tratar colisões entre coisas de massa diferente e móveis.
+
+No desloc.c:
+	
+	Todas adaptadas.
+
+No mar.c:
+
+	-AtualizaMar
+	-imprimeMar
+	-boteBorda (não lembro o que essa função faz!)
+
+No main.c:
+
+	TUDO D:
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

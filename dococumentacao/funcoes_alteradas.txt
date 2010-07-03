@@ -1,0 +1,371 @@
+/****************************************************************
+|								|
+|								|
+|								|
+|								|
+|            Funções Alteradas - em sua forma original		|
+|								|
+|								|
+|								|
+|								|
+****************************************************************/
+
+
+void colideEstatico(item imovel, item *p, double deltaT)
+{
+	int dir = -1;
+	double dif = 0;
+
+	dir = direcao((int)p->vel.x, (int)p->vel.y);
+
+	switch(dir)
+	{
+	    /*casos ruins!!!*/
+	    case N:
+	    	p->vel.y *= -1;
+	    	p->pos.y += p->raio;
+	    	if( (p->pos.x - imovel.pos.x) > 0)
+			p->pos.x += p->raio;
+	    	else
+			p->pos.x -= p->raio; 
+	    	break;
+	    case S:
+	      	p->vel.y *= -1;
+	      	p->pos.y -= p->raio;
+	      	if((p->pos.x - imovel.pos.x) > 0)
+			p->pos.x += p->raio;
+	      	else
+			p->pos.x -= p->raio;
+	      	break;
+	    case L:
+	      	p->vel.x *= -1;
+	      	p->pos.x -= p->raio;
+	      	if((p->pos.y - imovel.pos.y) > 0)
+			p->pos.y -= p->raio;
+	      	else
+			p->pos.y += p->raio;
+	      	break;
+	    case O:
+	      	p->vel.x *= -1;
+	      	p->pos.x += p->raio;
+	      	if((p->pos.y - imovel.pos.y) > 0)
+			p->pos.y += p->raio;
+	      	else
+			p->pos.y += p->raio;
+	      	break;
+	   	/*casos ruins!!!*/
+	    case NE:
+		dif  = diferecaAngulos(imovel, p, NE);
+	      	if(dif == 0)
+		{
+			p->vel.y *= -1;
+			p->vel.x *= -1;
+			p->pos.x -= p->raio;
+			p->pos.y += p->raio;
+	      	}
+		/* Caso a diferenca de angulos(dif) for menor que -180 graus, significa que o y do que esta se movendo eh menor do que y do que esta parado, assim a colisao ocorre de forma diferente para que o movel nao passe o imovel sem colidir*/
+		else if(dif < 0 && dif > -180)
+		{
+			p->vel.y *= -1;
+			p->pos.x += p->raio;
+			p->pos.y += p->raio;
+	      	}
+		else if(dif > 0 || dif <= -180)
+		{
+			p->vel.x *= -1;
+			p->pos.x -= p->raio;
+			p->pos.y -= p->raio;
+	      	}
+	      	break;
+	    case NO:
+		dif  = diferecaAngulos(imovel, p, NO);
+	       	if(dif == 0)
+		{
+			p->vel.y *= -1;
+			p->vel.x *= -1;
+			p->pos.x += p->raio;
+			p->pos.y -= p->raio;
+	      	}
+		else if(dif < 0)
+		{
+			p->vel.y *= -1;
+			p->pos.x -= p->raio;
+			p->pos.y -= p->raio;
+	      	}
+		else if(dif > 0)
+		{
+			p->vel.x *= -1;
+			p->pos.x += p->raio;
+			p->pos.y += p->raio;
+	      	}
+	      	break;
+	    case SE:
+		dif  = diferecaAngulos(imovel, p, SE);
+	      	if(dif == 0)
+		{
+			p->vel.y *= -1;
+			p->vel.x *= -1;
+			p->pos.x -= p->raio;
+			p->pos.y += p->raio;
+	      	}
+		else if(dif > 0 || dif <= 180)
+		{
+			p->vel.x *= -1;
+			p->pos.x -= p->raio;
+			p->pos.y -= p->raio;
+	      	}
+		else if(dif < 0 && dif > 180)
+		{
+			p->vel.y *= -1;
+			p->pos.x += p->raio;
+			p->pos.y += p->raio;
+	      	}	
+	      	break;
+	    case SO:
+		dif  = diferecaAngulos(imovel, p, SO);
+	      	if(dif == 0)
+		{
+			p->vel.y *= -1;
+			p->vel.x *= -1;
+			p->pos.x += p->raio;
+			p->pos.y += p->raio;
+	      	}
+		else if(dif < 0)
+		{
+			p->vel.x *= -1;
+			p->pos.x += p->raio;
+			p->pos.y -= p->raio;
+	      	}
+		else if(dif > 0)
+		{
+			p->vel.y *= -1;
+			p->pos.x -= p->raio;
+			p->pos.y += p->raio;
+	      	}
+	      	break;
+	  }
+	  while(distancia(p->pos, imovel.pos) < (p->raio + imovel.raio)) movePessoa(p, deltaT);
+	  p->atr->atualizada = 1;
+}
+
+
+
+
+
+double diferecaAngulos(item imovel, item *p, int dir)
+{
+	if( dir == NO || dir == SO )
+		 return (angulo(imovel.pos.x - p->pos.x, (p->pos.y - imovel.pos.y))-angulo(p->vel.x, p->vel.y));
+	else if ( dir == NE || dir == SE )
+		return (angulo(p->vel.x, p->vel.y) - angulo(imovel.pos.x - p->pos.x, (p->pos.y - imovel.pos.y)));
+	return 0;
+}
+
+
+
+
+
+void movePessoa(item *p, double deltaT)
+{
+	int dir;
+	double vel;
+
+	vel = modulo(p->vel);
+  	dir = direcao(p->vel.x, p->vel.y);
+
+  	switch(dir)
+	{
+    	case L:
+      		p->pos.x += (int) vel*deltaT;
+      		break;
+    	case NE:
+      		p->pos.x += (int) vel*cos(M_PI/4)*deltaT;
+      		p->pos.y += (int) vel*sin(M_PI/4)*(-1)*deltaT;
+      		break;
+    	case N:
+      		p->pos.y += (int) vel*(-1)*deltaT;
+      		break;
+    	case NO:
+      		p->pos.x += (int) vel*cos(M_PI/4)*(-1)*deltaT;
+      		p->pos.y += (int) vel*sin(M_PI/4)*(-1)*deltaT;
+      		break;
+    	case O:
+      		p->pos.x += (int) vel*(-1)*deltaT;
+      		break;
+    	case SO:
+      		p->pos.x += (int) vel*cos(M_PI/4)*(-1)*deltaT;
+      		p->pos.y += (int) vel*sin(M_PI/4)*deltaT;
+     		break;
+    	case S:
+      		p->pos.y += (int) vel*deltaT;
+      		break;
+    	case SE:
+      		p->pos.x += (int) vel*cos(M_PI/4)*deltaT;
+      		p->pos.y += (int) vel*sin(M_PI/4)*deltaT;
+      		break;
+  	}
+}
+
+
+
+void colideComBorda(fila naufragos, item *p, int borda, int l_max, int c_max)
+{
+
+	int novaBorda;
+
+ 	/* 
+		0  -- borda superior
+	    	1  -- borda inferior
+	    	2  -- borda esquerda
+	    	3  -- borda direita. 
+	*/
+
+	/* Pessoa sai pela borda */
+	if( p->categoria == 'p')
+	{
+		/* Sorteia uma borda ate que ela seja diferente da atual */
+		
+
+		while( 1 )
+		{
+			while( (novaBorda = rand()%4 ) == borda);
+
+			if( novaBorda == 0 )
+			{
+				p->pos.x = p->raio + 20;
+				p->pos.y = rand()%l_max;
+			}
+			else if( novaBorda == 1 )
+			{
+				p->pos.x = c_max - p->raio - 20;
+				p->pos.y = rand()%l_max;
+			}
+			else if( novaBorda == 2 )
+			{
+				p->pos.x = rand()%c_max;
+				p->pos.y = p->raio + 20;
+			}
+			else if( novaBorda == 3 )
+			{
+				p->pos.x = rand()%c_max;
+				p->pos.y = l_max - p->raio - 20;
+			}
+			
+			if(validaPos(naufragos, p))
+				break;
+			
+		}
+	}
+
+	/* Bote colide com a borda */
+	else if( p->categoria == '1' || p->categoria == '2' )
+	{
+		switch(borda)
+		{
+			case 0:
+				p->vel.y *= -1;
+				p->pos.y += 5;
+				break;
+			case 1:
+				p->vel.y *= -1;
+				p->pos.y -= 5;
+				break;
+			case 2:
+				p->vel.x *= -1;
+				p->pos.x += 5;
+				break;
+			case 3:
+				p->vel.x *= -1;
+				p->pos.x -= 5;
+				break;	
+		}			
+	}
+}
+
+
+
+void markov(item *p, double deltaT)
+{
+	/*A funcao markov ira determinar uma probabilidade de 65% de chance de continuar na mesma direção e 5% para cada outra direção.*/
+
+	int mkv[8];
+	double vel;
+	int i, sort, dir;
+
+	dir = direcao(p->vel.x, p->vel.y);
+	vel = modulo(p->vel);
+
+	for(i = 0; i < 8; i++)
+		if(i == dir) 
+			mkv[i] = 65;
+
+        else if(i > dir) 
+		  mkv[i] = 65 + (i)*5;
+
+        else if(i < dir) 
+		  mkv[i] = 65 + (i + 1)*5;
+
+  	sort = rand() % 100;
+
+  	if(sort >= 65)
+		for(i = 0; i < 8; i++)
+		{
+		  	if(i != dir)
+			{
+				if(sort < mkv[i])
+				{
+					dir = i; i = 8; 
+				}
+			}
+		}
+
+  	switch(dir)
+	{
+    	case L:
+      		p->vel.x = (int) vel;
+      		p->vel.y = 0;
+      		p->pos.x += (int) vel*deltaT;
+      		break;
+    	case NE:
+      		p->vel.x = vel*cos(M_PI/4);
+      		p->vel.y = vel*sin(M_PI/4);
+      		p->pos.x += (int) vel*cos(M_PI/4)*deltaT;
+      		p->pos.y -= (int) vel*sin(M_PI/4)*deltaT;
+      		break;
+    	case N:
+      		p->vel.x = 0;
+      		p->vel.y = vel;
+      		p->pos.y -= (int) vel*deltaT;
+      		break;
+    	case NO:
+      		p->vel.x = vel*cos(M_PI/4)*(-1);
+      		p->vel.y = vel*sin(M_PI/4);
+      		p->pos.x += (int) vel*cos(M_PI/4)*(-1)*deltaT;
+      		p->pos.y -= (int) vel*sin(M_PI/4)*deltaT;
+      		break;
+    	case O:
+      		p->vel.x = vel*(-1);
+      		p->vel.y = 0;
+      		p->pos.x -= (int) vel*(-1)*deltaT;
+      		break;
+    	case SO:
+      		p->vel.x = vel*cos(M_PI/4)*(-1);
+      		p->vel.y = vel*sin(M_PI/4)*(-1);
+      		p->pos.x += (int) vel*cos(M_PI/4)*(-1)*deltaT;
+      		p->pos.y -= (int) vel*sin(M_PI/4)*(-1)*deltaT;
+     		break;
+    	case S:
+      		p->vel.x = 0;
+      		p->vel.y = vel*(-1);
+      		p->pos.y -= (int) vel*(-1)*deltaT;
+      		break;
+    	case SE:
+      		p->vel.x = vel*cos(M_PI/4);
+      		p->vel.y = vel*sin(M_PI/4)*(-1);
+      		p->pos.x += (int) vel*cos(M_PI/4)*deltaT;
+      		p->pos.y -= (int) vel*sin(M_PI/4)*(-1)*deltaT;
+      		break;
+  	}
+
+}
+
