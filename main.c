@@ -70,6 +70,7 @@ int main(int argc, char *argv[])
 	}
 
   inicConfigurador();
+  yyin = fopen("./configurador/config.sys", "r");
   yyparse();
 
 	allegro_init();

@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <stdio.h> 
 
-fila entra(fila f, item p)
+/*fila entra(fila f, item p)
 {
 	fila novo, aux;
 
@@ -65,7 +65,7 @@ int quantidade(fila f)
   	}
 
   	return qtd;
-}
+}*/
 
 lista_pessoas inserePessoa(lista_pessoas raiz, pessoa pss)
 {
@@ -150,7 +150,7 @@ lista_botes removeBotes(lista_botes raiz, lista_botes no){
   }
 }
 
-lista_estaticos insereObjeto(lista_estaticos raiz, estaticos objeto){
+lista_estaticos insereObjeto(lista_estaticos raiz, estatico objeto){
   lista_estaticos nova;
   nova = NULL;
   
@@ -160,7 +160,7 @@ lista_estaticos insereObjeto(lista_estaticos raiz, estaticos objeto){
     exit(-1);
   }
 
-  nova->pss = pss;
+  nova->stc = objeto;
   nova->prox = raiz;
 }
 
