@@ -335,9 +335,9 @@ void colideBoteEstatico(estatico imovel, bote *b, double deltaT)
 	      	}
 	      	break;
 	  }
-/*
+
 	  while(distancia(b->atr.pos, imovel.pos) < (b->atr.raio + imovel.raio)) 
-		movePessoa(b, deltaT);
-*/
+		moveBote(b, deltaT);
+
 	  b->atr.atualizada = 1;
 }

@@ -148,91 +148,120 @@ OBS: se a estrutura for um bote, a existencia de pessoas não impossibilita a su
 
 
 
-fila atualizaMar(fila naufragos, int l_max, int c_max, double deltaT, int mkv)
+lista_pessoas atualizaMar(lista_pessoas lista_p, lista_estaticos lista_e, lista_botes lista_b, int l_max, int c_max, double deltaT, int mkv)
 {
-	fila proximo = naufragos;
+	lista_pessoas aux_p = lista_p;
 	
 	/* Ver se não estão sendo gerados no mesmo lugar */
 
-	while(proximo!=NULL) 
+	while(aux_p!=NULL) 
 	{
-		proximo->p.atualizada=0; 
-		proximo = proximo->prox;
+		aux_p->pss.atr.atualizada = 0; 
+		aux_p = aux_p->prox;
 	} 
 	
-	naufragos = detectaColisao( naufragos, deltaT);		
-	proximo = naufragos;
+/**
+	lista_p = detectaColisao(naufragos, deltaT);
+**/
+		
+	aux_p = lista_p;
 	
-	while( proximo != NULL)
+	while( aux_p != NULL)
 	{
-		if(!proximo->p.atualizada)
+		if(!aux_p->pss.atr.atualizada)
 		{
 			if(mkv)
 			{
-				markov(&proximo->p,deltaT);
-        			proximo->p.atualizada = 1;
+				markov(&aux_p->pss,deltaT);
+        			aux_p->pss.atr.atualizada = 1;
 			}				
 			else
-				movePessoa(&proximo->p,deltaT);
+				movePessoa(&aux_p->pss,deltaT);
 
 			/*Se for 0 eh o topo. 1 eh o chao. 2 eh a parede esquerda e 3 eh a parede direita.*/
-			if( (proximo->p.pos.y - proximo->p.raio) < 0)
-				colideComBorda(naufragos, &proximo->p, 0, 768, 1024);				
-			else if( (proximo->p.pos.y + proximo->p.raio) > l_max)
-				colideComBorda(naufragos, &proximo->p, 1, 768, 1024);
-			else if( (proximo->p.pos.x - proximo->p.raio) < 0)
-				colideComBorda(naufragos, &proximo->p, 2, 768, 1024);
-			else if( (proximo->p.pos.x + proximo->p.raio) > c_max )
-				colideComBorda(naufragos, &proximo->p, 3, 768, 1024);		
+
+			if( (aux_p->pss.atr.pos.y - aux_p->pss.atr.raio) < 0)
+				colidePessoaComBorda(lista_p, lista_e, lista_b, &aux_p->pss, 0, 768, 1024);				
+			else if( (aux_p->pss.atr.pos.y + aux_p->pss.atr.raio) > l_max)
+				colidePessoaComBorda(lista_p, lista_e, lista_b, &aux_p->pss, 1, 768, 1024);
+			else if( (aux_p->pss.atr.pos.x - aux_p->pss.atr.raio) < 0)
+				colidePessoaComBorda(lista_p, lista_e, lista_b, &aux_p->pss, 2, 768, 1024);
+			else if( (aux_p->pss.atr.pos.x + aux_p->pss.atr.raio) > c_max )
+				colidePessoaComBorda(lista_p, lista_e, lista_b, &aux_p->pss, 3, 768, 1024);		
 		}
 		
-		proximo = proximo -> prox;
+		aux_p = aux_p -> prox;
 
 	}
 	
-	return naufragos;
+	return lista_p;
 }
 
-void imprimeMar(fila naufragos)
+void imprimeMar(lista_pessoas lista_p, lista_estaticos lista_e, lista_botes lista_b)
 {
-	fila proximo;
+	lista_pessoas aux_p;
+	lista_estaticos aux_e;
+	lista_botes aux_b;
+
 	BITMAP *buffer;
 
 	buffer = create_bitmap(screen->w, screen->h);
   
 	clear_to_color(buffer, AZUL);
 
-	for(proximo = naufragos; proximo != NULL; proximo = proximo -> prox)
+	
+		/*Imprime as pessoas*/
+	
+
+	for(aux_p = lista_p; aux_p != NULL; aux_p = aux_p -> prox)
 	{
-		if( proximo->p.categoria == 'p' )
+		circlefill(buffer, aux_p->pss.atr.pos.x, aux_p->pss.atr.pos.y ,aux_p->pss.atr.raio, PRETO);                          
+			/*line( buffer , aux_p->pss.atr.pos.x , aux_p->pss.atr.pos.y , aux_p->pss.atr.pos.x + aux_p->pss.atr.vel.x , aux_p->pss.atr.pos.y - aux_p->pss.atr.vel.y , VERMELHO ); Vetor velocidade */	
+
+
+	}
+
+		/*Imprime os estaticos*/
+
+
+	for(aux_e = lista_e; aux_e != NULL; aux_e = aux_e -> prox)
+	{
+		if( aux_e->stc.tipo == 'r' )
 		{	
-			circlefill(buffer, proximo->p.pos.x,proximo->p.pos.y ,proximo->p.raio, PRETO);                          
-			/*line( buffer , proximo->p.pos.x , proximo->p.pos.y , proximo->p.pos.x+proximo->p.vel.x , proximo->p.pos.y-proximo->p.vel.y , VERMELHO ); Vetor velocidade */	
-		}
-		else if( proximo->p.categoria == 'r' )
-		{	
-      circlefill(buffer, proximo->p.pos.x,proximo->p.pos.y ,proximo->p.raio, MARROM);
-			/*rectfill(buffer, (proximo->p.pos.x)-proximo->p.raio/sqrt(2),(proximo->p.pos.y)+proximo->p.raio/sqrt(2),(proximo->p.pos.x)+proximo->p.raio/sqrt(2),(proximo->p.pos.y)-proximo->p.raio/sqrt(2), MARROM);*/
+      circlefill(buffer, aux_e->stc.pos.x ,aux_e->stc.pos.y ,aux_e->stc.raio, MARROM);
+			/*rectfill(buffer, (aux_e->stc.pos.x) - aux_e->stc.raio/sqrt(2),(aux_e->stc.pos.y)+aux_e->stc.raio/sqrt(2),(aux_e->stc.pos.x)+aux_e->stc.raio/sqrt(2),(aux_e->stc.pos.y)-aux_e->stc.raio/sqrt(2), MARROM);*/
 			VERCOLISAO	
 		}
-		else if( proximo->p.categoria == 'a')
+
+		else if( aux_e->stc.tipo == 'a')
 		{
-      circlefill(buffer, proximo->p.pos.x,proximo->p.pos.y ,proximo->p.raio, VERDE);
-			/*rectfill(buffer, (proximo->p.pos.x)-65, (proximo->p.pos.y)+60, (proximo->p.pos.x)+65, (proximo->p.pos.y) - 60, VERDE);*/
+      circlefill(buffer, aux_e->stc.pos.x ,aux_e->stc.pos.y ,aux_e->stc.raio, VERDE);
+			/*rectfill(buffer, (aux_e->stc.pos.x)-65, (aux_e->stc.pos.y)+60, (aux_e->stc.pos.x)+65, (aux_e->stc.pos.y) - 60, VERDE);*/
 			VERCOLISAO	
 		}
-		else if( proximo->p.categoria == '1' )
+
+
+	}
+
+		/*Imprime os botes*/
+
+	for(aux_b = lista_b; aux_b != NULL; aux_b = aux_b -> prox)
+	{
+		if( aux_b->bt.jogador == 1 )
 		{
-			triangle(buffer, (proximo->p.pos.x-15), (proximo->p.pos.y-17), (proximo->p.pos.x), (proximo->p.pos.y+20), (proximo->p.pos.x+15), (proximo->p.pos.y-17),LARANJA);
+			triangle(buffer, (aux_b->bt.atr.pos.x-15), (aux_b->bt.atr.pos.y-17), (aux_b->bt.atr.pos.x), (aux_b->bt.atr.pos.y+20), (aux_b->bt.atr.pos.x+15), (aux_b->bt.atr.pos.y-17),LARANJA);
 			VERCOLISAO		
 		}
 
-		else if( proximo->p.categoria == '2' )
+		else if( aux_b->bt.jogador == 2 )
 		{
-			triangle(buffer, (proximo->p.pos.x)-15, (proximo->p.pos.y)-17, (proximo->p.pos.x), (proximo->p.pos.y)+20, (proximo->p.pos.x)+15, (proximo->p.pos.y)-17,BRANCO);
+			triangle(buffer, (aux_b->bt.atr.pos.x-15), (aux_b->bt.atr.pos.y-17), (aux_b->bt.atr.pos.x), (aux_b->bt.atr.pos.y+20), (aux_b->bt.atr.pos.x+15), (aux_b->bt.atr.pos.y-17),BRANCO);
 			VERCOLISAO			
 		}
+
+
 	}
+
 	
 	blit(buffer, screen, 0, 0, 0, 0, screen->w, screen->h);  
 	destroy_bitmap(buffer);

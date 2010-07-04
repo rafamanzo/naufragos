@@ -120,11 +120,42 @@ No main.c:
 	TUDO D:
 	
 	
+-------------------
+| Douglas - 03/07 |
+-------------------
+
+Mais um dia de atualizações! :P
+
+11)imprimeMar
+
+	Já está adaptada! Agora recebe as 3 listas principais e percorre as 3, imprimindo seus elementos.
+
+12)atualizaMar
+
+	Parcialmente alterada... necessitará da detectaColisões (a PARRUDA).
+
+OBS: Coloquei a função que o manzo fez de moveBote como parte da colideBoteEstatico pra tratar aquela movimentação q eu expliquei antes. Imagino q tenha sido pra isso q tu fez ela, manzo ;D Vlw!
 
 
+x-x-x-x-x-x-x-x-x   Funções que faltam:   x-x-x-x-x-x-x-x-x-x-x
 
 
+No colisao.c:
 
+	- detectaColisão (a mais tensa D:)
+	- fazer uma função q colide botes com pessoas para tratar colisões entre coisas de massa diferente e móveis.
+
+No desloc.c:
+	
+	Todas adaptadas.
+
+No mar.c:
+
+	Todas adaptadas.
+
+No main.c:
+
+	Ainda falta tudo D:
 
 
 
