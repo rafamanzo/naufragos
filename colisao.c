@@ -26,7 +26,7 @@ void detectaColisao(lista_pessoas *lista_p, lista_estaticos *lista_e, lista_bote
 
   while(ant_p != NULL){    
     /*colisoes com outras pessoas*/  
-    atual_p = aux_p = *ant_p->prox;
+    atual_p = aux_p = ant_p->prox;
   
     while(aux_p != NULL){
       if(distancia(ant_p->pss.atr.pos, aux_p->pss.atr.pos) < (ant_p->pss.atr.raio + aux_p->pss.atr.raio)){
@@ -41,7 +41,7 @@ void detectaColisao(lista_pessoas *lista_p, lista_estaticos *lista_e, lista_bote
     aux_e = *lista_e;
 
     while(aux_e != NULL){
-      if(distancia(ant_p->pss.atr.pos, aux_e->stc.pos) < (ant_p->pss.atr.raio + aux_e->stc.raio))
+      if(distancia(ant_p->pss.atr.pos, aux_e->stc.pos) < (ant_p->pss.atr.raio + aux_e->stc.raio)){
         colidePessoaEstatico(aux_e->stc, &ant_p->pss, deltaT);
         ant_p->pss.atr.atualizada = 1;
       }
@@ -80,7 +80,7 @@ void detectaColisao(lista_pessoas *lista_p, lista_estaticos *lista_e, lista_bote
     /*colisao bote com bote*/
     while(aux_b != NULL){
       if(distancia(ant_b->bt.atr.pos, aux_b->bt.atr.pos) < (ant_b->bt.atr.raio + aux_b->bt.atr.raio)){
-        colideBotes(&ant_b->bt, &aux_b->bt);
+        colideBotes(&ant_b->bt, &aux_b->bt, deltaT);
       }
       aux_b = aux_b->prox;
     }
@@ -94,8 +94,8 @@ void detectaColisao(lista_pessoas *lista_p, lista_estaticos *lista_e, lista_bote
         if(aux_e->stc.tipo == 'r'){
           /*bote encalha com 66% de probabilidade*/
           if(rand()%3 < 1){
-            boteBorda(lista_p, lista_e, lista_b, &ant_b->bt);
-            geraPessoas(lista_p, lista_e, lista_b, ant_b->bt.carga);
+            boteBorda(*lista_p, *lista_e, *lista_b, &ant_b->bt);
+            *lista_p = geraPessoas(*lista_p, *lista_e, *lista_b, ant_b->bt.carga);
             ant_b->bt.carga = 0;
           }else{
             colideBoteEstatico(aux_e->stc, &ant_b->bt, deltaT);
@@ -118,7 +118,7 @@ double diferencaAngulos(estatico imovel, vetor movel_pos, vetor movel_vel, int d
 	return 0;
 }
 
-void colidePessoaComBorda(lista_pessoas lista_p, lista_estaticos lista_e, lista_botes lista_b, pessoa *p)
+void colidePessoaComBorda(lista_pessoas lista_p, lista_estaticos lista_e, lista_botes lista_b, int borda, pessoa *p)
 {
 
 	int novaBorda;
@@ -135,7 +135,7 @@ void colidePessoaComBorda(lista_pessoas lista_p, lista_estaticos lista_e, lista_
 		/* Sorteia uma borda ate que ela seja diferente da atual */
 		
 
-	while( 1 )
+	do
 	{
 		while( (novaBorda = rand()%4 ) == borda);
 
@@ -159,11 +159,8 @@ void colidePessoaComBorda(lista_pessoas lista_p, lista_estaticos lista_e, lista_
 			p->atr.pos.x = rand()%tela.comprimento;
 			p->atr.pos.y = tela.altura - p->atr.raio - 20;
 		}
-		
-		if( validaPos(lista_p, lista_e, lista_b, p, NULL, NULL) )
-			break;
-		
-	}
+				
+	}while(validaPos(lista_p, lista_e, lista_b, p, NULL, NULL));
 
 }
 

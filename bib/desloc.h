@@ -1,7 +1,7 @@
 int direcao(int x, int y);
 double angulo(double x, double y);
 double modulo(vetor v);
-void markov(item *p, double deltaT);
+void markov(pessoa *p, double deltaT);
 double distancia(vetor pos1, vetor pos2);
 
 /*M_PI nao e padrao ansi*/
