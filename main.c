@@ -19,13 +19,13 @@ int main(int argc, char *argv[])
 /*O main contara principalmente com a implementacao de um manual para caso o cliente nao digite os argumentos necessarios,
 	iniciará as estruturas do mar (botes, asimov e recifes) e as pessoas serão geradas de acordo com uma frequencia e velocidades determinadas
 		nos argumentos.*/
-	int tempoMaximo; 
+	int tempoMaximo, framesPorSegundo; 
 	double deltaT, acumulador;
 
 	clock_t inicio, anterior, var;
 	lista_pessoas lista_p;
-  lista_estaticos lista_e;
-  lista_botes lista_b;
+  	lista_estaticos lista_e;
+  	lista_botes lista_b;
 
 	srand(time(NULL));
 	
@@ -73,10 +73,10 @@ int main(int argc, char *argv[])
 		exit(-1);
 	}*/
 
-  inicConfigurador(); /*inicializa a interface entre o configurador e jogo com valores padrao*/
-  yyin = fopen("./configurador/config.sys", "r"); /*abre o arquivo de configuracao para leitura*/
-  yyparse(); /*faz a leitura do arquivo de entrada*/
-  fclose(yyin);
+  	inicConfigurador(); /*inicializa a interface entre o configurador e jogo com valores padrao*/
+  	yyin = fopen("./configurador/config.sys", "r"); /*abre o arquivo de configuracao para leitura*/
+ 	yyparse(); /*faz a leitura do arquivo de entrada*/
+  	fclose(yyin);
 
 	allegro_init();
 
@@ -96,24 +96,24 @@ int main(int argc, char *argv[])
 	lista_e = geraRecifes(lista_p, lista_e, lista_b, numero_recifes);
 	lista_b = geraBotes(lista_p, lista_e, lista_b);
 
-  inicio = clock();
-  anterior = 0;
+  	inicio = clock();
+  	anterior = 0;
 	acumulador = 0.0;
         
-  while( clock() - inicio < tempoMaximo*CLOCKS_PER_SEC) 
-  {
-    var = clock() - anterior;
+  	while( clock() - inicio < tempoMaximo*CLOCKS_PER_SEC) 
+  	{
+   		 var = clock() - anterior;
 
-    if( var > CLOCKS_PER_SEC/ framesPorSegundo )
-    {  
-      deltaT = (double)var/(double)CLOCKS_PER_SEC; 
+    		if( var > CLOCKS_PER_SEC/ framesPorSegundo )
+    		{  
+      			deltaT = (double)var/(double)CLOCKS_PER_SEC; 
       
 			if( acumulador >= 1.0 )
 				lista_p = atualizaMar(lista_p, lista_e, lista_b, deltaT, 1);
 			else
 				lista_p = atualizaMar(lista_p, lista_e, lista_b, deltaT, 0);
 
-      imprimeMar(lista_p, lista_e, lista_b);
+      			imprimeMar(lista_p, lista_e, lista_b);
 			
 			if( acumulador >= frequencia_criacao_pessoas )
 			{
@@ -121,12 +121,14 @@ int main(int argc, char *argv[])
 				acumulador = 0.0;
 			}
 			acumulador += deltaT;	
-      anterior = clock();
-    } 
+     			 anterior = clock();
+    		} 
     
 
-  }
+  	}
+
  	liberaMar(lista_p, lista_e, lista_b);
 	allegro_exit();
  	exit(0);
+
 }

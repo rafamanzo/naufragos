@@ -15,98 +15,119 @@
 
 void detectaColisao(lista_pessoas *lista_p, lista_estaticos *lista_e, lista_botes *lista_b, double deltaT)
 {
-  lista_pessoas atual_p, ant_p, aux_p;
-  lista_botes atual_b, ant_b, aux_b;
-  lista_estaticos aux_e;
+  	lista_pessoas atual_p, ant_p, aux_p;
+  	lista_botes atual_b, ant_b, aux_b;
+  	lista_estaticos aux_e;
 
   /*colisoes de pessoas com outras entidades*/
 
-  ant_p = *lista_p;
+  	ant_p = *lista_p;
 
 
-  while(ant_p != NULL){    
-    /*colisoes com outras pessoas*/  
-    atual_p = aux_p = ant_p->prox;
+  	while(ant_p != NULL)
+	{    
+    		/*colisoes com outras pessoas*/  
+    		atual_p = aux_p = ant_p->prox;
   
-    while(aux_p != NULL){
-      if(distancia(ant_p->pss.atr.pos, aux_p->pss.atr.pos) < (ant_p->pss.atr.raio + aux_p->pss.atr.raio)){
-        colidePessoas(&ant_p->pss, &aux_p->pss, deltaT);
-        ant_p->pss.atr.atualizada = aux_p->pss.atr.atualizada = 1;
-      }
+    		while(aux_p != NULL)
+		{
+      			if(distancia(ant_p->pss.atr.pos, aux_p->pss.atr.pos) < (ant_p->pss.atr.raio + aux_p->pss.atr.raio))
+			{
+        			colidePessoas(&ant_p->pss, &aux_p->pss, deltaT);
+        			ant_p->pss.atr.atualizada = aux_p->pss.atr.atualizada = 1;
+      			}
 
-      aux_p = aux_p->prox;
-    }
+      			aux_p = aux_p->prox;
+    		}
 
-    /*colisoes com estaticos*/
-    aux_e = *lista_e;
+    		/*colisoes com estaticos*/
+    		aux_e = *lista_e;
 
-    while(aux_e != NULL){
-      if(distancia(ant_p->pss.atr.pos, aux_e->stc.pos) < (ant_p->pss.atr.raio + aux_e->stc.raio)){
-        colidePessoaEstatico(aux_e->stc, &ant_p->pss, deltaT);
-        ant_p->pss.atr.atualizada = 1;
-      }
+    		while(aux_e != NULL)
+		{
+      			if(distancia(ant_p->pss.atr.pos, aux_e->stc.pos) < (ant_p->pss.atr.raio + aux_e->stc.raio))
+			{
+        			colidePessoaEstatico(aux_e->stc, &ant_p->pss, deltaT);
+        			ant_p->pss.atr.atualizada = 1;
+      			}
 
-      aux_e = aux_e->prox;
-    }
+      			aux_e = aux_e->prox;
+    		}
 
-    /*colisoes com botes*/
-    aux_b = *lista_b;
+    		/*colisoes com botes*/
+    		aux_b = *lista_b;
 
-    while(aux_b != NULL){
-      if(distancia(ant_p->pss.atr.pos, aux_p->pss.atr.pos) < (ant_p->pss.atr.raio + aux_p->pss.atr.raio)){
-        if(aux_b->bt.carga < CAP_BOTE){
-          *lista_p = removePessoa(*lista_p, ant_p);
-          aux_b->bt.carga++;
-          ant_p = *lista_p; /* como retirei uma pessoa da lista, recomeco a checagem com a nova lista de pessoas*/
-          break;
-        }else{
-          colidePessoaBote(&ant_p->pss, deltaT);
-          ant_p->pss.atr.atualizada = 1;
-        }
-      }
-      aux_b = aux_b->prox;
-    }   
+    		while(aux_b != NULL)
+		{
+      			if(distancia(ant_p->pss.atr.pos, aux_p->pss.atr.pos) < (ant_p->pss.atr.raio + aux_p->pss.atr.raio))
+			{
+        			if(aux_b->bt.carga < CAP_BOTE)
+				{
+          				*lista_p = removePessoa(*lista_p, ant_p);
+          				aux_b->bt.carga++;
+          				ant_p = *lista_p; /* como retirei uma pessoa da lista, recomeco a checagem com a nova lista de pessoas*/
+          				break;
+        			}
+				else
+				{
+          				colidePessoaBote(&ant_p->pss, deltaT);
+          				ant_p->pss.atr.atualizada = 1;
+        			}
+      			}
+      			aux_b = aux_b->prox;
+    		}   
 
-    ant_p = atual_p;
-  }
+    		ant_p = atual_p;
+  	}
 
-  /*colisoes de um bote com outra entidade que nao seja pessoa*/
+  	/*colisoes de um bote com outra entidade que nao seja pessoa*/
 
-  ant_b = *lista_b;
+  	ant_b = *lista_b;
 
-  while(ant_b == NULL){
-    atual_b = aux_b = ant_b->prox;
+  	while(ant_b == NULL)
+	{
+    		atual_b = aux_b = ant_b->prox;
 
-    /*colisao bote com bote*/
-    while(aux_b != NULL){
-      if(distancia(ant_b->bt.atr.pos, aux_b->bt.atr.pos) < (ant_b->bt.atr.raio + aux_b->bt.atr.raio)){
-        colideBotes(&ant_b->bt, &aux_b->bt, deltaT);
-      }
-      aux_b = aux_b->prox;
-    }
+    		/*colisao bote com bote*/
+    		while(aux_b != NULL)
+		{
+      			if(distancia(ant_b->bt.atr.pos, aux_b->bt.atr.pos) < (ant_b->bt.atr.raio + aux_b->bt.atr.raio))
+			{
+        			colideBotes(&ant_b->bt, &aux_b->bt, deltaT);
+      			}
+      			aux_b = aux_b->prox;
+    		}
 
-    /*colisao bote com estaticos*/
-    aux_e = *lista_e;
+    		/*colisao bote com estaticos*/
+    		aux_e = *lista_e;
 
-    while(aux_e != NULL){
-      if(distancia(ant_b->bt.atr.pos, aux_e->stc.pos) < (ant_b->bt.atr.raio + aux_e->stc.raio)){
-        /*colisao com recife*/
-        if(aux_e->stc.tipo == 'r'){
-          /*bote encalha com 66% de probabilidade*/
-          if(rand()%3 < 1){
-            boteBorda(*lista_p, *lista_e, *lista_b, &ant_b->bt);
-            *lista_p = geraPessoas(*lista_p, *lista_e, *lista_b, ant_b->bt.carga);
-            ant_b->bt.carga = 0;
-          }else{
-            colideBoteEstatico(aux_e->stc, &ant_b->bt, deltaT);
-          }
-        }else{
-          /*aqui tem que vir a descarga de pessoas se o bote estiver ancorado*/
-          colideBoteEstatico(aux_e->stc, &ant_b->bt, deltaT);
-        }
-      }
-    } 
-  }  
+    		while(aux_e != NULL)
+		{
+      			if(distancia(ant_b->bt.atr.pos, aux_e->stc.pos) < (ant_b->bt.atr.raio + aux_e->stc.raio))
+			{
+        			/*colisao com recife*/
+        			if(aux_e->stc.tipo == 'r')
+				{
+          				/*bote encalha com 66% de probabilidade*/
+          				if(rand()%3 < 1)
+					{
+            					boteBorda(*lista_p, *lista_e, *lista_b, &ant_b->bt);
+            					*lista_p = geraPessoas(*lista_p, *lista_e, *lista_b, ant_b->bt.carga);
+            					ant_b->bt.carga = 0;
+          				}
+					else
+					{
+            					colideBoteEstatico(aux_e->stc, &ant_b->bt, deltaT);
+          				}
+        			}
+				else
+				{
+          				/*aqui tem que vir a descarga de pessoas se o bote estiver ancorado*/
+          				colideBoteEstatico(aux_e->stc, &ant_b->bt, deltaT);
+        			}
+      			}
+    		} 
+  	}  
 }
 
 double diferencaAngulos(estatico imovel, vetor movel_pos, vetor movel_vel, int dir)

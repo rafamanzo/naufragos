@@ -70,10 +70,10 @@ int quantidade(fila f)
 
 lista_pessoas inserePessoa(lista_pessoas raiz, pessoa pss)
 {
-  lista_pessoas nova;
-  nova = NULL;
+  	lista_pessoas nova;
+  	nova = NULL;
   
-  nova = malloc(sizeof(lista_pessoas));
+  	nova = malloc(sizeof(lista_pessoas));
   	if(nova == NULL)
 	{
     		printf("Falha ao allocar novo elemento da lista\n");  
@@ -81,119 +81,148 @@ lista_pessoas inserePessoa(lista_pessoas raiz, pessoa pss)
 
   	}
 
-  nova->pss = pss;
-  nova->prox = raiz;
+  	nova->pss = pss;
+  	nova->prox = raiz;
 
-  return nova;
+ 	return nova;
 }
 
-lista_pessoas removePessoa(lista_pessoas raiz, lista_pessoas no){
-  lista_pessoas atual, anterior;
+lista_pessoas removePessoa(lista_pessoas raiz, lista_pessoas no)
+{
+  	lista_pessoas atual, anterior;
   
-  atual = raiz;
-  anterior = NULL;
+  	atual = raiz;
+  	anterior = NULL;
   
-  while(atual != NULL || atual != no){
-    anterior = atual;
-    atual = atual->prox;
-  }
+  	while(atual != NULL || atual != no)
+	{
+    		anterior = atual;
+    	atual = atual->prox;
+  	}
 
-  if(atual == NULL){
-    return raiz;
-  }else{
-    if(anterior == NULL){
-      anterior = raiz->prox;
-      free(raiz);
-      return anterior;
-    }else{
-      anterior->prox = atual->prox;
-      free(atual);
-      return raiz;
-    }   
-  }
+  	if(atual == NULL)
+	{
+    		return raiz;
+  	}
+	else
+	{
+    		if(anterior == NULL)
+		{
+      			anterior = raiz->prox;
+      			free(raiz);
+      			return anterior;
+    		}
+		else
+		{
+      			anterior->prox = atual->prox;
+      			free(atual);
+      			return raiz;
+    		}   
+  	}
 }
 
-lista_botes insereBote(lista_botes raiz, bote bt){
-  lista_botes nova;
-  nova = NULL;
+lista_botes insereBote(lista_botes raiz, bote bt)
+{
+  	lista_botes nova;
+  	nova = NULL;
   
-  nova = malloc(sizeof(lista_botes));
-  if(nova == NULL){
-    printf("Falha ao alocar novo elemento da lista\n");  
-    exit(-1);
-  }
+  	nova = malloc(sizeof(lista_botes));
+  	if(nova == NULL)
+	{
+    		printf("Falha ao alocar novo elemento da lista\n");  
+    		exit(-1);
+  	}
 
-  nova->bt = bt;
-  nova->prox = raiz;
+  	nova->bt = bt;
+  	nova->prox = raiz;
 
-  return nova;
+  	return nova;
 }
 
-lista_botes removeBotes(lista_botes raiz, lista_botes no){
-  lista_botes atual, anterior;
+lista_botes removeBotes(lista_botes raiz, lista_botes no)
+{
+  	lista_botes atual, anterior;
   
-  atual = raiz;
-  anterior = NULL;
+  	atual = raiz;
+  	anterior = NULL;
   
-  while(atual != NULL || atual != no){
-    anterior = atual;
-    atual = atual->prox;
-  }
+  	while(atual != NULL || atual != no)
+	{
+    		anterior = atual;
+    		atual = atual->prox;
+  	}
 
-  if(atual == NULL){
-    return raiz;
-  }else{
-    if(anterior == NULL){
-      anterior = raiz->prox;
-      free(raiz);
-      return anterior;
-    }else{
-      anterior->prox = atual->prox;
-      free(atual);
-      return raiz;
-    }   
-  }
+  	if(atual == NULL)
+	{
+    		return raiz;
+  	}
+
+	else
+	{
+    		if(anterior == NULL)
+		{
+      			anterior = raiz->prox;
+      			free(raiz);
+      			return anterior;
+    		}
+		else
+		{
+      			anterior->prox = atual->prox;
+      			free(atual);
+      			return raiz;
+    		}   
+  	}
 }
 
-lista_estaticos insereObjeto(lista_estaticos raiz, estatico objeto){
-  lista_estaticos nova;
-  nova = NULL;
+lista_estaticos insereObjeto(lista_estaticos raiz, estatico objeto)
+{
+  	lista_estaticos nova;
+  	nova = NULL;
   
-  nova = malloc(sizeof(lista_estaticos));
-  if(nova == NULL){
-    printf("Falha ao allocar novo elemento da lista\n");  
-    exit(-1);
-  }
+  	nova = malloc(sizeof(lista_estaticos));
+  	if(nova == NULL)
+	{
+    		printf("Falha ao allocar novo elemento da lista\n");  
+    		exit(-1);
+  	}
 
-  nova->stc = objeto;
-  nova->prox = raiz;
+  	nova->stc = objeto;
+  	nova->prox = raiz;
 
-  return nova;
+  	return nova;
 }
 
-lista_estaticos removeObjeto(lista_estaticos raiz, lista_estaticos no){
-  lista_estaticos atual, anterior;
+lista_estaticos removeObjeto(lista_estaticos raiz, lista_estaticos no)
+{
+  	lista_estaticos atual, anterior;
   
-  atual = raiz;
-  anterior = NULL;
+  	atual = raiz;
+  	anterior = NULL;
   
-  while(atual != NULL || atual != no){
-    anterior = atual;
-    atual = atual->prox;
-  }
+  	while(atual != NULL || atual != no)
+	{
+    		anterior = atual;
+    		atual = atual->prox;
+  	}
 
-  if(atual == NULL){
-    return raiz;
-  }else{
-    if(anterior == NULL){
-      anterior = raiz->prox;
-      free(raiz);
-      return anterior;
-    }else{
-      anterior->prox = atual->prox;
-      free(atual);
-      return raiz;
-    }   
-  }
+  	if(atual == NULL)
+	{
+    		return raiz;
+  	}
+	else
+	{
+    		if(anterior == NULL)
+		{
+      			anterior = raiz->prox;
+      			free(raiz);
+      			return anterior;
+    		}
+		else
+		{
+      			anterior->prox = atual->prox;
+      			free(atual);
+      			return raiz;
+    		}   
+  	}
 }
 
