@@ -16,16 +16,17 @@ int main(int argc, char *argv[])
 /*O main contara principalmente com a implementacao de um manual para caso o cliente nao digite os argumentos necessarios,
 	iniciará as estruturas do mar (botes, asimov e recifes) e as pessoas serão geradas de acordo com uma frequencia e velocidades determinadas
 		nos argumentos.*/
-	int framesPorSegundo,tempoMaximo, velMedia, numeroDeRecifes; 
-	double freqPessoas;
+	int tempoMaximo; 
 	double deltaT, acumulador;
 
 	clock_t inicio, anterior, var;
-	fila naufragos = NULL;
+	lista_pessoas lista_p;
+  lista_estaticos lista_e;
+  lista_botes lista_b;
 
 	srand(time(NULL));
 	
-	if( argc == 1 )
+	/*if( argc == 1 )
 	{
 		printf("Executando com valores padrao.\n");
 		framesPorSegundo = 30; 
@@ -67,11 +68,12 @@ int main(int argc, char *argv[])
 	{
 		printf("\nComo executar:\n./Naufragos para executar com valores padrao ou\n./Naufragos arg1 arg2 arg3 arg4 arg5, no qual \n\targ 1 - Frames por Segundo\n\targ 2 - Tempo de Execucao do Programa em Segundos\n\targ 3 - Frequencia de Criacao de Pessoas\n\targ 4 - Velocidade Media de Criacao de Pessoas\n\targ 5 - Numero de Recifes\nExemplo: ./Naufragos ou ./Naufragos 20 10 1 4 10\n\n");
 		exit(-1);
-	}
+	}*/
 
-  inicConfigurador();
-  yyin = fopen("./configurador/config.sys", "r");
-  yyparse();
+  inicConfigurador(); /*inicializa a interface entre o configurador e jogo com valores padrao*/
+  yyin = fopen("./configurador/config.sys", "r"); /*abre o arquivo de configuracao para leitura*/
+  yyparse(); /*faz a leitura do arquivo de entrada*/
+  fclose(yyin);
 
 	allegro_init();
 
@@ -87,41 +89,41 @@ int main(int argc, char *argv[])
 
 	set_palette(desktop_palette);
 
-	naufragos = geraAsimov(naufragos, tela.altura, tela.comprimento);
-	naufragos = geraRecifes(naufragos, numero_recifes, tela.altura, tela.comprimento);
-	naufragos = geraBotes(naufragos, tela.altura, tela.comprimento);
+	lista_e = geraAsimov(lista_p, lista_e, lista_b);
+	lista_e = geraRecifes(lista_p, lista_e, lista_b, numero_recifes);
+	lista_b = geraBotes(lista_p, lista_e, lista_b);
 
-        inicio = clock();
-        anterior = 0;
+  inicio = clock();
+  anterior = 0;
 	acumulador = 0.0;
         
-        while( clock() - inicio < tempoMaximo*CLOCKS_PER_SEC) 
-        {
-               var = clock() - anterior;
+  while( clock() - inicio < tempoMaximo*CLOCKS_PER_SEC) 
+  {
+    var = clock() - anterior;
 
-                if( var > CLOCKS_PER_SEC/ framesPorSegundo )
-                {  
-                        deltaT = (double)var/(double)CLOCKS_PER_SEC; 
+    if( var > CLOCKS_PER_SEC/ framesPorSegundo )
+    {  
+      deltaT = (double)var/(double)CLOCKS_PER_SEC; 
       
 			if( acumulador >= 1.0 )
-				naufragos = atualizaMar(naufragos, tela.altura, tela.comprimento, deltaT, 1);
+				lista_p = atualizaMar(lista_p, lista_e, lista_b, deltaT, 1);
 			else
-				naufragos = atualizaMar(naufragos, tela.altura, tela.comprimento, deltaT, 0);
+				lista_p = atualizaMar(lista_p, lista_e, lista_b, deltaT, 0);
 
-	                imprimeMar(naufragos);
+      imprimeMar(lista_p, lista_e, lista_b);
 			
 			if( acumulador >= frequencia_criacao_pessoas )
 			{
-				naufragos = geraPessoas(naufragos, (int) (velocidade_criacao_pessoas*frequencia_criacao_pessoas), tela.altura, tela.comprimento);				
+				lista_p = geraPessoas(lista_p, lista_e, lista_b, (int) (velocidade_criacao_pessoas*frequencia_criacao_pessoas));				
 				acumulador = 0.0;
 			}
 			acumulador += deltaT;	
-                        anterior = clock();
-                } 
+      anterior = clock();
+    } 
     
 
-        }
- 	liberaMar(naufragos);
+  }
+ 	liberaMar(lista_p, lista_e, lista_b);
 	allegro_exit();
  	exit(0);
 }

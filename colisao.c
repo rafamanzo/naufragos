@@ -117,7 +117,7 @@ double diferencaAngulos(estatico imovel, vetor movel_pos, vetor movel_vel, int d
 	return 0;
 }
 
-void colidePessoaComBorda(lista_pessoas lista_p, lista_estaticos lista_e, lista_botes lista_b, pessoa *p, int borda, int l_max, int c_max)
+void colidePessoaComBorda(lista_pessoas lista_p, lista_estaticos lista_e, lista_botes lista_b, pessoa *p)
 {
 
 	int novaBorda;
@@ -141,22 +141,22 @@ void colidePessoaComBorda(lista_pessoas lista_p, lista_estaticos lista_e, lista_
 		if( novaBorda == 0 )
 		{
 			p->atr.pos.x = p->atr.raio + 20;
-			p->atr.pos.y = rand()%l_max;
+			p->atr.pos.y = rand()%tela.altura;
 		}
 		else if( novaBorda == 1 )
 		{
-			p->atr.pos.x = c_max - p->atr.raio - 20;
-			p->atr.pos.y = rand()%l_max;
+			p->atr.pos.x = tela.comprimento - p->atr.raio - 20;
+			p->atr.pos.y = rand()%tela.altura;
 		}
 		else if( novaBorda == 2 )
 		{
-			p->atr.pos.x = rand()%c_max;
+			p->atr.pos.x = rand()%tela.comprimento;
 			p->atr.pos.y = p->atr.raio + 20;
 		}
 		else if( novaBorda == 3 )
 		{
-			p->atr.pos.x = rand()%c_max;
-			p->atr.pos.y = l_max - p->atr.raio - 20;
+			p->atr.pos.x = rand()%tela.comprimento;
+			p->atr.pos.y = tela.altura - p->atr.raio - 20;
 		}
 		
 		if( validaPos(lista_p, lista_e, lista_b, p, NULL, NULL) )
@@ -167,7 +167,7 @@ void colidePessoaComBorda(lista_pessoas lista_p, lista_estaticos lista_e, lista_
 }
 
 
-void colideBoteComBorda(bote * b, int borda, int l_max, int c_max)
+void colideBoteComBorda(bote * b, int borda)
 {
 	switch(borda)
 	{

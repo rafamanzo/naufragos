@@ -1,9 +1,4 @@
-fila atualizaMar(fila naufragos, int l_max, int c_max, double deltaT, int mkv);
-fila geraPessoas(fila naufragos, int numPessoas, int l_max, int c_max);
-fila geraRecifes(fila naufragos, int numRecifes, int l_max, int c_max);
-fila geraBotes(fila naufragos, int l_max, int c_max);
-fila geraAsimov(fila naufragos, int l_max, int c_max);
-void boteBorda(fila naufragos, item *bote, int l_max, int c_max);
-void imprimeMar(fila naufragos);
-void liberaMar(fila naufragos);
-int validaPos(fila naufragos, item *it);
+lista_pessoas atualizaMar(lista_pessoas lista_p, lista_estaticos lista_e, lista_botes lista_b, double deltaT, int mkv);
+void imprimeMar(lista_pessoas lista_p, lista_estaticos lista_e, lista_botes lista_b);
+void liberaMar(lista_pessoas lista_p, lista_estaticos lista_e, lista_botes lista_b);
+int validaPos(lista_pessoas lista_p, lista_estaticos lista_e, lista_botes lista_b, pessoa * p, estatico * e, bote * b);

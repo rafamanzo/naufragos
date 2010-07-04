@@ -148,7 +148,7 @@ OBS: se a estrutura for um bote, a existencia de pessoas não impossibilita a su
 
 
 
-lista_pessoas atualizaMar(lista_pessoas lista_p, lista_estaticos lista_e, lista_botes lista_b, int l_max, int c_max, double deltaT, int mkv)
+lista_pessoas atualizaMar(lista_pessoas lista_p, lista_estaticos lista_e, lista_botes lista_b, double deltaT, int mkv)
 {
 	lista_pessoas aux_p = lista_p;
 	
@@ -160,9 +160,9 @@ lista_pessoas atualizaMar(lista_pessoas lista_p, lista_estaticos lista_e, lista_
 		aux_p = aux_p->prox;
 	} 
 	
-/**
-	lista_p = detectaColisao(naufragos, deltaT);
-**/
+
+	detectaColisao(&lista_p, &lista_e, &lista_b, deltaT);
+
 		
 	aux_p = lista_p;
 	
@@ -178,16 +178,14 @@ lista_pessoas atualizaMar(lista_pessoas lista_p, lista_estaticos lista_e, lista_
 			else
 				movePessoa(&aux_p->pss,deltaT);
 
-			/*Se for 0 eh o topo. 1 eh o chao. 2 eh a parede esquerda e 3 eh a parede direita.*/
-
 			if( (aux_p->pss.atr.pos.y - aux_p->pss.atr.raio) < 0)
-				colidePessoaComBorda(lista_p, lista_e, lista_b, &aux_p->pss, 0, 768, 1024);				
-			else if( (aux_p->pss.atr.pos.y + aux_p->pss.atr.raio) > l_max)
-				colidePessoaComBorda(lista_p, lista_e, lista_b, &aux_p->pss, 1, 768, 1024);
+				colidePessoaComBorda(lista_p, lista_e, lista_b, &aux_p->pss);				
+			else if( (aux_p->pss.atr.pos.y + aux_p->pss.atr.raio) > tela.altura)
+				colidePessoaComBorda(lista_p, lista_e, lista_b, &aux_p->pss);
 			else if( (aux_p->pss.atr.pos.x - aux_p->pss.atr.raio) < 0)
-				colidePessoaComBorda(lista_p, lista_e, lista_b, &aux_p->pss, 2, 768, 1024);
-			else if( (aux_p->pss.atr.pos.x + aux_p->pss.atr.raio) > c_max )
-				colidePessoaComBorda(lista_p, lista_e, lista_b, &aux_p->pss, 3, 768, 1024);		
+				colidePessoaComBorda(lista_p, lista_e, lista_b, &aux_p->pss);
+			else if( (aux_p->pss.atr.pos.x + aux_p->pss.atr.raio) > tela.comprimento )
+				colidePessoaComBorda(lista_p, lista_e, lista_b, &aux_p->pss);		
 		}
 		
 		aux_p = aux_p -> prox;
