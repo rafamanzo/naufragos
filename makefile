@@ -19,7 +19,7 @@ colisao.o: colisao.c bib/colisao.h bib/tipos.h bib/mar.h bib/desloc.h $(ENTIDADE
 	gcc -c colisao.c -lm $(CFLAGS)
 
 desloc.o: desloc.c bib/tipos.h bib/desloc.h
-	gcc -c desloc.c -lm $(CFLAGS)
+	gcc -c desloc.c -lm $(ALLEGRO) $(CFLAGS)
 
 main.o: main.c bib/tipos.h bib/colisao.h bib/desloc.h bib/mar.h $(ENTIDADES_H) configurador/configs.h
 	gcc -c main.c $(ALLEGRO) $(CFLAGS)
