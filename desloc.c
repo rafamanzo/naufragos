@@ -1,9 +1,10 @@
-#include "bib/tipos.h"
-#include "bib/desloc.h"
 #include <math.h>
 #include <time.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include "bib/tipos.h"
+#include "bib/desloc.h"
+
 
 double distancia(vetor pos1, vetor pos2)
 {

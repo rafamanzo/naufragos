@@ -1,53 +1,63 @@
-typedef struct vtr{
-  double x, y;
-} vetor;
+struct vtr{
+  	double x, y;
+	};
 
-typedef struct atr{
-  BITMAP *desenho;
-  int atualizada;
+typedef struct vtr vetor;
+
+struct atrib{
+  	int atualizada;
 	int raio;
 	vetor pos;
 	vetor vel;
-} atributos;
+	BITMAP *desenho;
+	};
 
-typedef struct pss{
-  atributos atr;
-} pessoa;
+typedef struct atrib atributos;
 
-typedef struct bt{
-  atributos atr;
-  int jogador; /*jogador 1 ou 2*/
-  int vidas;
-  int carga;
-} bote;
+struct pess{
+  	atributos atr;
+	};
 
-typedef struct stc{
-  BITMAP *desenho;
-  int raio;
-  vetor pos;
-  char tipo; /*'a' -> azimov | 'r' -> recife*/
-} estatico;
+typedef struct pess pessoa;
 
-typedef struct lst_pss{
-  pessoa pss;
-  struct lst_pss *prox;
-} lista_pss;
+struct boat{
+  	atributos atr;
+  	int jogador; /*jogador 1 ou 2*/
+  	int vidas;
+  	int carga;
+	};
 
-typedef lista_pss *lista_pessoas;
+typedef struct boat bote;
 
-typedef struct lst_bt{
-  bote bt;
-  struct lst_bt *prox;
-} lista_bt;
+struct estatc{
+  	int raio;
+  	vetor pos;
+  	char tipo; /*'a' -> azimov | 'r' -> recife*/
+	BITMAP *desenho;
+	};
 
-typedef lista_bt *lista_botes;
+typedef struct estatc estatico;
 
-typedef struct lst_stc{
-  estatico stc;
-  struct lst_stc *prox;
-} lista_stc;
+struct lst_pss{
+  	pessoa pss;
+  	struct lst_pss *prox;
+	};
 
-typedef lista_stc *lista_estaticos;
+typedef struct lst_pss * lista_pessoas;
+
+struct lst_bt{
+  	bote bt;
+  	struct lst_bt *prox;
+	};
+
+typedef struct lst_bt * lista_botes;
+
+struct lst_stc{
+  	estatico stc;
+  	struct lst_stc *prox;
+	};
+
+typedef struct lst_stc * lista_estaticos;
 
 lista_pessoas inserePessoa(lista_pessoas raiz, pessoa pss);
 lista_pessoas removePessoa(lista_pessoas raiz, lista_pessoas no);

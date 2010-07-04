@@ -1,3 +1,7 @@
+#include <math.h>
+#include <time.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include <allegro.h>
 #include "bib/tipos.h"
 #include "bib/colisao.h"
@@ -8,10 +12,7 @@
 #include "entidades/botes.h"
 #include "configurador/bison.h"
 #include "configurador/configs.h"
-#include <math.h>
-#include <time.h>
-#include <stdio.h>
-#include <stdlib.h>
+
 
 int main(int argc, char *argv[])
 {

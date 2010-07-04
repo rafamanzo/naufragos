@@ -1,7 +1,8 @@
-#include <allegro.h>
-#include "bib/tipos.h"
 #include <stdlib.h>
 #include <stdio.h> 
+#include <allegro.h>
+#include "bib/tipos.h"
+
 
 /*fila entra(fila f, item p)
 {
@@ -72,7 +73,7 @@ lista_pessoas inserePessoa(lista_pessoas raiz, pessoa pss)
   lista_pessoas nova;
   nova = NULL;
   
-  nova = malloc(sizeof(lista_pss));
+  nova = malloc(sizeof(lista_pessoas));
   	if(nova == NULL)
 	{
     		printf("Falha ao allocar novo elemento da lista\n");  
@@ -116,7 +117,7 @@ lista_botes insereBote(lista_botes raiz, bote bt){
   lista_botes nova;
   nova = NULL;
   
-  nova = malloc(sizeof(lista_bt));
+  nova = malloc(sizeof(lista_botes));
   if(nova == NULL){
     printf("Falha ao alocar novo elemento da lista\n");  
     exit(-1);
@@ -158,7 +159,7 @@ lista_estaticos insereObjeto(lista_estaticos raiz, estatico objeto){
   lista_estaticos nova;
   nova = NULL;
   
-  nova = malloc(sizeof(lista_pss));
+  nova = malloc(sizeof(lista_estaticos));
   if(nova == NULL){
     printf("Falha ao allocar novo elemento da lista\n");  
     exit(-1);

@@ -1,3 +1,7 @@
+#include <time.h>
+#include <math.h>
+#include <stdlib.h>
+#include <stdio.h>
 #include <allegro.h>
 #include "bib/tipos.h"
 #include "bib/mar.h"
@@ -7,10 +11,6 @@
 #include "entidades/pessoas.h"
 #include "entidades/estaticos.h"
 #include "configurador/configs.h"
-#include <time.h>
-#include <math.h>
-#include <stdlib.h>
-#include <stdio.h>
 
 #define VERCOLISAO if(COLISAO) circle(buffer, proximo->p.pos.x,proximo->p.pos.y ,proximo->p.raio, VERMELHO);
 #define COLISAO 0 /* Se quiser ver os circulos da colisao setar 1 */
