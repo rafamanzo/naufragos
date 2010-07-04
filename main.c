@@ -1,15 +1,17 @@
+#include <allegro.h>
 #include "bib/tipos.h"
 #include "bib/colisao.h"
 #include "bib/desloc.h"
 #include "bib/mar.h"
+#include "entidades/pessoas.h"
+#include "entidades/estaticos.h"
+#include "entidades/botes.h"
 #include "configurador/bison.h"
 #include "configurador/configs.h"
 #include <math.h>
 #include <time.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <allegro.h>
-
 
 int main(int argc, char *argv[])
 {

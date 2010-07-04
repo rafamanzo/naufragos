@@ -1,4 +1,5 @@
 #include <allegro.h>
+#include "configurador/configs.h"
 #include "bib/tipos.h"
 #include "bib/colisao.h"
 #include "bib/desloc.h"
