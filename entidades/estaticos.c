@@ -15,8 +15,8 @@ lista_estaticos geraAsimov(lista_pessoas lista_p, lista_estaticos lista_e, lista
 	estatico asimov;
 
 	asimov.desenho = load_bitmap("imagens/asimov.bmp",desktop_palette);
-	asimov.pos.x = rand()%/*tela.comprimento*/1025; /* MUDAR AQUI!!!!!!! #### ## ## #*/
-	asimov.pos.y = rand()%/*tela.altura*/768;
+	asimov.pos.x = rand()%tela.comprimento; 
+	asimov.pos.y = rand()%tela.altura;
 	asimov.raio = R_ASIMOV;
 	asimov.tipo = 'a';
 
