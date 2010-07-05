@@ -211,8 +211,8 @@ void imprimeCabecalho(BITMAP *buffer, lista_botes botes)
 
 
 	/* NOME DOS JOGADORES */
-	textout_ex(buffer, font, "Jogador1", 10, 20, makecol(0, 0, 255), -1);
-	textout_ex(buffer, font, "Jogador2", tela.comprimento-70, 20, makecol(255, 0, 0), -1);
+	textprintf_ex(buffer, font, 10, 20, makecol(0, 0, 255), -1, "%s", pessoas.jogador1);
+	textprintf_ex(buffer, font, tela.comprimento-80, 20, makecol(255, 0, 0), -1, "%s", pessoas.jogador2);
 
 	/* VIDAS */
 	coracao = load_bitmap("imagens/coracao.bmp",desktop_palette);
