@@ -22,11 +22,11 @@ typedef struct jg{
   char *jogador2;
 } jogadores;
 
-static jogadores pessoas;
-static int vidas_iniciais;
-static monitor tela;
-static int velocidade_maxima;
-static int velocidade_minima;
-static int frequencia_criacao_pessoas;
-static int velocidade_criacao_pessoas;
-static int numero_recifes;
+jogadores pessoas;
+int vidas_iniciais;
+monitor tela;
+int velocidade_maxima;
+int velocidade_minima;
+int frequencia_criacao_pessoas;
+int velocidade_criacao_pessoas;
+int numero_recifes;
