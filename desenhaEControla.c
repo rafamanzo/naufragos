@@ -1,3 +1,4 @@
+#include <allegro.h>
 #include "bib/tipos.h"
 #include "bib/desloc.h"
 #include "bib/desenhaEControla.h"

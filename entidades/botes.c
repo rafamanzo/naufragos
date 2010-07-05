@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <allegro.h>
+#include <stdio.h>
 #include "../bib/tipos.h"
 #include "../bib/desloc.h"
 #include "../bib/mar.h"
@@ -12,6 +13,10 @@ lista_botes geraBotes(lista_pessoas lista_p, lista_estaticos lista_e, lista_bote
 	bote b1,b2;
 
 	b1.atr.desenho = load_bitmap("../imagens/bote1.bmp",desktop_palette);
+  if(b1.atr.desenho == NULL){
+    printf("Nao foi possivel carregar a imagem do bote...\n");
+    exit(-1);
+  }
 	b1.atr.atualizada = 0;
 	b1.atr.raio = R_BOTE;
 	b1.atr.pos.x = rand()%1025; /* MUDAR AQUI */
@@ -28,6 +33,10 @@ lista_botes geraBotes(lista_pessoas lista_p, lista_estaticos lista_e, lista_bote
 	printf("Inseriu o primeiro bote.\n");
 
 	b2.atr.desenho = load_bitmap("../imagens/bote2.bmp",desktop_palette);
+  if(b1.atr.desenho == NULL){
+    printf("Nao foi possivel carregar a imagem do bote...\n");
+    exit(-1);
+  }
 	b2.atr.atualizada = 0;
 	b2.atr.raio = R_BOTE;
 	b2.atr.pos.x = rand()%1025; /* MUDAR AQUI*/ 

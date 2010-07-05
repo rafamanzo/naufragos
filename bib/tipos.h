@@ -1,5 +1,3 @@
-#include <allegro.h>
-
 struct vtr{
   	double x, y;
 	};
@@ -7,7 +5,7 @@ struct vtr{
 typedef struct vtr vetor;
 
 struct atrib{
-  	int atualizada;
+  int atualizada;
 	int raio;
 	vetor pos;
 	vetor vel;
