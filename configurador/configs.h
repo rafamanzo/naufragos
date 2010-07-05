@@ -7,9 +7,9 @@
 #define VERMELHO makecol(255,0,0)
 
 #define D 400 
-#define R_PESS 5
-#define R_BOTE 21
-#define R_ASIMOV 80
+#define R_PESS 15
+#define R_BOTE 37
+#define R_ASIMOV 100
 #define R_CORAL 30
 
 typedef struct mnt{

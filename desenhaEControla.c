@@ -50,7 +50,7 @@ void controlaBote1(BITMAP *buffer, bote *boat, double deltaT)
 			
 			ang = rotacaoBote(dir);
 			moveBote(dir,0,boat,deltaT);
-			rotate_sprite(buffer, boat->atr.desenho, boat->atr.pos.x, boat->atr.pos.y, ang);
+			rotate_sprite(buffer, boat->atr.desenho, boat->atr.pos.x-26, boat->atr.pos.y-42, ang);
 		}
 		else if (key[KEY_RIGHT])
 		{
@@ -59,13 +59,13 @@ void controlaBote1(BITMAP *buffer, bote *boat, double deltaT)
 			
 			ang = rotacaoBote(dir);
 			moveBote(dir,0,boat,deltaT);
-			rotate_sprite(buffer, boat->atr.desenho, boat->atr.pos.x, boat->atr.pos.y, ang);
+			rotate_sprite(buffer, boat->atr.desenho, boat->atr.pos.x-26, boat->atr.pos.y-42, ang);
 		}
 		else if (key[KEY_UP])/*propulsao*/
 		{
 			ang = rotacaoBote(dir);
 			moveBote(dir, ACELERACAO,boat, deltaT);
-			rotate_sprite(buffer, boat->atr.desenho, boat->atr.pos.x, boat->atr.pos.y, ang);	
+			rotate_sprite(buffer, boat->atr.desenho, boat->atr.pos.x-26, boat->atr.pos.y-42, ang);	
 		}
 		else if (key[KEY_DOWN])/*freio*/
 		{
@@ -75,20 +75,20 @@ void controlaBote1(BITMAP *buffer, bote *boat, double deltaT)
 				moveBote(dir,(-1)*modulo(boat->atr.vel),boat, deltaT);
 
 			ang = rotacaoBote(dir);
-			rotate_sprite(buffer, boat->atr.desenho, boat->atr.pos.x, boat->atr.pos.y, ang);
+			rotate_sprite(buffer, boat->atr.desenho, boat->atr.pos.x-26, boat->atr.pos.y-42, ang);
 		}
 		else if (key[KEY_ENTER])
 		{
 			ang = rotacaoBote(dir);
 			boat->ancora = '1';
 			moveBote(dir,(-1)*modulo(boat->atr.vel),boat, deltaT);				
-			rotate_sprite(buffer, boat->atr.desenho, boat->atr.pos.x, boat->atr.pos.y, ang);	
+			rotate_sprite(buffer, boat->atr.desenho, boat->atr.pos.x-26, boat->atr.pos.y-42, ang);	
 		}
 		else  
 		{
 			ang = rotacaoBote(dir);
 			moveBote(dir,0,boat, deltaT);
-			rotate_sprite(buffer, boat->atr.desenho, boat->atr.pos.x, boat->atr.pos.y, ang);
+			rotate_sprite(buffer, boat->atr.desenho, boat->atr.pos.x-26, boat->atr.pos.y-42, ang);
 		}
 	}
 	else
@@ -97,7 +97,7 @@ void controlaBote1(BITMAP *buffer, bote *boat, double deltaT)
 			boat->ancora = '0';
 		
 		ang = rotacaoBote(dir);
-		rotate_sprite(buffer, boat->atr.desenho, boat->atr.pos.x, boat->atr.pos.y, ang);	
+		rotate_sprite(buffer, boat->atr.desenho, boat->atr.pos.x-26, boat->atr.pos.y-42, ang);	
 	}
 	circle(buffer, boat->atr.pos.x,boat->atr.pos.y ,boat->atr.raio,makecol(255, 0, 0));
 }
@@ -116,7 +116,7 @@ void controlaBote2(BITMAP *buffer, bote *boat, double deltaT)
 			
 			ang = rotacaoBote(dir);
 			moveBote(dir,0,boat,deltaT);
-			rotate_sprite(buffer, boat->atr.desenho, boat->atr.pos.x, boat->atr.pos.y, ang);
+			rotate_sprite(buffer, boat->atr.desenho, boat->atr.pos.x-26, boat->atr.pos.y-42, ang);
 		}
 		else if (key[KEY_D])
 		{
@@ -125,13 +125,13 @@ void controlaBote2(BITMAP *buffer, bote *boat, double deltaT)
 			
 			ang = rotacaoBote(dir);
 			moveBote(dir,0,boat,deltaT);
-			rotate_sprite(buffer, boat->atr.desenho, boat->atr.pos.x, boat->atr.pos.y, ang);
+			rotate_sprite(buffer, boat->atr.desenho, boat->atr.pos.x-26, boat->atr.pos.y-42, ang);
 		}
 		else if (key[KEY_W])/*propulsao*/
 		{
 			ang = rotacaoBote(dir);
 			moveBote(dir,ACELERACAO,boat,deltaT);
-			rotate_sprite(buffer, boat->atr.desenho, boat->atr.pos.x, boat->atr.pos.y, ang);	
+			rotate_sprite(buffer, boat->atr.desenho, boat->atr.pos.x-26, boat->atr.pos.y-42, ang);	
 		}
 		else if (key[KEY_S])/*freio*/
 		{
@@ -141,20 +141,20 @@ void controlaBote2(BITMAP *buffer, bote *boat, double deltaT)
 				moveBote(dir,(-1)*modulo(boat->atr.vel),boat, deltaT);
 
 			ang = rotacaoBote(dir);
-			rotate_sprite(buffer, boat->atr.desenho, boat->atr.pos.x, boat->atr.pos.y, ang);
+			rotate_sprite(buffer, boat->atr.desenho, boat->atr.pos.x-26, boat->atr.pos.y-42, ang);
 		}
 		else if (key[KEY_SPACE])
 		{
 			ang = rotacaoBote(dir);
 			boat->ancora = '1';
 			moveBote(dir,(-1)*modulo(boat->atr.vel),boat, deltaT);				
-			rotate_sprite(buffer, boat->atr.desenho, boat->atr.pos.x, boat->atr.pos.y, ang);	
+			rotate_sprite(buffer, boat->atr.desenho, boat->atr.pos.x-26, boat->atr.pos.y-42, ang);	
 		}
 		else  
 		{
 			ang = rotacaoBote(dir);
 			moveBote(dir,0,boat,deltaT);
-			rotate_sprite(buffer, boat->atr.desenho, boat->atr.pos.x, boat->atr.pos.y, ang);
+			rotate_sprite(buffer, boat->atr.desenho, boat->atr.pos.x-26, boat->atr.pos.y-42, ang);
 		}
 	}
 	else
@@ -163,7 +163,7 @@ void controlaBote2(BITMAP *buffer, bote *boat, double deltaT)
 			boat->ancora = '0';
 		
 		ang = rotacaoBote(dir);
-		rotate_sprite(buffer, boat->atr.desenho, boat->atr.pos.x, boat->atr.pos.y, ang);	
+		rotate_sprite(buffer, boat->atr.desenho, boat->atr.pos.x-26, boat->atr.pos.y-42, ang);	
 	}
 	circle(buffer, boat->atr.pos.x,boat->atr.pos.y ,boat->atr.raio,makecol(255, 0, 0));
 }
@@ -175,7 +175,7 @@ void imprimePessoas(BITMAP *buffer, lista_pessoas pessoas)
 
 	while( aux != NULL)
 	{
-		draw_sprite(buffer, aux -> pss.atr.desenho, aux -> pss.atr.pos.x, aux -> pss.atr.pos.y);
+		draw_sprite(buffer, aux -> pss.atr.desenho, aux -> pss.atr.pos.x-18, aux -> pss.atr.pos.y-16);
 		circle(buffer, aux->pss.atr.pos.x,aux->pss.atr.pos.y ,aux->pss.atr.raio,makecol(255, 0, 0));
 		aux = aux -> prox;
 	}
@@ -192,7 +192,7 @@ void imprimeEstaticos(BITMAP *buffer, lista_estaticos estat)
 		if( aux -> stc.tipo == 'r' )
 			draw_sprite(buffer, aux->stc.desenho, aux->stc.pos.x, aux->stc.pos.y);
 		else
-			draw_sprite(buffer, aux->stc.desenho, aux->stc.pos.x-132, aux->stc.pos.y-66);
+			draw_sprite(buffer, aux->stc.desenho, aux->stc.pos.x-155, aux->stc.pos.y-66);
 
 	 circle(buffer, aux->stc.pos.x,aux->stc.pos.y ,aux->stc.raio,makecol(255, 0, 0));
 	 aux = aux -> prox;
