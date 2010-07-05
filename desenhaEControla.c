@@ -3,6 +3,8 @@
 #include "bib/desloc.h"
 #include "bib/desenhaEControla.h"
 #include "entidades/botes.h"
+#include "configurador/configs.h"
+
 
 #define ACELERACAO 10
 #define FREIO 20
@@ -15,7 +17,7 @@ void imprimeMar(lista_pessoas lista_p, lista_estaticos lista_e, lista_botes list
  
 	/* Imprime o fundo */
 	fundo = load_bitmap("imagens/mar.bmp",desktop_palette);	 
-	blit(fundo, buffer,0,0,0,0, 1024, 768);	/* alterar o tamanho da imagem com o da tela */
+	blit(fundo, buffer,0,0,0,0, tela.comprimento, tela.altura);	/* alterar o tamanho da imagem com o da tela */
 	
 	/* Imprime as pessoas */
 	imprimePessoas(buffer, lista_p);
@@ -209,43 +211,43 @@ void imprimeCabecalho(BITMAP *buffer, lista_botes botes)
 
 
 	/* NOME DOS JOGADORES */
-	textout_ex(buffer, font, "Jogador1", 30, 20, makecol(0, 0, 255), -1);
-	textout_ex(buffer, font, "Jogador2", 930, 20, makecol(255, 0, 0), -1);
+	textout_ex(buffer, font, "Jogador1", 10, 20, makecol(0, 0, 255), -1);
+	textout_ex(buffer, font, "Jogador2", tela.comprimento-70, 20, makecol(255, 0, 0), -1);
 
 	/* VIDAS */
 	coracao = load_bitmap("imagens/coracao.bmp",desktop_palette);
 	
-	textprintf_ex(buffer, font, 120, 20, makecol(0, 0, 255), -1, "%u x", botes -> prox -> bt.vidas);
-	draw_sprite(buffer, coracao, 150, 10);
+	textprintf_ex(buffer, font, 100, 20, makecol(0, 0, 255), -1, "%u x", botes -> prox -> bt.vidas);
+	draw_sprite(buffer, coracao, 130, 10);
 	
-	textprintf_ex(buffer, font, 780, 20, makecol(255, 0, 0), -1, "%u x", botes ->  bt.vidas);
-	draw_sprite(buffer, coracao, 810, 10);
+	textprintf_ex(buffer, font, tela.comprimento-210, 20, makecol(255, 0, 0), -1, "%u x", botes ->  bt.vidas);
+	draw_sprite(buffer, coracao, tela.comprimento-180, 10);
 
 	/* CARGA */
 	pessoa = load_bitmap("imagens/pessoa2.bmp",desktop_palette);
 	
-	textprintf_ex(buffer, font, 190, 20, makecol(0, 0, 255), -1, "%u x", botes -> prox -> bt.carga);
-	draw_sprite(buffer, pessoa, 220, 15);
+	textprintf_ex(buffer, font, 170, 20, makecol(0, 0, 255), -1, "%u x", botes -> prox -> bt.carga);
+	draw_sprite(buffer, pessoa, 200, 15);
 	
-	textprintf_ex(buffer, font, 850, 20, makecol(255, 0, 0), -1, "%u x", botes -> bt.carga);
-	draw_sprite(buffer, pessoa, 880, 15);
+	textprintf_ex(buffer, font, tela.comprimento-140, 20, makecol(255, 0, 0), -1, "%u x", botes -> bt.carga);
+	draw_sprite(buffer, pessoa, tela.comprimento-110, 15);
 
 
 	/* PONTOS */
-	textprintf_ex(buffer, font, 260, 20, makecol(0, 0, 255), -1, "%d", botes -> prox -> bt.pontos);
-	textprintf_ex(buffer, font, 720, 20, makecol(255, 0, 0), -1, "%d", botes -> bt.pontos);
+	textprintf_ex(buffer, font, 235, 20, makecol(0, 0, 255), -1, "%d", botes -> prox -> bt.pontos);
+	textprintf_ex(buffer, font, tela.comprimento-265, 20, makecol(255, 0, 0), -1, "%d", botes -> bt.pontos);
 
 	/* ANCORAS */
 	if( botes -> prox -> bt.ancora == '1')
 	{
 		ancora = load_bitmap("imagens/ancora1.bmp",desktop_palette);
-		draw_sprite(buffer, ancora, 320, 10);
+		draw_sprite(buffer, ancora, 285, 10);
 		destroy_bitmap(ancora);
 	}
 	if( botes -> bt.ancora == '1')
 	{
 		ancora = load_bitmap("imagens/ancora2.bmp",desktop_palette);
-		draw_sprite(buffer, ancora, 670, 10);
+		draw_sprite(buffer, ancora, tela.comprimento-305, 10);
 		destroy_bitmap(ancora);
 	}
 	
