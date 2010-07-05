@@ -20,7 +20,7 @@ lista_botes geraBotes(lista_pessoas lista_p, lista_estaticos lista_e, lista_bote
 	b1.atr.atualizada = 0;
 	b1.atr.raio = R_BOTE;
 	b1.atr.pos.x = rand()%tela.comprimento; 
-	b1.atr.pos.y = rand()%tela.largura;
+	b1.atr.pos.y = rand()%tela.altura;
 	b1.jogador = '1';
 	b1.vidas = vidas_iniciais;
 	b1.carga = 0;
