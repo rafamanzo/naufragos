@@ -5,8 +5,8 @@ ALLEGRO = `allegro-config --cflags --libs`
 #headers
 ENTIDADES_H = entidades/pessoas.h entidades/estaticos.h entidades/botes.h
 
-Naufragos: tipos.o colisao.o desloc.o main.o mar.o botes.o pessoas.o estaticos.o bison.o flex.o 
-	gcc colisao.o desloc.o main.o mar.o tipos.o bison.o flex.o $(ALLEGRO) -lm -lfl -o Naufragos $(CFLAGS)
+Naufragos: tipos.o colisao.o desloc.o main.o mar.o botes.o pessoas.o estaticos.o configurador.o bison.o flex.o 
+	gcc colisao.o desloc.o main.o mar.o tipos.o pessoas.o estaticos.o botes.o bison.o flex.o configurador.o $(ALLEGRO) -lm -lfl -o Naufragos $(CFLAGS)
 
 # Executavel gerado para testes
 #testes: tipos.o colisao.o desloc.o mainTestes.o mar.o 
@@ -30,26 +30,29 @@ main.o: main.c bib/tipos.h bib/colisao.h bib/desloc.h bib/mar.h $(ENTIDADES_H) c
 mar.o: mar.c bib/mar.h bib/tipos.h bib/desloc.h bib/colisao.h $(ENTIDADES_H) configurador/configs.h
 	gcc -c mar.c $(ALLEGRO) $(CFLAGS)
 
-pessoas.o: entidades/pessoas.c bib/tipos.h entidades/pessoas.h
-	gcc -c entidades/pessoas.c $(CFLAGS) -lm
+pessoas.o: entidades/pessoas.c bib/tipos.h entidades/pessoas.h bib/mar.h bib/desloc.h
+	gcc -c entidades/pessoas.c $(ALLEGRO) $(CFLAGS) -lm
 
 estaticos.o: entidades/estaticos.c bib/tipos.h bib/colisao.h entidades/estaticos.h configurador/configs.h
-	gcc -c entidades/pessoas.c $(CFLAGS) -lm
+	gcc -c entidades/estaticos.c $(CFLAGS) -lm
 
 botes.o: entidades/botes.c bib/tipos.h bib/mar.h entidades/botes.h configurador/configs.h
-	gcc -c entidades/pessoas.c $(CFLAGS) -lm
+	gcc -c entidades/botes.c $(CFLAGS) -lm
 
-flex.o: flex.c bison.c
-	gcc -c flex.c
+configurador.o: configurador/configurador.c configurador/configurador.h configurador/configs.h
+	gcc -c configurador/configurador.c -o configurador.o
 
-bison.o: bison.c configurador/configurador.h configurador/configs.h configurador/highscores.h
-	gcc -c bison.c
+flex.o: configurador/flex.c configurador/bison.c
+	gcc -c configurador/flex.c -o flex.o
 
-flex.c: configurador/configurador.l configurador/configurador.h
-	flex -oflex.c configurador/configurador.l
+bison.o: configurador/bison.c configurador/configurador.h configurador/configs.h configurador/highscores.h
+	gcc -c configurador/bison.c -o bison.o
 
-bison.c: configurador/configurador.y
-	bison -d -obison.c configurador/configurador.y
+configurador/flex.c: configurador/configurador.l configurador/configurador.h
+	flex -oconfigurador/flex.c configurador/configurador.l
+
+configurador/bison.c: configurador/configurador.y
+	bison -d -oconfigurador/bison.c configurador/configurador.y
 
 
 # Limpeza
@@ -57,6 +60,8 @@ bison.c: configurador/configurador.y
 .PHONY: clean clean-temp real-clean
 clean:
 	rm *.o
+	rm configurador/bison.*
+	rm configurador/flex.*
 clean-temp:
 	rm *~
 # Cuidado ao usar o make real-clean, pois ele removera TODO o conteudo da pasta!

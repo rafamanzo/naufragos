@@ -12,8 +12,8 @@
 #include "entidades/estaticos.h"
 #include "configurador/configs.h"
 
-#define VERCOLISAO if(COLISAO) circle(buffer, proximo->p.pos.x,proximo->p.pos.y ,proximo->p.raio, VERMELHO);
-#define COLISAO 0 /* Se quiser ver os circulos da colisao setar 1 */
+/*#define VERCOLISAO if(COLISAO) circle(buffer, proximo->p.pos.x,proximo->p.pos.y ,proximo->p.raio, VERMELHO);
+#define COLISAO 0 *//* Se quiser ver os circulos da colisao setar 1 */
 
 int validaPos(lista_pessoas lista_p, lista_estaticos lista_e, lista_botes lista_b, pessoa * p, estatico * e, bote * b)
 {
@@ -179,13 +179,13 @@ lista_pessoas atualizaMar(lista_pessoas lista_p, lista_estaticos lista_e, lista_
 				movePessoa(&aux_p->pss,deltaT);
 
 			if( (aux_p->pss.atr.pos.y - aux_p->pss.atr.raio) < 0)
-				colidePessoaComBorda(lista_p, lista_e, lista_b, &aux_p->pss);				
+				colidePessoaComBorda(lista_p, lista_e, lista_b, 0, &aux_p->pss);				
 			else if( (aux_p->pss.atr.pos.y + aux_p->pss.atr.raio) > tela.altura)
-				colidePessoaComBorda(lista_p, lista_e, lista_b, &aux_p->pss);
+				colidePessoaComBorda(lista_p, lista_e, lista_b, 1, &aux_p->pss);
 			else if( (aux_p->pss.atr.pos.x - aux_p->pss.atr.raio) < 0)
-				colidePessoaComBorda(lista_p, lista_e, lista_b, &aux_p->pss);
+				colidePessoaComBorda(lista_p, lista_e, lista_b, 2, &aux_p->pss);
 			else if( (aux_p->pss.atr.pos.x + aux_p->pss.atr.raio) > tela.comprimento )
-				colidePessoaComBorda(lista_p, lista_e, lista_b, &aux_p->pss);		
+				colidePessoaComBorda(lista_p, lista_e, lista_b, 3, &aux_p->pss);		
 		}
 		
 		aux_p = aux_p -> prox;
@@ -228,14 +228,14 @@ void imprimeMar(lista_pessoas lista_p, lista_estaticos lista_e, lista_botes list
 		{	
       circlefill(buffer, aux_e->stc.pos.x ,aux_e->stc.pos.y ,aux_e->stc.raio, MARROM);
 			/*rectfill(buffer, (aux_e->stc.pos.x) - aux_e->stc.raio/sqrt(2),(aux_e->stc.pos.y)+aux_e->stc.raio/sqrt(2),(aux_e->stc.pos.x)+aux_e->stc.raio/sqrt(2),(aux_e->stc.pos.y)-aux_e->stc.raio/sqrt(2), MARROM);*/
-			VERCOLISAO	
+			/*VERCOLISAO*/	
 		}
 
 		else if( aux_e->stc.tipo == 'a')
 		{
       circlefill(buffer, aux_e->stc.pos.x ,aux_e->stc.pos.y ,aux_e->stc.raio, VERDE);
 			/*rectfill(buffer, (aux_e->stc.pos.x)-65, (aux_e->stc.pos.y)+60, (aux_e->stc.pos.x)+65, (aux_e->stc.pos.y) - 60, VERDE);*/
-			VERCOLISAO	
+			/*VERCOLISAO*/	
 		}
 
 
@@ -248,13 +248,13 @@ void imprimeMar(lista_pessoas lista_p, lista_estaticos lista_e, lista_botes list
 		if( aux_b->bt.jogador == 1 )
 		{
 			triangle(buffer, (aux_b->bt.atr.pos.x-15), (aux_b->bt.atr.pos.y-17), (aux_b->bt.atr.pos.x), (aux_b->bt.atr.pos.y+20), (aux_b->bt.atr.pos.x+15), (aux_b->bt.atr.pos.y-17),LARANJA);
-			VERCOLISAO		
+			/*VERCOLISAO*/		
 		}
 
 		else if( aux_b->bt.jogador == 2 )
 		{
 			triangle(buffer, (aux_b->bt.atr.pos.x-15), (aux_b->bt.atr.pos.y-17), (aux_b->bt.atr.pos.x), (aux_b->bt.atr.pos.y+20), (aux_b->bt.atr.pos.x+15), (aux_b->bt.atr.pos.y-17),BRANCO);
-			VERCOLISAO			
+			/*VERCOLISAO*/			
 		}
 
 

@@ -1,5 +1,7 @@
 %{
   #include <string.h>
+  #include <stdlib.h>
+  #include <stdio.h>
   #include "configurador.h"
   #include "bison.h"
 %}
@@ -31,3 +33,11 @@
 .|\n      {return yytext[0];}
 
 %%
+
+int inicFlex(){
+  yyin = fopen("configurador/config.sys", "r");
+  if(yyin == NULL){
+    printf("Arquivo de configuracao nao pode ser aberto!\n");
+    exit(-1);
+  }
+}

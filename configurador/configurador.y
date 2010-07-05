@@ -59,36 +59,3 @@ exp : di exp line { }
 %%
 yyerror(char *s) {
 }
-
-int inicConfigurador(){
-  colocacao = 0;
-  pessoas.jogador1=NULL;
-  pessoas.jogador2=NULL;
-  tela.comprimento=800;
-  tela.altura=600;
-  vidas_iniciais=5;
-  velocidade_maxima=10;
-  velocidade_minima=5;
-  frequencia_criacao_pessoas=1;
-  velocidade_criacao_pessoas=2;
-  numero_recifes=10;
-}
-
-/*int main(){
-  colocacao = 0;
-  pessoas.jogador1=NULL;
-  pessoas.jogador2=NULL;
-  
-  yyparse();
-
-  printf("\nTela %dx%d", tela.comprimento, tela.altura);
-  printf("\nJogador 1 %s", pessoas.jogador1);
-  printf("\nJogador 2 %s", pessoas.jogador2);
-  printf("\nHighscore %s: %d", highscores[0].nome, highscores[0].pontuacao);
-  printf("\nVidas iniciais %d", vidas_iniciais);
-  printf("\nVmax %d", velocidade_maxima);
-  printf("\nvmin %d", velocidade_minima);
-  printf("\nfcp %d", frequencia_criacao_pessoas);
-  printf("\nvcp %d", velocidade_criacao_pessoas);
-  printf("\nNumero recifes %d", numero_recifes);
-}*/

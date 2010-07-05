@@ -1,6 +1,9 @@
 #include <stdlib.h>
 #include <math.h>
+#include <allegro.h>
 #include "../bib/tipos.h"
+#include "../bib/desloc.h"
+#include "../bib/mar.h"
 #include "../configurador/configs.h"
 #include "pessoas.h"
 
@@ -28,7 +31,7 @@ lista_pessoas geraPessoas(lista_pessoas lista_p, lista_estaticos lista_e, lista_
 				break;
 			case 2:
 				p.atr.pos.x = rand()%tela.comprimento - p.atr.raio;
-				p.atr.pos.y = p.raio;
+				p.atr.pos.y = p.atr.raio;
 				break;
 			case 3:
 				p.atr.pos.x = rand()%tela.comprimento - p.atr.raio;
@@ -38,7 +41,7 @@ lista_pessoas geraPessoas(lista_pessoas lista_p, lista_estaticos lista_e, lista_
 
 		p.atr.atualizada = 0;
 
-		if( validaPos(lista_pessoas lista_p, lista_estaticos lista_e, lista_botes lista_b, &p, NULL, NULL) ) 
+		if( validaPos(lista_p, lista_e, lista_b, &p, NULL, NULL) ) 
 			lista_p = inserePessoa(lista_p, p);
     else
       cont--;
@@ -110,3 +113,11 @@ void colidePessoas(pessoa *p1, pessoa *p2, double deltaT)
   
 }
 
+void colidePessoaBote(pessoa *p, double deltaT){
+  p->atr.vel.x*=-1;
+  p->atr.vel.y*=-1;
+
+  movePessoa(p, deltaT);
+
+  p->atr.atualizada=1;
+}

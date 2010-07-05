@@ -1,6 +1,8 @@
 #include <stdlib.h>
 #include <math.h>
+#include <allegro.h>
 #include "../bib/tipos.h"
+#include "../bib/desloc.h"
 #include "../bib/mar.h"
 #include "../configurador/configs.h"
 #include "botes.h"
@@ -12,7 +14,7 @@ lista_botes geraBotes(lista_pessoas lista_p, lista_estaticos lista_e, lista_bote
 	b1.atr.atualizada = 0;
 	b1.atr.raio = R_BOTE;
 	b1.jogador = 1;
-	b1.vidas = vidas_max;
+	b1.vidas = vidas_iniciais;
 	b1.carga = 0;
 
 	boteBorda(lista_p, lista_e, lista_b, &b1);
@@ -22,7 +24,7 @@ lista_botes geraBotes(lista_pessoas lista_p, lista_estaticos lista_e, lista_bote
 	b2.atr.atualizada = 0;
 	b2.atr.raio = R_BOTE;
 	b2.jogador = 2;
-	b2.vidas = vidas_max;
+	b2.vidas = vidas_iniciais;
 	b2.carga = 0;
 
  	boteBorda(lista_p, lista_e, lista_b, &b2);
@@ -50,18 +52,18 @@ void boteBorda(lista_pessoas lista_p, lista_estaticos lista_e, lista_botes lista
 		}
 		else if(novaBorda == 1)  /* Canto superior direito */
 		{
-			bote->atr.pos.x = tela.comprimento - b->atr.raio;
-			bote->atr.pos.y = b->atr.raio;
+			b->atr.pos.x = tela.comprimento - b->atr.raio;
+			b->atr.pos.y = b->atr.raio;
 		}
 		else if(novaBorda == 2) /* Canto inferior direito */
 		{
-			bote->atr.pos.x = tela.comprimento - b->atr.raio;
-			bote->atr.pos.y = tela.altura - b->atr.raio;
+			b->atr.pos.x = tela.comprimento - b->atr.raio;
+			b->atr.pos.y = tela.altura - b->atr.raio;
 		}
 		else if(novaBorda == 3) /* Canto inferior esquerdo */
 		{
-			bote->atr.pos.x = bote->atr.raio;
-			bote->atr.pos.y = tela.altura - b->atr.raio;
+			b->atr.pos.x = b->atr.raio;
+			b->atr.pos.y = tela.altura - b->atr.raio;
 		}
 	}
 }
@@ -114,8 +116,8 @@ void colideBotes(bote *b1, bote *b2, double deltaT)
     
 	vetor aux_vel;
 
-	aux_vel = p1->atr.vel; 
-	b1->atr.vel = p2->atr.vel;
+	aux_vel = b1->atr.vel; 
+	b1->atr.vel = b2->atr.vel;
 	b2->atr.vel = aux_vel;
 
 	moveBote(b1,deltaT);

@@ -1,7 +1,12 @@
 #include <stdlib.h>
 #include <math.h>
+#include <allegro.h>
 #include "../bib/tipos.h"
 #include "../bib/colisao.h"
+#include "../bib/desloc.h"
+#include "../bib/mar.h"
+#include "pessoas.h"
+#include "botes.h"
 #include "../configurador/configs.h"
 #include "estaticos.h"
 
@@ -35,8 +40,8 @@ lista_estaticos geraRecifes(lista_pessoas lista_p, lista_estaticos lista_e, list
 
 	for(cont = 0; cont < numRecifes; cont++)
 	{
-		r.atr.pos.x = rand()%tela.comprimento;
-		r.atr.pos.y = rand()%tela.altura;
+		r.pos.x = rand()%tela.comprimento;
+		r.pos.y = rand()%tela.altura;
 		r.tipo = 'r';
 
 		decideTam = rand()%3; 
@@ -246,7 +251,7 @@ void colideBoteEstatico(estatico imovel, bote *b, double deltaT)
 	      	break;
 	   	/*casos ruins*/
 	    case NE:
-		dif  = diferencaAngulos(imovel, b->atr->pos, b->atr->vel, NE);
+		dif  = diferencaAngulos(imovel, b->atr.pos, b->atr.vel, NE);
 	      	if(dif == 0)
 		{
 			b->atr.vel.y *= -1;
@@ -269,7 +274,7 @@ void colideBoteEstatico(estatico imovel, bote *b, double deltaT)
 	      	}
 	      	break;
 	    case NO:
-		dif  = diferencaAngulos(imovel, b->atr->pos, b->atr->vel, NO);
+		dif  = diferencaAngulos(imovel, b->atr.pos, b->atr.vel, NO);
 	       	if(dif == 0)
 		{
 			b->atr.vel.y *= -1;
@@ -291,7 +296,7 @@ void colideBoteEstatico(estatico imovel, bote *b, double deltaT)
 	      	}
 	      	break;
 	    case SE:
-		dif  = diferencaAngulos(imovel, b->atr->pos, b->atr->vel, SE);
+		dif  = diferencaAngulos(imovel, b->atr.pos, b->atr.vel, SE);
 	      	if(dif == 0)
 		{
 			b->atr.vel.y *= -1;
@@ -313,7 +318,7 @@ void colideBoteEstatico(estatico imovel, bote *b, double deltaT)
 	      	}	
 	      	break;
 	    case SO:
-		dif  = diferencaAngulos(imovel, b->atr->pos, b->atr->vel, SO);
+		dif  = diferencaAngulos(imovel, b->atr.pos, b->atr.vel, SO);
 	      	if(dif == 0)
 		{
 			b->atr.vel.y *= -1;

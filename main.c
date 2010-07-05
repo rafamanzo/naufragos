@@ -10,7 +10,7 @@
 #include "entidades/pessoas.h"
 #include "entidades/estaticos.h"
 #include "entidades/botes.h"
-#include "configurador/bison.h"
+#include "configurador/configurador.h"
 #include "configurador/configs.h"
 
 
@@ -73,12 +73,14 @@ int main(int argc, char *argv[])
 		exit(-1);
 	}*/
 
-  	inicConfigurador(); /*inicializa a interface entre o configurador e jogo com valores padrao*/
-  	yyin = fopen("./configurador/config.sys", "r"); /*abre o arquivo de configuracao para leitura*/
+  inicConfigurador(); /*inicializa a interface entre o configurador e jogo com valores padrao*/
  	yyparse(); /*faz a leitura do arquivo de entrada*/
-  	fclose(yyin);
 
-	allegro_init();
+  /*mudar isto depois!!!*/
+  framesPorSegundo=20;
+  tempoMaximo=20;  	
+	
+  allegro_init();
 
 	install_keyboard();
 
