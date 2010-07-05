@@ -87,9 +87,6 @@ int main(int argc, char *argv[])
 
 	set_color_depth(32);
 
-	tela.comprimento = 1024;
-	tela.altura = 768;
-
 	if (set_gfx_mode(GFX_AUTODETECT_WINDOWED, tela.comprimento, tela.altura, 0, 0) < 0)
 	{
 		printf("Erro ao inicializar o modo grafico.\n");
