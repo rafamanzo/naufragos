@@ -73,7 +73,7 @@ lista_pessoas inserePessoa(lista_pessoas raiz, pessoa pss)
   	lista_pessoas nova;
   	nova = NULL;
   
-  	nova = malloc(sizeof(lista_pessoas));
+  	nova = (struct lst_pss *)malloc(sizeof(struct lst_pss));
   	if(nova == NULL)
 	{
     		printf("Falha ao allocar novo elemento da lista\n");  
@@ -126,7 +126,7 @@ lista_botes insereBote(lista_botes raiz, bote bt)
   	lista_botes nova;
   	nova = NULL;
   
-  	nova = malloc(sizeof(lista_botes));
+  	nova = (struct lst_bt *)malloc(sizeof(struct lst_bt));
   	if(nova == NULL)
 	{
     		printf("Falha ao alocar novo elemento da lista\n");  
@@ -179,7 +179,7 @@ lista_estaticos insereObjeto(lista_estaticos raiz, estatico objeto)
   	lista_estaticos nova;
   	nova = NULL;
   
-  	nova = malloc(sizeof(lista_estaticos));
+  	nova = (struct lst_stc *)malloc(sizeof(struct lst_stc));
   	if(nova == NULL)
 	{
     		printf("Falha ao allocar novo elemento da lista\n");  
