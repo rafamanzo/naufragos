@@ -25,11 +25,12 @@ lista_botes geraBotes(lista_pessoas lista_p, lista_estaticos lista_e, lista_bote
 	boteBorda(lista_p, lista_e, lista_b, &b1);
 
 	lista_b = insereBote(lista_b, b1);
+	printf("Inseriu o primeiro bote.\n");
 
 	b2.atr.desenho = load_bitmap("../imagens/bote2.bmp",desktop_palette);
 	b2.atr.atualizada = 0;
 	b2.atr.raio = R_BOTE;
-	b2.atr.pos.x = rand()%1025; /* MUDAR AQUI */
+	b2.atr.pos.x = rand()%1025; /* MUDAR AQUI*/ 
 	b2.atr.pos.y = rand()%768;
 	b2.jogador = '2';
 	b2.vidas = vidas_iniciais;
@@ -40,7 +41,7 @@ lista_botes geraBotes(lista_pessoas lista_p, lista_estaticos lista_e, lista_bote
  	boteBorda(lista_p, lista_e, lista_b, &b2);
 
 	lista_b = insereBote(lista_b, b2);
-
+	printf("Inseriu o segundo bote.\n");
 	return lista_b;
 }
 

@@ -137,8 +137,9 @@ OBS: se a estrutura for um bote, a existencia de pessoas não impossibilita a su
 				if(b != &aux_b->bt)
 					return 0;
 
-				aux_b = aux_b->prox;
+				
 			}
+			aux_b = aux_b->prox;
 		}
 	}
 

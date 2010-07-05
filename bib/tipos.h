@@ -1,4 +1,5 @@
 #include <allegro.h>
+
 struct vtr{
   	double x, y;
 	};

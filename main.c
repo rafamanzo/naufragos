@@ -99,8 +99,11 @@ int main(int argc, char *argv[])
 	set_palette(desktop_palette);
 
 	lista_e = geraAsimov(lista_p, lista_e, lista_b);
+	printf("Gerou o Asimov com sucesso.\n");
 	lista_e = geraRecifes(lista_p, lista_e, lista_b, numero_recifes);
+	printf("Gerou os recifes com sucesso.\n");
 	lista_b = geraBotes(lista_p, lista_e, lista_b);
+	printf("Gerou os botes com sucesso.\n");
 
   	inicio = clock();
   	anterior = 0;
@@ -127,7 +130,7 @@ int main(int argc, char *argv[])
 				acumulador = 0.0;
 			}
 			acumulador += deltaT;	
-     			 anterior = clock();
+     			anterior = clock();
     		} 
     
 
