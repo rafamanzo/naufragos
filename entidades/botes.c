@@ -14,6 +14,8 @@ lista_botes geraBotes(lista_pessoas lista_p, lista_estaticos lista_e, lista_bote
 	b1.atr.desenho = load_bitmap("../imagens/bote1.bmp",desktop_palette);
 	b1.atr.atualizada = 0;
 	b1.atr.raio = R_BOTE;
+	b1.atr.pos.x = rand()%1025; /* MUDAR AQUI */
+	b1.atr.pos.y = rand()%768;
 	b1.jogador = '1';
 	b1.vidas = vidas_iniciais;
 	b1.carga = 0;
@@ -27,6 +29,8 @@ lista_botes geraBotes(lista_pessoas lista_p, lista_estaticos lista_e, lista_bote
 	b2.atr.desenho = load_bitmap("../imagens/bote2.bmp",desktop_palette);
 	b2.atr.atualizada = 0;
 	b2.atr.raio = R_BOTE;
+	b2.atr.pos.x = rand()%1025; /* MUDAR AQUI */
+	b2.atr.pos.y = rand()%768;
 	b2.jogador = '2';
 	b2.vidas = vidas_iniciais;
 	b2.carga = 0;
