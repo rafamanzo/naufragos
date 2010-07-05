@@ -134,6 +134,7 @@ void detectaColisao(lista_pessoas *lista_p, lista_estaticos *lista_e, lista_bote
 					descarregaPessoas(&ant_b->bt);		
 
 			}
+      aux_e = aux_e->prox;
     		} 
     ant_b = atual_b;
   	}  
