@@ -12,9 +12,9 @@ lista_botes geraBotes(lista_pessoas lista_p, lista_estaticos lista_e, lista_bote
 {
 	bote b1,b2;
 
-	b1.atr.desenho = load_bitmap("../imagens/bote1.bmp",desktop_palette);
+	b1.atr.desenho = load_bitmap("imagens/bote1.bmp",desktop_palette);
   if(b1.atr.desenho == NULL){
-    printf("Nao foi possivel carregar a imagem do bote...\n");
+    printf("1 Nao foi possivel carregar a imagem do bote...\n");
     exit(-1);
   }
 	b1.atr.atualizada = 0;
@@ -32,8 +32,8 @@ lista_botes geraBotes(lista_pessoas lista_p, lista_estaticos lista_e, lista_bote
 	lista_b = insereBote(lista_b, b1);
 	printf("Inseriu o primeiro bote.\n");
 
-	b2.atr.desenho = load_bitmap("../imagens/bote2.bmp",desktop_palette);
-  if(b1.atr.desenho == NULL){
+	b2.atr.desenho = load_bitmap("imagens/bote2.bmp",desktop_palette);
+  if(b2.atr.desenho == NULL){
     printf("Nao foi possivel carregar a imagem do bote...\n");
     exit(-1);
   }

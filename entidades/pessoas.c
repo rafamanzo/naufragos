@@ -17,7 +17,7 @@ lista_pessoas geraPessoas(lista_pessoas lista_p, lista_estaticos lista_e, lista_
 		p.atr.vel.x = (rand()%(int)((velocidade_maxima + 1 - velocidade_minima))) + velocidade_minima;
 		p.atr.vel.y = (rand()%(int)((velocidade_maxima + 1 - velocidade_minima))) + velocidade_minima;
 
-		p.atr.desenho = load_bitmap("../imagens/pessoa.bmp",desktop_palette);
+		p.atr.desenho = load_bitmap("imagens/pessoa.bmp",desktop_palette);
 		p.atr.raio = R_PESS;		
 		
 		switch (rand()%4)
