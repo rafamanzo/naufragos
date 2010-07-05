@@ -39,8 +39,8 @@ lista_botes geraBotes(lista_pessoas lista_p, lista_estaticos lista_e, lista_bote
   }
 	b2.atr.atualizada = 0;
 	b2.atr.raio = R_BOTE;
-	b2.atr.pos.x = rand()%1025; /* MUDAR AQUI*/ 
-	b2.atr.pos.y = rand()%768;
+	b2.atr.pos.x = rand()%tela.comprimento; /* MUDAR AQUI*/ 
+	b2.atr.pos.y = rand()%tela.altura;
 	b2.jogador = '2';
 	b2.vidas = vidas_iniciais;
 	b2.carga = 0;
