@@ -108,8 +108,11 @@ void detectaColisao(lista_pessoas *lista_p, lista_estaticos *lista_e, lista_bote
         			/*colisao com recife*/
         			if(aux_e->stc.tipo == 'r')
 				{
-          				colideBoteEstatico(aux_e->stc, &ant_b->bt, deltaT);
-          			}
+          				boteBorda(*lista_p, *lista_e, *lista_b, &ant_b->bt);
+            				*lista_p = geraPessoas(*lista_p, *lista_e, *lista_b, ant_b->bt.carga);
+            				ant_b->bt.carga = 0;
+          				
+        			}
 				else
 				{
           				colideBoteEstatico(aux_e->stc, &ant_b->bt, deltaT);
