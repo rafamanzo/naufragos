@@ -10,7 +10,7 @@ void imprimeMar(lista_pessoas lista_p, lista_estaticos lista_e, lista_botes list
 	buffer = create_bitmap(screen->w, screen->h);
  
 	/* Imprime o fundo */
-	fundo = load_bitmap("mar.bmp",desktop_palette);	 
+	fundo = load_bitmap("imagens/mar.bmp",desktop_palette);	 
 	blit(fundo, buffer,0,0,0,0, 1024, 768);	/* alterar o tamanho da imagem com o da tela */
 	
 	/* Imprime as pessoas */
