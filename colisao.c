@@ -11,7 +11,7 @@
 #include <stdio.h>
 #include <math.h>
 
-#define CAP_BOTE 5
+#define CAP_BOTE 10
 
 void detectaColisao(lista_pessoas *lista_p, lista_estaticos *lista_e, lista_botes *lista_b, double deltaT)
 {
@@ -108,18 +108,8 @@ void detectaColisao(lista_pessoas *lista_p, lista_estaticos *lista_e, lista_bote
         			/*colisao com recife*/
         			if(aux_e->stc.tipo == 'r')
 				{
-          				/*bote encalha com 66% de probabilidade*/
-          				if(rand()%3 < 1)
-					{
-            					boteBorda(*lista_p, *lista_e, *lista_b, &ant_b->bt);
-            					*lista_p = geraPessoas(*lista_p, *lista_e, *lista_b, ant_b->bt.carga);
-            					ant_b->bt.carga = 0;
-          				}
-					else
-					{
-            					colideBoteEstatico(aux_e->stc, &ant_b->bt, deltaT);
-          				}
-        			}
+          				colideBoteEstatico(aux_e->stc, &ant_b->bt, deltaT);
+          			}
 				else
 				{
           				colideBoteEstatico(aux_e->stc, &ant_b->bt, deltaT);
