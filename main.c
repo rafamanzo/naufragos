@@ -7,6 +7,7 @@
 #include "bib/colisao.h"
 #include "bib/desloc.h"
 #include "bib/mar.h"
+#include "bib/desenhaEControla.h"
 #include "entidades/pessoas.h"
 #include "entidades/estaticos.h"
 #include "entidades/botes.h"
@@ -23,9 +24,9 @@ int main(int argc, char *argv[])
 	double deltaT, acumulador;
 
 	clock_t inicio, anterior, var;
-	lista_pessoas lista_p;
-  	lista_estaticos lista_e;
-  	lista_botes lista_b;
+	lista_pessoas lista_p = NULL;
+  	lista_estaticos lista_e = NULL;
+  	lista_botes lista_b = NULL;
 
 	srand(time(NULL));
 	
@@ -86,6 +87,9 @@ int main(int argc, char *argv[])
 
 	set_color_depth(32);
 
+	tela.comprimento = 1024;
+	tela.altura = 768;
+
 	if (set_gfx_mode(GFX_AUTODETECT_WINDOWED, tela.comprimento, tela.altura, 0, 0) < 0)
 	{
 		printf("Erro ao inicializar o modo grafico.\n");
@@ -115,8 +119,8 @@ int main(int argc, char *argv[])
 			else
 				lista_p = atualizaMar(lista_p, lista_e, lista_b, deltaT, 0);
 
-      			imprimeMar(lista_p, lista_e, lista_b);
-			
+      			imprimeMar(lista_p, lista_e, lista_b,deltaT);
+
 			if( acumulador >= frequencia_criacao_pessoas )
 			{
 				lista_p = geraPessoas(lista_p, lista_e, lista_b, (int) (velocidade_criacao_pessoas*frequencia_criacao_pessoas));				

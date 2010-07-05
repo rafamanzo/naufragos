@@ -14,8 +14,9 @@ lista_estaticos geraAsimov(lista_pessoas lista_p, lista_estaticos lista_e, lista
 {
 	estatico asimov;
 
-	asimov.pos.x = rand()%tela.comprimento;
-	asimov.pos.y = rand()%tela.altura;
+	asimov.desenho = load_bitmap("../imagens/asimov.bmp",desktop_palette);
+	asimov.pos.x = rand()%/*tela.comprimento*/1025; /* MUDAR AQUI!!!!!!! #### ## ## #*/
+	asimov.pos.y = rand()%/*tela.altura*/768;
 	asimov.raio = R_ASIMOV;
 	asimov.tipo = 'a';
 
@@ -40,6 +41,7 @@ lista_estaticos geraRecifes(lista_pessoas lista_p, lista_estaticos lista_e, list
 
 	for(cont = 0; cont < numRecifes; cont++)
 	{
+		r.desenho = load_bitmap("../imagens/recife.bmp",desktop_palette);
 		r.pos.x = rand()%tela.comprimento;
 		r.pos.y = rand()%tela.altura;
 		r.tipo = 'r';
@@ -342,7 +344,7 @@ void colideBoteEstatico(estatico imovel, bote *b, double deltaT)
 	  }
 
 	  while(distancia(b->atr.pos, imovel.pos) < (b->atr.raio + imovel.raio)) 
-		moveBote(b, deltaT);
+		moveBote(dir,0,b, deltaT);
 
 	  b->atr.atualizada = 1;
 }

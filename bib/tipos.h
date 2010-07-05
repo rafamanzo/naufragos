@@ -1,3 +1,4 @@
+#include <allegro.h>
 struct vtr{
   	double x, y;
 	};
@@ -22,9 +23,11 @@ typedef struct pess pessoa;
 
 struct boat{
   	atributos atr;
-  	int jogador; /*jogador 1 ou 2*/
-  	int vidas;
-  	int carga;
+	char jogador; /*jogador '1' ou '2'*/
+	unsigned int vidas;
+	int pontos;
+	unsigned int carga;
+	char ancora;
 	};
 
 typedef struct boat bote;

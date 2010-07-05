@@ -195,7 +195,7 @@ lista_pessoas atualizaMar(lista_pessoas lista_p, lista_estaticos lista_e, lista_
 	return lista_p;
 }
 
-void imprimeMar(lista_pessoas lista_p, lista_estaticos lista_e, lista_botes lista_b)
+/*void imprimeMar(lista_pessoas lista_p, lista_estaticos lista_e, lista_botes lista_b)
 {
 	lista_pessoas aux_p;
 	lista_estaticos aux_e;
@@ -208,18 +208,17 @@ void imprimeMar(lista_pessoas lista_p, lista_estaticos lista_e, lista_botes list
 	clear_to_color(buffer, AZUL);
 
 	
-		/*Imprime as pessoas*/
+
 	
 
 	for(aux_p = lista_p; aux_p != NULL; aux_p = aux_p -> prox)
 	{
 		circlefill(buffer, aux_p->pss.atr.pos.x, aux_p->pss.atr.pos.y ,aux_p->pss.atr.raio, PRETO);                          
-			/*line( buffer , aux_p->pss.atr.pos.x , aux_p->pss.atr.pos.y , aux_p->pss.atr.pos.x + aux_p->pss.atr.vel.x , aux_p->pss.atr.pos.y - aux_p->pss.atr.vel.y , VERMELHO ); Vetor velocidade */	
 
 
 	}
 
-		/*Imprime os estaticos*/
+
 
 
 	for(aux_e = lista_e; aux_e != NULL; aux_e = aux_e -> prox)
@@ -227,34 +226,30 @@ void imprimeMar(lista_pessoas lista_p, lista_estaticos lista_e, lista_botes list
 		if( aux_e->stc.tipo == 'r' )
 		{	
       circlefill(buffer, aux_e->stc.pos.x ,aux_e->stc.pos.y ,aux_e->stc.raio, MARROM);
-			/*rectfill(buffer, (aux_e->stc.pos.x) - aux_e->stc.raio/sqrt(2),(aux_e->stc.pos.y)+aux_e->stc.raio/sqrt(2),(aux_e->stc.pos.x)+aux_e->stc.raio/sqrt(2),(aux_e->stc.pos.y)-aux_e->stc.raio/sqrt(2), MARROM);*/
-			/*VERCOLISAO*/	
 		}
 
 		else if( aux_e->stc.tipo == 'a')
 		{
       circlefill(buffer, aux_e->stc.pos.x ,aux_e->stc.pos.y ,aux_e->stc.raio, VERDE);
-			/*rectfill(buffer, (aux_e->stc.pos.x)-65, (aux_e->stc.pos.y)+60, (aux_e->stc.pos.x)+65, (aux_e->stc.pos.y) - 60, VERDE);*/
-			/*VERCOLISAO*/	
 		}
 
 
 	}
 
-		/*Imprime os botes*/
+
 
 	for(aux_b = lista_b; aux_b != NULL; aux_b = aux_b -> prox)
 	{
 		if( aux_b->bt.jogador == 1 )
 		{
 			triangle(buffer, (aux_b->bt.atr.pos.x-15), (aux_b->bt.atr.pos.y-17), (aux_b->bt.atr.pos.x), (aux_b->bt.atr.pos.y+20), (aux_b->bt.atr.pos.x+15), (aux_b->bt.atr.pos.y-17),LARANJA);
-			/*VERCOLISAO*/		
+
 		}
 
 		else if( aux_b->bt.jogador == 2 )
 		{
 			triangle(buffer, (aux_b->bt.atr.pos.x-15), (aux_b->bt.atr.pos.y-17), (aux_b->bt.atr.pos.x), (aux_b->bt.atr.pos.y+20), (aux_b->bt.atr.pos.x+15), (aux_b->bt.atr.pos.y-17),BRANCO);
-			/*VERCOLISAO*/			
+
 		}
 
 
@@ -264,7 +259,7 @@ void imprimeMar(lista_pessoas lista_p, lista_estaticos lista_e, lista_botes list
 	blit(buffer, screen, 0, 0, 0, 0, screen->w, screen->h);  
 	destroy_bitmap(buffer);
 
-}
+}*/
 
 void liberaMar(lista_pessoas lista_p, lista_estaticos lista_e, lista_botes lista_b)
 {

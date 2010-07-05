@@ -11,21 +11,27 @@ lista_botes geraBotes(lista_pessoas lista_p, lista_estaticos lista_e, lista_bote
 {
 	bote b1,b2;
 
+	b1.atr.desenho = load_bitmap("../imagens/bote1.bmp",desktop_palette);
 	b1.atr.atualizada = 0;
 	b1.atr.raio = R_BOTE;
-	b1.jogador = 1;
+	b1.jogador = '1';
 	b1.vidas = vidas_iniciais;
 	b1.carga = 0;
+	b1.pontos = 0;
+	b1.ancora = '0';
 
 	boteBorda(lista_p, lista_e, lista_b, &b1);
 
 	lista_b = insereBote(lista_b, b1);
 
+	b2.atr.desenho = load_bitmap("../imagens/bote2.bmp",desktop_palette);
 	b2.atr.atualizada = 0;
 	b2.atr.raio = R_BOTE;
-	b2.jogador = 2;
+	b2.jogador = '2';
 	b2.vidas = vidas_iniciais;
 	b2.carga = 0;
+	b2.pontos = 0;
+	b2.ancora = '0';
 
  	boteBorda(lista_p, lista_e, lista_b, &b2);
 
@@ -68,47 +74,6 @@ void boteBorda(lista_pessoas lista_p, lista_estaticos lista_e, lista_botes lista
 	}
 }
 
-void moveBote(bote *b, double deltaT)
-{
-	int dir;
-	double vel;
-
-	vel = modulo(b->atr.vel);
-  dir = direcao(b->atr.vel.x, b->atr.vel.y);
-
-  	switch(dir)
-	{
-    	case L:
-      		b->atr.pos.x += (int) vel*deltaT;
-      		break;
-    	case NE:
-      		b->atr.pos.x += (int) vel*cos(M_PI/4)*deltaT;
-      		b->atr.pos.y += (int) vel*sin(M_PI/4)*(-1)*deltaT;
-      		break;
-    	case N:
-      		b->atr.pos.y += (int) vel*(-1)*deltaT;
-      		break;
-    	case NO:
-      		b->atr.pos.x += (int) vel*cos(M_PI/4)*(-1)*deltaT;
-      		b->atr.pos.y += (int) vel*sin(M_PI/4)*(-1)*deltaT;
-      		break;
-    	case O:
-      		b->atr.pos.x += (int) vel*(-1)*deltaT;
-      		break;
-    	case SO:
-      		b->atr.pos.x += (int) vel*cos(M_PI/4)*(-1)*deltaT;
-      		b->atr.pos.y += (int) vel*sin(M_PI/4)*deltaT;
-     		break;
-    	case S:
-      		b->atr.pos.y += (int) vel*deltaT;
-      		break;
-    	case SE:
-      		b->atr.pos.x += (int) vel*cos(M_PI/4)*deltaT;
-      		b->atr.pos.y += (int) vel*sin(M_PI/4)*deltaT;
-      		break;
-  	}
-}
-
 
 void colideBotes(bote *b1, bote *b2, double deltaT)
 {
@@ -120,8 +85,8 @@ void colideBotes(bote *b1, bote *b2, double deltaT)
 	b1->atr.vel = b2->atr.vel;
 	b2->atr.vel = aux_vel;
 
-	moveBote(b1,deltaT);
-	moveBote(b2,deltaT);
+	moveBote(direcao(b1->atr.vel.x, b1->atr.vel.y),0,b1,deltaT);
+	moveBote(direcao(b2->atr.vel.x, b2->atr.vel.y),0,b2,deltaT);
 
 	if(distancia(b1->atr.pos, b2->atr.pos) > (b1->atr.raio + b2->atr.raio))
 	{
@@ -129,4 +94,84 @@ void colideBotes(bote *b1, bote *b2, double deltaT)
 	  	b2->atr.atualizada = 1;
  	}
   
+}
+
+void moveBote(int dir, double aceleracao, bote *boat, double deltaT)
+{
+ double vel;
+
+	vel = (modulo(boat->atr.vel)+aceleracao);
+
+  	switch(dir)
+	{
+    	case L:
+      		boat->atr.vel.x = (int) vel;
+      		boat->atr.vel.y = 0;
+      		boat->atr.pos.x += (int) vel*deltaT;
+      		break;
+    	case NE:
+      		boat->atr.vel.x = vel*cos(M_PI/4);
+      		boat->atr.vel.y = vel*sin(M_PI/4);
+      		boat->atr.pos.x += (int) vel*cos(M_PI/4)*deltaT;
+      		boat->atr.pos.y -= (int) vel*sin(M_PI/4)*deltaT;
+      		break;
+    	case N:
+      		boat->atr.vel.x = 0;
+      		boat->atr.vel.y = vel;
+      		boat->atr.pos.y -= (int) vel*deltaT;
+      		break;
+    	case NO:
+      		boat->atr.vel.x = vel*cos(M_PI/4)*(-1);
+      		boat->atr.vel.y = vel*sin(M_PI/4);
+      		boat->atr.pos.x += (int) vel*cos(M_PI/4)*(-1)*deltaT;
+      		boat->atr.pos.y -= (int) vel*sin(M_PI/4)*deltaT;
+      		break;
+    	case O:
+      		boat->atr.vel.x = vel*(-1);
+      		boat->atr.vel.y = 0;
+      		boat->atr.pos.x -= (int) vel*deltaT;
+      		break;
+    	case SO:
+      		boat->atr.vel.x = vel*cos(M_PI/4)*(-1);
+      		boat->atr.vel.y = vel*sin(M_PI/4)*(-1);
+      		boat->atr.pos.x += (int) vel*cos(M_PI/4)*(-1)*deltaT;
+      		boat->atr.pos.y -= (int) vel*sin(M_PI/4)*(-1)*deltaT;
+     		break;
+    	case S:
+      		boat->atr.vel.x = 0;
+      		boat->atr.vel.y = vel*(-1);
+      		boat->atr.pos.y -= (int) vel*(-1)*deltaT;
+      		break;
+    	case SE:
+      		boat->atr.vel.x = vel*cos(M_PI/4);
+      		boat->atr.vel.y = vel*sin(M_PI/4)*(-1);
+      		boat->atr.pos.x += (int) vel*cos(M_PI/4)*deltaT;
+      		boat->atr.pos.y -= (int) vel*sin(M_PI/4)*(-1)*deltaT;
+      		break;
+  	}
+}
+
+double rotacaoBote(int dir)
+{
+  	switch(dir)
+	{
+    	case L:
+		return itofix(64);
+    	case NE:
+		return itofix(32);
+    	case N:
+		return itofix(0);
+     	case NO:
+		return itofix(-32);
+    	case O:
+		return itofix(-64); 		
+    	case SO:
+      		return itofix(-96);
+    	case S:
+   		return itofix(128);
+    	case SE:
+      		return itofix(96); 
+   	}
+
+ return 0.0;
 }
