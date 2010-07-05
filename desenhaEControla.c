@@ -199,7 +199,7 @@ void imprimeCabecalho(BITMAP *buffer, lista_botes botes)
 	textout_ex(buffer, font, "Jogador2", 930, 20, makecol(255, 0, 0), -1);
 
 	/* VIDAS */
-	coracao = load_bitmap("../imagens/coracao.bmp",desktop_palette);
+	coracao = load_bitmap("imagens/coracao.bmp",desktop_palette);
 	
 	textprintf_ex(buffer, font, 120, 20, makecol(0, 0, 255), -1, "%u x", botes -> bt.vidas);
 	draw_sprite(buffer, coracao, 150, 10);
@@ -208,7 +208,7 @@ void imprimeCabecalho(BITMAP *buffer, lista_botes botes)
 	draw_sprite(buffer, coracao, 810, 10);
 
 	/* CARGA */
-	pessoa = load_bitmap("../imagens/pessoa2.bmp",desktop_palette);
+	pessoa = load_bitmap("imagens/pessoa2.bmp",desktop_palette);
 	
 	textprintf_ex(buffer, font, 190, 20, makecol(0, 0, 255), -1, "%u x", botes -> bt.carga);
 	draw_sprite(buffer, pessoa, 220, 15);
@@ -224,13 +224,13 @@ void imprimeCabecalho(BITMAP *buffer, lista_botes botes)
 	/* ANCORAS */
 	if( botes -> prox -> bt.ancora == '1')
 	{
-		ancora = load_bitmap("../imagens/ancora1.bmp",desktop_palette);
+		ancora = load_bitmap("imagens/ancora1.bmp",desktop_palette);
 		draw_sprite(buffer, ancora, 320, 10);
 		destroy_bitmap(ancora);
 	}
 	if( botes -> bt.ancora == '1')
 	{
-		ancora = load_bitmap("../imagens/ancora2.bmp",desktop_palette);
+		ancora = load_bitmap("imagens/ancora2.bmp",desktop_palette);
 		draw_sprite(buffer, ancora, 670, 10);
 		destroy_bitmap(ancora);
 	}
