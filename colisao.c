@@ -84,7 +84,7 @@ void detectaColisao(lista_pessoas *lista_p, lista_estaticos *lista_e, lista_bote
 
   	ant_b = *lista_b;
 
-  	while(ant_b == NULL)
+  	while(ant_b != NULL)
 	{
     		atual_b = aux_b = ant_b->prox;
 
@@ -135,6 +135,7 @@ void detectaColisao(lista_pessoas *lista_p, lista_estaticos *lista_e, lista_bote
 
 			}
     		} 
+    ant_b = atual_b;
   	}  
 }
 
