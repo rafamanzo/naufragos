@@ -59,7 +59,7 @@ void detectaColisao(lista_pessoas *lista_p, lista_estaticos *lista_e, lista_bote
 
     		while(aux_b != NULL)
 		{
-      			if(distancia(ant_p->pss.atr.pos, aux_p->pss.atr.pos) < (ant_p->pss.atr.raio + aux_p->pss.atr.raio))
+      			if(distancia(ant_p->pss.atr.pos, aux_b->bt.atr.pos) < (ant_p->pss.atr.raio + aux_b->bt.atr.raio))
 			{
         			if(aux_b->bt.carga < CAP_BOTE)
 				{

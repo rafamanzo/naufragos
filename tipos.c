@@ -94,7 +94,7 @@ lista_pessoas removePessoa(lista_pessoas raiz, lista_pessoas no)
   	atual = raiz;
   	anterior = NULL;
   
-  	while(atual != NULL || atual != no)
+  	while(atual != NULL && atual != no)
 	{
     		anterior = atual;
     	atual = atual->prox;
@@ -146,7 +146,7 @@ lista_botes removeBotes(lista_botes raiz, lista_botes no)
   	atual = raiz;
   	anterior = NULL;
   
-  	while(atual != NULL || atual != no)
+  	while(atual != NULL && atual != no)
 	{
     		anterior = atual;
     		atual = atual->prox;
@@ -199,7 +199,7 @@ lista_estaticos removeObjeto(lista_estaticos raiz, lista_estaticos no)
   	atual = raiz;
   	anterior = NULL;
   
-  	while(atual != NULL || atual != no)
+  	while(atual != NULL && atual != no)
 	{
     		anterior = atual;
     		atual = atual->prox;
