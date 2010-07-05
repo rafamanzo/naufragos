@@ -122,10 +122,18 @@ void detectaColisao(lista_pessoas *lista_p, lista_estaticos *lista_e, lista_bote
         			}
 				else
 				{
-          				/*aqui tem que vir a descarga de pessoas se o bote estiver ancorado*/
           				colideBoteEstatico(aux_e->stc, &ant_b->bt, deltaT);
         			}
       			}
+			
+
+			else if( distancia( ant_b->bt.atr.pos, aux_e->stc.pos ) < (ant_b->bt.atr.raio + aux_e->stc.raio + 10) ) 
+			{
+				/*aqui tem que vir a descarga de pessoas se o bote estiver ancorado*/
+				if(ant_b->bt.ancora == '1')
+					descarregaPessoas(&ant_b->bt);		
+
+			}
     		} 
   	}  
 }

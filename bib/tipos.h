@@ -23,9 +23,9 @@ typedef struct pess pessoa;
 struct boat{
   	atributos atr;
 	char jogador; /*jogador '1' ou '2'*/
-	unsigned int vidas;
+	int vidas;
 	int pontos;
-	unsigned int carga;
+	int carga;
 	char ancora;
 	};
 

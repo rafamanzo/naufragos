@@ -79,7 +79,7 @@ int main(int argc, char *argv[])
 
   /*mudar isto depois!!!*/
   framesPorSegundo=20;
-  tempoMaximo=20;  	
+  tempoMaximo=60;  	
 	
   allegro_init();
 

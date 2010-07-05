@@ -189,3 +189,17 @@ double rotacaoBote(int dir)
 
  return 0.0;
 }
+
+void descarregaPessoas(bote * b)
+{
+	int vida_ganha;
+
+	vida_ganha = (int)(b->pontos/500);
+
+	b->pontos = (b->pontos + 20*b->carga);
+	b->carga = 0;
+
+	if(vida_ganha < (int)(b->pontos/500))
+		b->vidas++;
+	
+}
