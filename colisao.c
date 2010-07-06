@@ -80,14 +80,15 @@ void detectaColisao(lista_pessoas *lista_p, lista_estaticos *lista_e, lista_bote
       			aux_b = aux_b->prox;
     		}
   
-        if(ant_p->pss.atr.pos.y < ant_p->pss.atr.raio)
-          colidePessoaComBorda(*lista_p, *lista_e, *lista_b, 0, &ant_p->pss);
-        else if(ant_p->pss.atr.pos.y > (tela.altura - ant_p->pss.atr.raio))
-          colidePessoaComBorda(*lista_p, *lista_e, *lista_b, 1, &ant_p->pss);
-        else if(ant_p->pss.atr.pos.x < ant_p->pss.atr.raio)
-          colidePessoaComBorda(*lista_p, *lista_e, *lista_b, 2, &ant_p->pss);
-        else if(ant_p->pss.atr.pos.x > (tela.comprimento - ant_p->pss.atr.raio))
-          colidePessoaComBorda(*lista_p, *lista_e, *lista_b, 3, &ant_p->pss);          
+        	if(ant_p->pss.atr.pos.y < ant_p->pss.atr.raio)
+          		colidePessoaComBorda(*lista_p, *lista_e, *lista_b, 0, &ant_p->pss);
+        	else if(ant_p->pss.atr.pos.y > (tela.altura - ant_p->pss.atr.raio))
+          		colidePessoaComBorda(*lista_p, *lista_e, *lista_b, 1, &ant_p->pss);
+        	else if(ant_p->pss.atr.pos.x < ant_p->pss.atr.raio)
+          		colidePessoaComBorda(*lista_p, *lista_e, *lista_b, 2, &ant_p->pss);
+        	else if(ant_p->pss.atr.pos.x > (tela.comprimento - ant_p->pss.atr.raio))
+          		colidePessoaComBorda(*lista_p, *lista_e, *lista_b, 3, &ant_p->pss); 
+         
     		ant_p = atual_p;
   	}
 
@@ -135,7 +136,7 @@ void detectaColisao(lista_pessoas *lista_p, lista_estaticos *lista_e, lista_bote
       			}
 			
 
-			else if( distancia( ant_b->bt.atr.pos, aux_e->stc.pos ) < (ant_b->bt.atr.raio + aux_e->stc.raio + 10) ) 
+			else if( distancia( ant_b->bt.atr.pos, aux_e->stc.pos ) < (ant_b->bt.atr.raio + aux_e->stc.raio + 35) ) 
 			{
 				/*aqui tem que vir a descarga de pessoas se o bote estiver ancorado*/
 				if(ant_b->bt.ancora == '1')
