@@ -145,6 +145,15 @@ void detectaColisao(lista_pessoas *lista_p, lista_estaticos *lista_e, lista_bote
       			aux_e = aux_e->prox;
 
     		} 
+        if(ant_b->bt.atr.pos.y < ant_b->bt.atr.raio)
+          colideBoteComBorda(&ant_b->bt, 0);
+        else if(ant_b->bt.atr.pos.y > (tela.altura - ant_b->bt.atr.raio))
+          colideBoteComBorda(&ant_b->bt, 1);
+        else if(ant_b->bt.atr.pos.x < ant_b->bt.atr.raio)
+          colideBoteComBorda(&ant_b->bt, 2);
+        else if(ant_b->bt.atr.pos.x > (tela.comprimento - ant_b->bt.atr.raio))
+          colideBoteComBorda(&ant_b->bt, 3);
+
     		ant_b = atual_b;
   	}  
 }
