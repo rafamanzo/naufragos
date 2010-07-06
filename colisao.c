@@ -65,6 +65,7 @@ void detectaColisao(lista_pessoas *lista_p, lista_estaticos *lista_e, lista_bote
 				{
           				*lista_p = removePessoa(*lista_p, ant_p);
           				aux_b->bt.carga++;
+					aux_b->bt.pontos += 10;
           				ant_p = *lista_p; /* como retirei uma pessoa da lista, recomeco a checagem com a nova lista de pessoas*/
           				break;
         			}
