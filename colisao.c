@@ -112,6 +112,7 @@ void detectaColisao(lista_pessoas *lista_p, lista_estaticos *lista_e, lista_bote
           				boteBorda(*lista_p, *lista_e, *lista_b, &ant_b->bt);
             				*lista_p = geraPessoas(*lista_p, *lista_e, *lista_b, ant_b->bt.carga);
             				ant_b->bt.carga = 0;
+					ant_b->bt.vidas--;
           				
         			}
 				else
