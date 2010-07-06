@@ -113,6 +113,9 @@ void detectaColisao(lista_pessoas *lista_p, lista_estaticos *lista_e, lista_bote
             				*lista_p = geraPessoas(*lista_p, *lista_e, *lista_b, ant_b->bt.carga);
             				ant_b->bt.carga = 0;
 					ant_b->bt.vidas--;
+
+					if(ant_b->bt.vidas == 0)
+						*lista_b = removeBote(*lista_b, ant_b);
           				
         			}
 				else
@@ -129,9 +132,10 @@ void detectaColisao(lista_pessoas *lista_p, lista_estaticos *lista_e, lista_bote
 					descarregaPessoas(&ant_b->bt);		
 
 			}
-      aux_e = aux_e->prox;
+      			aux_e = aux_e->prox;
+
     		} 
-    ant_b = atual_b;
+    		ant_b = atual_b;
   	}  
 }
 

@@ -139,7 +139,7 @@ lista_botes insereBote(lista_botes raiz, bote bt)
   	return nova;
 }
 
-lista_botes removeBotes(lista_botes raiz, lista_botes no)
+lista_botes removeBote(lista_botes raiz, lista_botes no)
 {
   	lista_botes atual, anterior;
   
