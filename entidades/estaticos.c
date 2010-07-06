@@ -41,7 +41,6 @@ lista_estaticos geraRecifes(lista_pessoas lista_p, lista_estaticos lista_e, list
 
 	for(cont = 0; cont < numRecifes; cont++)
 	{
-		r.desenho = load_bitmap("imagens/recife.bmp",desktop_palette);
 		r.pos.x = rand()%tela.comprimento;
 		r.pos.y = rand()%tela.altura;
 		r.tipo = 'r';
@@ -49,15 +48,20 @@ lista_estaticos geraRecifes(lista_pessoas lista_p, lista_estaticos lista_e, list
 		decideTam = rand()%3; 
 
 		if( decideTam == 0 ) 	 /* RECIFES MEDIOS */
+		{	
 			r.raio = raioMedio;
-
+			r.desenho = load_bitmap("imagens/recife_medio.bmp",desktop_palette);
+		}
 		else if( decideTam == 1) /* RECIFES PEQUENOS */
+		{
 			while( (r.raio = rand()%raioMedio) < 5 ); /* Garante que o raio não sera 0 ou muito pequeno */
-
+			r.desenho = load_bitmap("imagens/recife_pequeno.bmp",desktop_palette);
+		}
 		else			 /* RECIFES GRANDES */
+		{
 			r.raio = raioMedio + rand()%raioMedio;/* No maximo será do dobro do tamanho do medio */
-
-						    
+			r.desenho = load_bitmap("imagens/recife_grande.bmp",desktop_palette);
+		}						    
 		if( validaPos(lista_p, lista_e, lista_b, NULL, &r, NULL) ) 
 			lista_e = insereObjeto(lista_e, r);
 

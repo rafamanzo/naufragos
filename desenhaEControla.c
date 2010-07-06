@@ -26,8 +26,10 @@ void imprimeMar(lista_pessoas lista_p, lista_estaticos lista_e, lista_botes list
 	imprimeEstaticos(buffer, lista_e);
 
 	/* Imprime e controla os botes */
-	controlaBote1(buffer, &lista_b -> bt, deltaT);
-	controlaBote2(buffer, &lista_b -> prox -> bt, deltaT);
+	if( lista_b != NULL )
+		controlaBote1(buffer, &lista_b -> bt, deltaT);
+	if( lista_b -> prox != NULL )
+		controlaBote2(buffer, &lista_b -> prox -> bt, deltaT);
 
 	/* Imprime Cabecalho */
 	imprimeCabecalho(buffer, lista_b);
@@ -192,7 +194,7 @@ void imprimeEstaticos(BITMAP *buffer, lista_estaticos estat)
 	while( aux != NULL)
 	{
 		if( aux -> stc.tipo == 'r' )
-			draw_sprite(buffer, aux->stc.desenho, aux->stc.pos.x, aux->stc.pos.y);
+			draw_sprite(buffer, aux->stc.desenho, aux->stc.pos.x-(aux->stc.desenho->w/2), aux->stc.pos.y-(aux->stc.desenho->h/2));
 		else
 			draw_sprite(buffer, aux->stc.desenho, aux->stc.pos.x-155, aux->stc.pos.y-66);
 
@@ -214,43 +216,46 @@ void imprimeCabecalho(BITMAP *buffer, lista_botes botes)
 	textprintf_ex(buffer, font, 10, 20, makecol(0, 0, 255), -1, "%s", pessoas.jogador1);
 	textprintf_ex(buffer, font, tela.comprimento-80, 20, makecol(255, 0, 0), -1, "%s", pessoas.jogador2);
 
-	/* VIDAS */
-	coracao = load_bitmap("imagens/coracao.bmp",desktop_palette);
-	
-	textprintf_ex(buffer, font, 100, 20, makecol(0, 0, 255), -1, "%u x", botes -> prox -> bt.vidas);
-	draw_sprite(buffer, coracao, 130, 10);
-	
-	textprintf_ex(buffer, font, tela.comprimento-210, 20, makecol(255, 0, 0), -1, "%u x", botes ->  bt.vidas);
-	draw_sprite(buffer, coracao, tela.comprimento-180, 10);
 
-	/* CARGA */
+	coracao = load_bitmap("imagens/coracao.bmp",desktop_palette);
 	pessoa = load_bitmap("imagens/pessoa2.bmp",desktop_palette);
 	
-	textprintf_ex(buffer, font, 170, 20, makecol(0, 0, 255), -1, "%u x", botes -> prox -> bt.carga);
-	draw_sprite(buffer, pessoa, 200, 15);
-	
-	textprintf_ex(buffer, font, tela.comprimento-140, 20, makecol(255, 0, 0), -1, "%u x", botes -> bt.carga);
-	draw_sprite(buffer, pessoa, tela.comprimento-110, 15);
-
-
-	/* PONTOS */
-	textprintf_ex(buffer, font, 235, 20, makecol(0, 0, 255), -1, "%d", botes -> prox -> bt.pontos);
-	textprintf_ex(buffer, font, tela.comprimento-265, 20, makecol(255, 0, 0), -1, "%d", botes -> bt.pontos);
-
-	/* ANCORAS */
-	if( botes -> prox -> bt.ancora == '1')
+	if( botes -> prox != NULL )
 	{
-		ancora = load_bitmap("imagens/ancora1.bmp",desktop_palette);
-		draw_sprite(buffer, ancora, 285, 10);
-		destroy_bitmap(ancora);
+		/* VIDAS */
+		textprintf_ex(buffer, font, 100, 20, makecol(0, 0, 255), -1, "%u x", botes -> prox -> bt.vidas);
+		draw_sprite(buffer, coracao, 130, 10);
+		/* CARGA */
+		textprintf_ex(buffer, font, 170, 20, makecol(0, 0, 255), -1, "%u x", botes -> prox -> bt.carga);
+		draw_sprite(buffer, pessoa, 200, 15);	
+		/* PONTOS */
+		textprintf_ex(buffer, font, 235, 20, makecol(0, 0, 255), -1, "%d", botes -> prox -> bt.pontos);
+		/* ANCORA */
+		if( botes -> prox -> bt.ancora == '1')
+		{
+			ancora = load_bitmap("imagens/ancora1.bmp",desktop_palette);
+			draw_sprite(buffer, ancora, 285, 10);
+			destroy_bitmap(ancora);
+		}
 	}
-	if( botes -> bt.ancora == '1')
+	if( botes != NULL )
 	{
-		ancora = load_bitmap("imagens/ancora2.bmp",desktop_palette);
-		draw_sprite(buffer, ancora, tela.comprimento-305, 10);
-		destroy_bitmap(ancora);
+		/* VIDAS */
+		textprintf_ex(buffer, font, tela.comprimento-210, 20, makecol(255, 0, 0), -1, "%u x", botes ->  bt.vidas);
+		draw_sprite(buffer, coracao, tela.comprimento-180, 10);
+		/* CARGA */
+		textprintf_ex(buffer, font, tela.comprimento-140, 20, makecol(255, 0, 0), -1, "%u x", botes -> bt.carga);
+		draw_sprite(buffer, pessoa, tela.comprimento-110, 15);
+		/* PONTOS */
+		textprintf_ex(buffer, font, tela.comprimento-265, 20, makecol(255, 0, 0), -1, "%d", botes -> bt.pontos);
+		/* ANCORAS */
+		if( botes -> bt.ancora == '1')
+		{
+			ancora = load_bitmap("imagens/ancora2.bmp",desktop_palette);
+			draw_sprite(buffer, ancora, tela.comprimento-305, 10);
+			destroy_bitmap(ancora);
+		}
 	}
-	
 	destroy_bitmap(coracao);
 	destroy_bitmap(pessoa);
 }
