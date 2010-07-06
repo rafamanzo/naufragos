@@ -78,8 +78,16 @@ void detectaColisao(lista_pessoas *lista_p, lista_estaticos *lista_e, lista_bote
         			}
       			}
       			aux_b = aux_b->prox;
-    		}   
-
+    		}
+  
+        if(ant_p->pss.atr.pos.y < ant_p->pss.atr.raio)
+          colidePessoaComBorda(*lista_p, *lista_e, *lista_b, 0, &ant_p->pss);
+        else if(ant_p->pss.atr.pos.y > (tela.altura - ant_p->pss.atr.raio))
+          colidePessoaComBorda(*lista_p, *lista_e, *lista_b, 1, &ant_p->pss);
+        else if(ant_p->pss.atr.pos.x < ant_p->pss.atr.raio)
+          colidePessoaComBorda(*lista_p, *lista_e, *lista_b, 2, &ant_p->pss);
+        else if(ant_p->pss.atr.pos.x > (tela.comprimento - ant_p->pss.atr.raio))
+          colidePessoaComBorda(*lista_p, *lista_e, *lista_b, 3, &ant_p->pss);          
     		ant_p = atual_p;
   	}
 
