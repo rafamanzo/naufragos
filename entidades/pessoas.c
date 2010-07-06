@@ -106,11 +106,13 @@ void colidePessoas(pessoa *p1, pessoa *p2, double deltaT)
 	movePessoa(p1,deltaT);
 	movePessoa(p2,deltaT);
 
-	if(distancia(p1->atr.pos, p2->atr.pos) > 5)
+  while(distancia(p1->atr.pos, p2->atr.pos) < 2*R_PESS)
 	{
-  	p1->atr.atualizada = 1;
-  	p2->atr.atualizada = 1;
+    movePessoa(p1, deltaT);
 	}
+
+	p1->atr.atualizada = 1;
+  p2->atr.atualizada = 1;
   
 }
 
