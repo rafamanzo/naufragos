@@ -288,13 +288,13 @@ void colideBoteEstatico(estatico imovel, bote *b, double deltaT)
 			b->atr.pos.x += b->atr.raio;
 			b->atr.pos.y -= b->atr.raio;
 	      	}
-		else if(dif < 0)
+		else if(dif < 0 && dif > 180)
 		{
 			b->atr.vel.y *= -1;
 			b->atr.pos.x -= b->atr.raio;
 			b->atr.pos.y -= b->atr.raio;
 	      	}
-		else if(dif > 0)
+		else if(dif > 0 || dif <= 180)
 		{
 			b->atr.vel.x *= -1;
 			b->atr.pos.x += b->atr.raio;
@@ -332,13 +332,13 @@ void colideBoteEstatico(estatico imovel, bote *b, double deltaT)
 			b->atr.pos.x += b->atr.raio;
 			b->atr.pos.y += b->atr.raio;
 	      	}
-		else if(dif < 0)
+		else if(dif > 0 || dif <= 180)
 		{
 			b->atr.vel.x *= -1;
 			b->atr.pos.x += b->atr.raio;
 			b->atr.pos.y -= b->atr.raio;
 	      	}
-		else if(dif > 0)
+		else if(dif < 0 && dif > 180)
 		{
 			b->atr.vel.y *= -1;
 			b->atr.pos.x -= b->atr.raio;
