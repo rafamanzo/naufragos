@@ -14,13 +14,14 @@
 #include "configurador/configurador.h"
 #include "configurador/configs.h"
 
+#define MAX_PESSOAS 100
 
 int main(int argc, char *argv[])
 {
 /*O main contara principalmente com a implementacao de um manual para caso o cliente nao digite os argumentos necessarios,
 	iniciará as estruturas do mar (botes, asimov e recifes) e as pessoas serão geradas de acordo com uma frequencia e velocidades determinadas
 		nos argumentos.*/
-	int tempoMaximo, framesPorSegundo; 
+	int tempoMaximo, framesPorSegundo, num_pessoas; 
 	double deltaT, acumulador;
 
 	clock_t inicio, anterior, var;
@@ -103,7 +104,7 @@ int main(int argc, char *argv[])
 	printf("Gerou os botes com sucesso.\n");
 
   	inicio = clock();
-  	anterior = 0;
+  	anterior = num_pessoas = 0;
 	acumulador = 0.0;
         
   	while( clock() - inicio < tempoMaximo*CLOCKS_PER_SEC) 
@@ -123,7 +124,11 @@ int main(int argc, char *argv[])
 
 			if( acumulador >= frequencia_criacao_pessoas )
 			{
-				lista_p = geraPessoas(lista_p, lista_e, lista_b, (int) (velocidade_criacao_pessoas*frequencia_criacao_pessoas));				
+				if(num_pessoas < MAX_PESSOAS)
+				{
+					lista_p = geraPessoas(lista_p, lista_e, lista_b, (int) (velocidade_criacao_pessoas*frequencia_criacao_pessoas));
+					num_pessoas += (int) (velocidade_criacao_pessoas*frequencia_criacao_pessoas);				
+				}
 				acumulador = 0.0;
 			}
 			acumulador += deltaT;	
